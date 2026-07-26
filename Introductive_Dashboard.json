@@ -1,0 +1,2143 @@
+{
+  "santabaRelease": 242,
+  "defaultDashboardFilters": {
+    "defaultDashboardFilterDetails": []
+  },
+  "widgetTokens": [
+    {
+      "name": "defaultResourceGroup",
+      "value": "*"
+    }
+  ],
+  "name": "Introductive Dashboard",
+  "description": "",
+  "overwriteGroupFields": false,
+  "widgetsConfigVersion": 2,
+  "type": "dashboard",
+  "widgets": [
+    {
+      "position": {
+        "col": 1,
+        "sizex": 2,
+        "row": 20,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Warning Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalAlerts",
+              "useCommaSeparators": true,
+              "bottomLabel": "Warnings",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": [
+                {
+                  "level": 2,
+                  "threshold": 0,
+                  "relation": ">"
+                }
+              ],
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Warning Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "sizex": 2,
+        "row": 20,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Error Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalAlerts",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total Errors",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": [
+                {
+                  "level": 2,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 3,
+                  "threshold": 0,
+                  "relation": ">"
+                }
+              ],
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Error Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 3,
+        "sizex": 2,
+        "row": 20,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Critical Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalAlerts",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total Criticals",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": [
+                {
+                  "level": 4,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 3,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 2,
+                  "threshold": 0,
+                  "relation": ">"
+                }
+              ],
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Critical Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "sizex": 2,
+        "row": 22,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "warning_totalAlerts + critical_totalAlerts + error_totalAlerts",
+              "name": "TotalAlerts"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Warning Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "warning_totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Error Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "error_totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Critical Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "critical_totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "TotalAlerts",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total Alerts",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Total Number of Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 7,
+        "sizex": 6,
+        "row": 24,
+        "sizey": 7
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {
+          "mapStyle": "aubergine"
+        },
+        "displayWarnAlert": true,
+        "supportCustomProperty": false,
+        "description": "",
+        "type": "gmap",
+        "version": 2,
+        "displayErrorAlert": true,
+        "isSupportCustomProperty": false,
+        "name": "Alert Status by Resource Location",
+        "displayCriticalAlert": true,
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day",
+        "sdtChecked": true,
+        "mapPoints": [
+          {
+            "type": "device",
+            "deviceGroupFullPath": "Devices by Type",
+            "deviceDisplayName": "##defaultResourceGroup##"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 7,
+        "sizex": 6,
+        "row": 20,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "isShowAll": true,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Severity",
+              "columnSize": 155,
+              "isSortable": true,
+              "isVisibleByDefault": true,
+              "componentName": "SeverityCell",
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Reported At",
+              "passthroughProps": {
+                "hasRelativeTime": true
+              },
+              "columnSize": 144,
+              "isSortable": true,
+              "componentName": "SpaceDateTime",
+              "columnKey": "alert-began",
+              "dataPath": [
+                "reportedAtMS"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Resource/Website",
+              "passthroughProps": {
+                "hasDisplayName": true,
+                "hasIcon": false
+              },
+              "columnSize": 151,
+              "isSortable": true,
+              "componentName": "ForeignKeyCell",
+              "columnKey": "alert-device",
+              "dataPath": [
+                "monitoredObjectId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "passthroughProps": {
+                "hasDisplayName": true,
+                "hasIcon": false
+              },
+              "columnSize": 124,
+              "isSortable": true,
+              "componentName": "ForeignKeyCell",
+              "columnKey": "alert-datasource",
+              "dataPath": [
+                "moduleId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "passthroughProps": {
+                "hasIcon": false
+              },
+              "columnSize": 358,
+              "isSortable": true,
+              "componentName": "ForeignKeyCell",
+              "columnKey": "alert-datasource-instance",
+              "dataPath": [
+                "instanceId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnSize": 120,
+              "isSortable": true,
+              "componentName": "SpaceId",
+              "columnKey": "alert-datapoint",
+              "dataPath": [
+                "datapointId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Alert Value",
+              "columnSize": 120,
+              "componentName": "AlertValue",
+              "columnKey": "alert-value",
+              "dataPath": [
+                "alertValue"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Static Threshold",
+              "columnSize": 120,
+              "componentName": "ThresholdCell",
+              "columnKey": "alert-static-threshold",
+              "dataPath": [
+                "threshold"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Dynamic Threshold",
+              "columnSize": 120,
+              "componentName": "ThresholdCell",
+              "columnKey": "alert-dynamic-threshold",
+              "dataPath": [
+                "threshold"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "ServiceNow incident",
+              "columnSize": 120,
+              "componentName": "SNIncidentCell",
+              "columnKey": "alertExternalTicketUrl",
+              "dataPath": [
+                "alertExternalTicketUrl"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "passthroughProps": {
+                "hasIcon": false,
+                "type": "dg"
+              },
+              "columnSize": 120,
+              "componentName": "ForeignKeyList",
+              "columnKey": "alert-group",
+              "dataPath": [
+                "monitoredObjectGroups"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notes",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-notes",
+              "dataPath": [
+                "notes"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "ACK By",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-acked-by",
+              "dataPath": [
+                "ACKBy"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "ACK At",
+              "passthroughProps": {
+                "hasRelativeTime": false
+              },
+              "columnSize": 120,
+              "componentName": "SpaceDateTime",
+              "columnKey": "alert-acked-on",
+              "dataPath": [
+                "ACKAtMS"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared At",
+              "passthroughProps": {
+                "hasRelativeTime": true
+              },
+              "columnSize": 120,
+              "componentName": "SpaceDateTime",
+              "columnKey": "alert-cleared-on",
+              "dataPath": [
+                "clearedAtMS"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Is In SDT",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-in-sdt",
+              "dataPath": [
+                "isSDT"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Rule",
+              "columnSize": 120,
+              "componentName": "SpaceId",
+              "columnKey": "alert-rule-name",
+              "dataPath": [
+                "ruleId"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Escalation Chain",
+              "columnSize": 120,
+              "componentName": "SpaceId",
+              "columnKey": "alert-escalation-chain",
+              "dataPath": [
+                "escalationChainId"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-datasource-instance-description",
+              "dataPath": [
+                "instanceDescription"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-full-path",
+              "dataPath": [
+                "fullPath"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notification State",
+              "columnSize": 120,
+              "columnKey": "alert-routing-state",
+              "dataPath": [
+                "dependencyRoutingState"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependency Role",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-dependency-role",
+              "dataPath": [
+                "dependencyRole"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependent Alerts Count",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-dependent-alerts",
+              "dataPath": [
+                "dependentAlertsCount"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Grouping Criteria",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-grouping-criteria",
+              "dataPath": [
+                "alertGroupEntityValue"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Log Metadata",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-log-metadata",
+              "dataPath": [
+                "logMetaData"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Logs Partition",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-log-partition",
+              "dataPath": [
+                "logPartition"
+              ]
+            }
+          ],
+          "playSound": {
+            "criticalAlertAudioFileName": "none",
+            "errorAlertAudioFileName": "none",
+            "warningAlertAudioFileName": "none",
+            "shouldPlay": false
+          },
+          "fontsize": "medium-font",
+          "sort": "-severity"
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "All Resource Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "*",
+          "anomaly": "",
+          "dataPoint": "",
+          "rule": "",
+          "acked": "all",
+          "dependencyRoutingState": "",
+          "isEscalation": "all",
+          "dependencyRole": "",
+          "host": "",
+          "isHistoricalSdt": "all",
+          "keyword": "",
+          "dataSource": "*",
+          "cleared": "no",
+          "group": ""
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 14,
+        "sizey": 6
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Alerts Resources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family: Arial, Helvetica, sans-serif; line-height:1.45; background:#0f172a; color:#e5e7eb; border:1px solid #1f2937; border-radius:14px; padding:18px; width:100%; box-sizing:border-box;\"><!-- Header --><div style=\"margin-bottom:16px;\"><div style=\"font-size:20px; font-weight:700; color:#f9fafb;\">Alerts in LogicMonitor</div><div style=\"font-size:13px; color:#9ca3af; margin-top:4px;\">Learn how alerts are triggered, tuned, routed, and managed across your environment.</div></div><!-- Two-column table --><table style=\"width:100%; border-collapse:separate; border-spacing:16px;\"><tbody><tr><!-- Left column --><td style=\"vertical-align:top; background:#020617; border:1px solid #1f2937; border-radius:12px; padding:14px; width:50%;\"><div style=\"font-size:15px; font-weight:700; margin-bottom:10px; color:#f9fafb;\">Getting Started &amp; Day-to-Day</div><ul style=\"margin:0; padding-left:18px;\"><li style=\"margin:8px 0;\"><a href=\"https://learn.logicmonitor.com/path/lm-badge-quest/alerts-badge\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Alerts Badge Training&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Structured learning path</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/alerts/about-alerts/managing-alerts-from-the-alerts-page\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Managing Alerts from the Alerts Page&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Acknowledge and investigate alerts</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/widgets-overview\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Alert Widget Overview&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Dashboard visualization options</div></li></ul></td><!-- Right column --><td style=\"vertical-align:top; background:#020617; border:1px solid #1f2937; border-radius:12px; padding:14px; width:50%;\"><div style=\"font-size:15px; font-weight:700; margin-bottom:10px; color:#f9fafb;\">Alert Logic, Routing &amp; Reporting</div><ul style=\"margin:0; padding-left:18px;\"><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/blog/static-thresholds-vs-dynamic-thresholds\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Static vs. Dynamic Thresholds&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Choosing the right alert model</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/alerts/aiops-features-for-alerting/dynamic-thresholds-for-datapoints\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Dynamic Thresholds for Datapoints&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">AI-driven alerting behavior</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/alert-rules\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Alert Rules&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Control alert delivery</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/escalation-chains-2\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Escalation Chains&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Escalation workflows</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/choosing-a-report-type\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Choosing a Report Type&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Alert reporting options</div></li></ul></td></tr></tbody></table><!-- Footer --><div style=\"margin-top:14px; font-size:12px; color:#9ca3af;\">Tip: This widget is best viewed when spanning the full dashboard width.</div></div>"
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "sizex": 4,
+        "row": 38,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "isShowAll": false,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Severity",
+              "columnSize": 93,
+              "isSortable": true,
+              "isVisibleByDefault": true,
+              "componentName": "SeverityCell",
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Reported At",
+              "passthroughProps": {
+                "hasRelativeTime": true
+              },
+              "columnSize": 289,
+              "isSortable": true,
+              "componentName": "SpaceDateTime",
+              "columnKey": "alert-began",
+              "dataPath": [
+                "reportedAtMS"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Resource/Website",
+              "passthroughProps": {
+                "hasDisplayName": true,
+                "hasIcon": false
+              },
+              "columnSize": 241,
+              "isSortable": true,
+              "componentName": "ForeignKeyCell",
+              "columnKey": "alert-device",
+              "dataPath": [
+                "monitoredObjectId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "passthroughProps": {
+                "hasDisplayName": true,
+                "hasIcon": false
+              },
+              "columnSize": 120,
+              "isSortable": true,
+              "componentName": "ForeignKeyCell",
+              "columnKey": "alert-datasource",
+              "dataPath": [
+                "moduleId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "passthroughProps": {
+                "hasIcon": false
+              },
+              "columnSize": 120,
+              "isSortable": true,
+              "componentName": "ForeignKeyCell",
+              "columnKey": "alert-datasource-instance",
+              "dataPath": [
+                "instanceId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnSize": 120,
+              "isSortable": true,
+              "componentName": "SpaceId",
+              "columnKey": "alert-datapoint",
+              "dataPath": [
+                "datapointId"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Alert Value",
+              "columnSize": 120,
+              "componentName": "AlertValue",
+              "columnKey": "alert-value",
+              "dataPath": [
+                "alertValue"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Static Threshold",
+              "columnSize": 120,
+              "componentName": "ThresholdCell",
+              "columnKey": "alert-static-threshold",
+              "dataPath": [
+                "threshold"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "Dynamic Threshold",
+              "columnSize": 120,
+              "componentName": "ThresholdCell",
+              "columnKey": "alert-dynamic-threshold",
+              "dataPath": [
+                "threshold"
+              ]
+            },
+            {
+              "visible": true,
+              "columnLabel": "ServiceNow incident",
+              "columnSize": 120,
+              "componentName": "SNIncidentCell",
+              "columnKey": "alertExternalTicketUrl",
+              "dataPath": [
+                "alertExternalTicketUrl"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "passthroughProps": {
+                "hasIcon": false,
+                "type": "dg"
+              },
+              "columnSize": 120,
+              "componentName": "ForeignKeyList",
+              "columnKey": "alert-group",
+              "dataPath": [
+                "monitoredObjectGroups"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notes",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-notes",
+              "dataPath": [
+                "notes"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "ACK By",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-acked-by",
+              "dataPath": [
+                "ACKBy"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "ACK At",
+              "passthroughProps": {
+                "hasRelativeTime": false
+              },
+              "columnSize": 120,
+              "componentName": "SpaceDateTime",
+              "columnKey": "alert-acked-on",
+              "dataPath": [
+                "ACKAtMS"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared At",
+              "passthroughProps": {
+                "hasRelativeTime": true
+              },
+              "columnSize": 120,
+              "componentName": "SpaceDateTime",
+              "columnKey": "alert-cleared-on",
+              "dataPath": [
+                "clearedAtMS"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Is In SDT",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-in-sdt",
+              "dataPath": [
+                "isSDT"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Rule",
+              "columnSize": 120,
+              "componentName": "SpaceId",
+              "columnKey": "alert-rule-name",
+              "dataPath": [
+                "ruleId"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Escalation Chain",
+              "columnSize": 120,
+              "componentName": "SpaceId",
+              "columnKey": "alert-escalation-chain",
+              "dataPath": [
+                "escalationChainId"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-datasource-instance-description",
+              "dataPath": [
+                "instanceDescription"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-full-path",
+              "dataPath": [
+                "fullPath"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notification State",
+              "columnSize": 120,
+              "columnKey": "alert-routing-state",
+              "dataPath": [
+                "dependencyRoutingState"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependency Role",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-dependency-role",
+              "dataPath": [
+                "dependencyRole"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependent Alerts Count",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-dependent-alerts",
+              "dataPath": [
+                "dependentAlertsCount"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Grouping Criteria",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-grouping-criteria",
+              "dataPath": [
+                "alertGroupEntityValue"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Log Metadata",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-log-metadata",
+              "dataPath": [
+                "logMetaData"
+              ]
+            },
+            {
+              "visible": false,
+              "columnLabel": "Logs Partition",
+              "columnSize": 120,
+              "componentName": "Body1",
+              "columnKey": "alert-log-partition",
+              "dataPath": [
+                "logPartition"
+              ]
+            }
+          ],
+          "playSound": {
+            "criticalAlertAudioFileName": "none",
+            "errorAlertAudioFileName": "none",
+            "warningAlertAudioFileName": "none",
+            "shouldPlay": false
+          },
+          "fontsize": "medium-font",
+          "sort": "-startEpoch"
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Current Collector Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "HostStatus",
+          "anomaly": "",
+          "dataPoint": "",
+          "rule": "",
+          "acked": "all",
+          "dependencyRoutingState": "",
+          "isEscalation": "all",
+          "dependencyRole": "",
+          "host": "",
+          "isHistoricalSdt": "all",
+          "keyword": "",
+          "dataSource": "*",
+          "cleared": "no",
+          "group": "Devices by Type/Collectors"
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 2,
+        "row": 38,
+        "sizey": 4
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "Linux_totalAliveCollectors + Windows_totalAliveCollectors",
+              "name": "TotalAliveCollectors"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "aliveCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Linux Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Linux_totalAliveCollectors",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "aliveCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Windows Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Windows_totalAliveCollectors",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "TotalAliveCollectors",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Alive Collectors",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 3,
+        "sizex": 2,
+        "row": 38,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "Linux_totalAliveCollectors + Windows_totalAliveCollectors",
+              "name": "TotalAliveCollectors"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "aliveCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Linux Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Linux_totalAliveCollectors",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "aliveCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Windows Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Windows_totalAliveCollectors",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "Linux_totalAliveCollectors",
+              "useCommaSeparators": true,
+              "bottomLabel": "Linux Total Alive Collectors",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Linux Alive Collectors",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 3,
+        "sizex": 2,
+        "row": 40,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "Linux_totalAliveCollectors + Windows_totalAliveCollectors",
+              "name": "TotalAliveCollectors"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "aliveCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Linux Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Linux_totalAliveCollectors",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "aliveCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Windows Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Windows_totalAliveCollectors",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "Windows_totalAliveCollectors",
+              "useCommaSeparators": true,
+              "bottomLabel": "Windows Total Alive Collectors",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Windows Alive Collectors",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 9,
+        "sizex": 4,
+        "row": 38,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "propertyColumns": [],
+          "instanceColumns": [],
+          "pageSize": "25",
+          "columnsV4": [
+            {
+              "maxValue": 100,
+              "index": 0,
+              "propertiesOptions": "1",
+              "enableForecast": false,
+              "roundingDecimal": 2,
+              "rpn": "",
+              "dataPointName": "ProcessCPUPercent",
+              "minValue": 0,
+              "displayType": "percent",
+              "unitLabel": "",
+              "id": "undefined_0",
+              "position": 0,
+              "colorThresholds": [
+                {
+                  "level": 4,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 3,
+                  "threshold": 95,
+                  "relation": ">="
+                },
+                {
+                  "level": 2,
+                  "threshold": 90,
+                  "relation": ">="
+                }
+              ],
+              "columnName": "CPU Utilization"
+            },
+            {
+              "maxValue": 100,
+              "index": 1,
+              "propertiesOptions": "1",
+              "enableForecast": true,
+              "roundingDecimal": 2,
+              "rpn": "",
+              "dataPointName": "HeapPercent",
+              "minValue": 0,
+              "displayType": "percent",
+              "unitLabel": "",
+              "id": "undefined_1",
+              "position": 1,
+              "colorThresholds": [
+                {
+                  "level": 4,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 3,
+                  "threshold": 95,
+                  "relation": ">="
+                },
+                {
+                  "level": 2,
+                  "threshold": 90,
+                  "relation": ">="
+                }
+              ],
+              "columnName": "Heap Utilization"
+            },
+            {
+              "maxValue": 100,
+              "index": 2,
+              "propertiesOptions": "1",
+              "enableForecast": false,
+              "roundingDecimal": 2,
+              "rpn": "",
+              "dataPointName": "ThreadRate",
+              "displayType": "raw",
+              "minValue": 0,
+              "unitLabel": "treads/sec.",
+              "id": "undefined_2",
+              "position": 2,
+              "colorThresholds": [],
+              "columnName": "Thread Rate"
+            },
+            {
+              "maxValue": 100,
+              "index": 3,
+              "propertiesOptions": "1",
+              "enableForecast": false,
+              "roundingDecimal": 2,
+              "rpn": "",
+              "dataPointName": "CurrentThreads",
+              "displayType": "raw",
+              "minValue": 0,
+              "unitLabel": "",
+              "id": "undefined_3",
+              "position": 3,
+              "colorThresholds": [],
+              "columnName": "Threads"
+            },
+            {
+              "maxValue": 100,
+              "index": 4,
+              "propertiesOptions": "1",
+              "enableForecast": false,
+              "roundingDecimal": 2,
+              "rpn": "",
+              "dataPointName": "OpenFiles",
+              "displayType": "raw",
+              "minValue": 0,
+              "unitLabel": "",
+              "id": "undefined_4",
+              "position": 4,
+              "colorThresholds": [],
+              "columnName": "OpenFiles"
+            },
+            {
+              "maxValue": 100,
+              "index": 5,
+              "propertiesOptions": "1",
+              "enableForecast": false,
+              "roundingDecimal": 2,
+              "rpn": "",
+              "dataPointName": "MaxFile",
+              "displayType": "raw",
+              "minValue": 0,
+              "unitLabel": "",
+              "id": "undefined_5",
+              "position": 5,
+              "colorThresholds": [],
+              "columnName": "Max Files"
+            }
+          ]
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "ProcessCPUPercent",
+            "displayType": "percent",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [
+              {
+                "level": 4,
+                "threshold": 0,
+                "relation": ">"
+              },
+              {
+                "level": 3,
+                "threshold": 95,
+                "relation": ">="
+              },
+              {
+                "level": 2,
+                "threshold": 90,
+                "relation": ">="
+              }
+            ],
+            "columnName": "CPU Utilization",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "HeapPercent",
+            "displayType": "percent",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [
+              {
+                "level": 4,
+                "threshold": 0,
+                "relation": ">"
+              },
+              {
+                "level": 3,
+                "threshold": 95,
+                "relation": ">="
+              },
+              {
+                "level": 2,
+                "threshold": 90,
+                "relation": ">="
+              }
+            ],
+            "columnName": "Heap Utilization",
+            "enableForecast": true,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "ThreadRate",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "treads/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Thread Rate",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "CurrentThreads",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Threads",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "OpenFiles",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "OpenFiles",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "MaxFile",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Max Files",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##_##",
+            "deviceDisplayName": "##defaultResourceGroup##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "dataSourceFullName": "Collector JVM Status (LogicMonitor_Collector_JVMStatus)",
+        "sortOrder": "descending",
+        "name": "Collector JVM Performance (Real-time)",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 33,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collectors Resources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family: Arial, Helvetica, sans-serif; line-height:1.45; background:#0f172a; color:#e5e7eb; border:1px solid #1f2937; border-radius:14px; padding:18px; width:100%; box-sizing:border-box;\"><!-- Header --><div style=\"margin-bottom:16px;\"><div style=\"font-size:20px; font-weight:700; color:#f9fafb;\">Collectors in LogicMonitor</div><div style=\"font-size:13px; color:#9ca3af; margin-top:4px;\">Learn how collectors work, how to deploy them, tune performance, and design for resiliency and security.</div></div><!-- Two-column table --><table style=\"width:100%; border-collapse:separate; border-spacing:16px;\"><tbody><tr><!-- Left column --><td style=\"vertical-align:top; background:#020617; border:1px solid #1f2937; border-radius:12px; padding:14px; width:50%;\"><div style=\"font-size:15px; font-weight:700; margin-bottom:10px; color:#f9fafb;\">Deployment, Architecture &amp; Training</div><ul style=\"margin:0; padding-left:18px;\"><li style=\"margin:8px 0;\"><a href=\"https://learn.logicmonitor.com/path/lm-badge-quest/lm-collectors-badge\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Collector Badge Training&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Official training path for collectors</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/collectors/collector-overview/about-the-logicmonitor-collector?_gl=1*9a3xar*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDIxJGo2MCRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;About the LogicMonitor Collector&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Collector fundamentals and how it works</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/adding-collector?_gl=1*7crxw9*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDI5JGo1MiRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Adding Collector&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Install and onboard a new collector</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/auto-balanced-collector-groups?_gl=1*1r6h09b*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDMzJGo1OSRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Auto-Balanced Collector Groups&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Scale by distributing workload automatically</div></li></ul></td><!-- Right column --><td style=\"vertical-align:top; background:#020617; border:1px solid #1f2937; border-radius:12px; padding:14px; width:50%;\"><div style=\"font-size:15px; font-weight:700; margin-bottom:10px; color:#f9fafb;\">Reliability, Performance &amp; Security</div><ul style=\"margin:0; padding-left:18px;\"><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/collector-performance-and-tuning?_gl=1*9a3xar*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDIxJGo2MCRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.#sc-header-156\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Collector Performance and Tuning&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Optimize throughput and resource utilization</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/collector-failover-and-failback\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Collector Failover and Failback&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Design for resiliency and minimize monitoring gaps</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/getting-started/advanced-logicmonitor-setup/logicmonitor-security-best-practices?_gl=1*13vigfd*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDM5JGo2MCRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;LogicMonitor Security Best Practices&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Harden access and follow secure deployment guidance</div></li></ul></td></tr></tbody></table><!-- Footer --><div style=\"margin-top:14px; font-size:12px; color:#9ca3af;\">Tip: Complete the Collector Badge Training before deploying collectors in production environments.</div></div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 31,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector's Section",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<p><style type=\"text/css\">\n\t\t.html-wpsites {\n\t\t\theight: 112px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 62px; color: #ffffff; font-weight: bold; text-align: center;\n\t\t}\n\n\t</style></p><div class=\"html-wpsites\">Real-Time Collectors Stats</div><p>&nbsp;</p>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 12,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Alerts Section",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<p><style type=\"text/css\">\n\t\t.html-wpsites {\n\t\t\theight: 112px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 62px; color: #ffffff; font-weight: bold; text-align: center;\n\t\t}\n\n\t</style></p><div class=\"html-wpsites\">Real-Time Alert Status</div><p>&nbsp;</p>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 42,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Users and Resources Section",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<p><style type=\"text/css\">\n\t\t.html-wpsites {\n\t\t\theight: 112px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 62px; color: #ffffff; font-weight: bold; text-align: center;\n\t\t}\n\n\t</style></p><div class=\"html-wpsites\">Real-Time Users and Resources Stats</div><p>&nbsp;</p>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 2,
+        "row": 49,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "activeUsers",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "Active_Users",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "Active_Users",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Active Users",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 1,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Dashboard Banner",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<style type=\"text/css\">\n\t.html-wpsites {\n\t\theight: 112px; background-color: #A51C30;/* Harvard Red */\n\t\tfont-family: Arial, Helvetica, sans-serif; font-size: 72px; color: #ffffff; line-height: 112px;\n\t}\n\n</style><p><marquee behavior=\"scroll\" class=\"html-wpsites\" direction=\"left\" scrollamount=\"58\" width=\"100%\">&nbsp; Harvard Introductive Dashboard&nbsp;</marquee></p>"
+      }
+    },
+    {
+      "position": {
+        "col": 3,
+        "sizex": 2,
+        "row": 49,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "apiAccessUsers",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "API_Users",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "*",
+              "deviceDisplayName": "*"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "API_Users",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "API Users",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "sizex": 2,
+        "row": 49,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalUserGroups",
+              "instanceName": "LogicMonitor_Portal_UserGroups",
+              "dataSourceFullName": "LogicMonitor_Portal_UserGroups",
+              "name": "totalUserGroups",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalUserGroups",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "User Groups",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 7,
+        "sizex": 2,
+        "row": 49,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "apiTokenCount",
+              "instanceName": "LogicMonitor_Portal_APITokens",
+              "dataSourceFullName": "LogicMonitor_Portal_APITokens",
+              "name": "totalAPITokens",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalAPITokens",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "API Token",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 9,
+        "sizex": 2,
+        "row": 49,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalUsersNotLogined",
+              "instanceName": "LogicMonitor_Portal_Users_NotLogin",
+              "dataSourceFullName": "LogicMonitor_Portal_Users_NotLogin",
+              "name": "totalUsersNotLogined",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalUsersNotLogined",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Users not logged in last 90 days",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 11,
+        "sizex": 2,
+        "row": 49,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalApiUsersNotUsed",
+              "instanceName": "LogicMonitor_Portal_Users_NotLogin",
+              "dataSourceFullName": "LogicMonitor_Portal_Users_NotLogin",
+              "name": "totalAPIUsersNotLogined",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalAPIUsersNotLogined",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "API Only Users not logged in last 90 days",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 6,
+        "row": 24,
+        "sizey": 7
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Alert Count over time",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": "NaN",
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Critical Alerts"
+              },
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "",
+                "type": "line",
+                "option": "default"
+              },
+              "name": "TotalCriticalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Error Alerts"
+              },
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "",
+                "type": "line",
+                "option": "default"
+              },
+              "name": "TotalErrorAlerts",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Warning Alerts"
+              },
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "",
+                "type": "line",
+                "option": "default"
+              },
+              "name": "TotalWarningAlerts",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "Count Alerts",
+          "aggregate": true,
+          "desc": false,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "7days",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 2,
+        "row": 22,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(totalEscalationChains), 0, totalEscalationChains )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalEscalationChains",
+              "instanceName": "LogicMonitor_Portal_Escalationchains*",
+              "dataSourceFullName": "LogicMonitor_Portal_Escalationchains",
+              "name": "totalEscalationChains",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Number of Escalation Chains",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 3,
+        "sizex": 2,
+        "row": 22,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "AWS_Total_Dead+ Azure_Total_Dead+ GCP_Total_Dead +KubernetesDeadResources+ LMServiceDeadResources+ StandardDeadResources",
+              "name": "DeadResources"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-AWS Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "AWS_Total_Dead",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-Azure Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "Azure_Total_Dead",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-GCP Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "GCP_Total_Dead",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-Kubernetes Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "KubernetesDeadResources",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-LM Services",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "LMServiceDeadResources",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-Standard Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "StandardDeadResources",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceGroup##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "DeadResources",
+              "useCommaSeparators": true,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Dead Resources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 44,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Users Resources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family: Arial, Helvetica, sans-serif; line-height:1.45; background:#0f172a; color:#e5e7eb; border:1px solid #1f2937; border-radius:14px; padding:18px; width:100%; box-sizing:border-box;\"><!-- Header --><div style=\"margin-bottom:16px;\"><div style=\"font-size:20px; font-weight:700; color:#f9fafb;\">Collectors in LogicMonitor</div><div style=\"font-size:13px; color:#9ca3af; margin-top:4px;\">Learn how collectors work, how to deploy them, tune performance, and design for resiliency and security.</div></div><!-- Two-column table --><table style=\"width:100%; border-collapse:separate; border-spacing:16px;\"><tbody><tr><!-- Left column --><td style=\"vertical-align:top; background:#020617; border:1px solid #1f2937; border-radius:12px; padding:14px; width:50%;\"><div style=\"font-size:15px; font-weight:700; margin-bottom:10px; color:#f9fafb;\">Deployment, Architecture &amp; Training</div><ul style=\"margin:0; padding-left:18px;\"><li style=\"margin:8px 0;\"><a href=\"https://learn.logicmonitor.com/path/lm-badge-quest/lm-collectors-badge\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Collector Badge Training&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Official training path for collectors</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/collectors/collector-overview/about-the-logicmonitor-collector?_gl=1*9a3xar*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDIxJGo2MCRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;About the LogicMonitor Collector&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Collector fundamentals and how it works</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/adding-collector?_gl=1*7crxw9*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDI5JGo1MiRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Adding Collector&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Install and onboard a new collector</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/auto-balanced-collector-groups?_gl=1*1r6h09b*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDMzJGo1OSRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Auto-Balanced Collector Groups&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Scale by distributing workload automatically</div></li></ul></td><!-- Right column --><td style=\"vertical-align:top; background:#020617; border:1px solid #1f2937; border-radius:12px; padding:14px; width:50%;\"><div style=\"font-size:15px; font-weight:700; margin-bottom:10px; color:#f9fafb;\">Reliability, Performance &amp; Security</div><ul style=\"margin:0; padding-left:18px;\"><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/collector-performance-and-tuning?_gl=1*9a3xar*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDIxJGo2MCRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.#sc-header-156\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Collector Performance and Tuning&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Optimize throughput and resource utilization</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/collector-failover-and-failback\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;Collector Failover and Failback&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Design for resiliency and minimize monitoring gaps</div></li><li style=\"margin:8px 0;\"><a href=\"https://www.logicmonitor.com/support/getting-started/advanced-logicmonitor-setup/logicmonitor-security-best-practices?_gl=1*13vigfd*_ga*MTU0Mzg2MzgwNi4xNzY3ODA5OTkx*_ga_5PGG36JFR5*czE3NzAxNDU1OTckbzQxJGcxJHQxNzcwMTQ5NDM5JGo2MCRsMCRoMzM4Njk3MDU3*_gcl_au*ODcyNzI1OTcxLjE3Njc4MTAyMTc.\" target=\"_blank\" style=\"color:#38bdf8; text-decoration:none;\">&nbsp;LogicMonitor Security Best Practices&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Harden access and follow secure deployment guidance</div></li></ul></td></tr></tbody></table><!-- Footer --><div style=\"margin-top:14px; font-size:12px; color:#9ca3af;\">Tip: Complete the Collector Badge Training before deploying collectors in production environments.</div></div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 3,
+        "sizey": 9
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Support and Critical Dashboards",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family: Arial, Helvetica, sans-serif; background:#0b1220; color:#e5e7eb; border:1px solid #1f2a44; border-radius:16px; padding:18px; width:100%; box-sizing:border-box;\"><style type=\"text/css\">\n    /* --- Responsive behavior for the tier table --- */\n    @media only screen and (max-width: 900px) {\n      .tier-table { width: 100% !important; }\n      .tier-row { display: block !important; }\n      .tier-col { display: block !important; width: 100% !important; }\n      .tier-col + .tier-col { margin-top: 12px !important; }\n      .tier-card { height: auto !important; } /* let cards expand naturally on small screens */\n    }\n  </style> <!-- Header --><div style=\"display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;\"><div><div style=\"font-size:18px; font-weight:700; color:#ffffff; margin-bottom:6px;\">Dashboard Support &amp; Critical Navigation</div><div style=\"font-size:13px; color:#a5b4fc;\"><a href=\"https://harvard.enterprise.slack.com/archives/CFAD33FN1\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;Need help using these dashboards?&nbsp;</a> <span style=\"color:#a5b4fc;\">&nbsp;Join Office Hours for LogicMonitor help, every Tuesday at 2:05 PM.&nbsp;</span></div></div><!-- Office Hours pill --><div style=\"background:#111c33; border:1px solid #223055; border-radius:999px; padding:10px 12px; min-width:260px;\"><div style=\"font-size:12px; color:#cbd5e1;\"><b style=\"color:#ffffff;\">Office Hours</b> &bull; Every Tuesday &bull; 2:05 PM</div><div style=\"font-size:12px; color:#9ca3af; margin-top:4px;\">Details in <a href=\"https://harvard.enterprise.slack.com/archives/CFAD33FN1\" style=\"color:#e5e7eb; font-weight:700; text-decoration:none;\">&nbsp;#monitoring-services&nbsp;</a></div></div></div><!-- Divider --><div style=\"height:1px; background:#1f2a44; margin:16px 0;\"><br></div><!-- Guidance --><div style=\"background:#0f1a30; border:1px solid #223055; border-radius:14px; padding:14px; margin-bottom:16px;\"><div style=\"font-size:13px; color:#cbd5e1;\"><b style=\"color:#ffffff;\">How to use this section:</b> Start with <b style=\"color:#ffffff;\">Service Health</b>, then review <b style=\"color:#ffffff;\">Connectivity &amp; Network</b>, and finally <b style=\"color:#ffffff;\">Cloud &amp; Capacity</b>.</div></div><!-- Title --><div style=\"font-size:14px; font-weight:700; color:#ffffff; margin-bottom:10px;\">Critical Dashboards (ordered by operational importance)</div><!-- CENTERED + RESPONSIVE TABLE --><div align=\"center\"><table class=\"tier-table\" width=\"90%\" cellpadding=\"0\" cellspacing=\"10\" border=\"0\" style=\"border-collapse: separate; width: 100%;\"><tbody><tr class=\"tier-row\"><!-- LEFT COLUMN --><td class=\"tier-col\" valign=\"top\" style=\"width: 50%;\"><!-- TIER 1 --><div class=\"tier-card\" style=\"background:#111c33; border:1px solid #223055; border-radius:14px; padding:12px; height:210px;\"><div style=\"font-size:12px; color:#fca5a5; font-weight:700; margin-bottom:8px;\">TIER 1 &bull; Service Impact</div><div style=\"margin-bottom:10px;\"><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-118,dashboards-2039\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;Critical Service Health&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Overall service impact and status.</div></div><div style=\"margin-bottom:10px;\"><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-5,dashboardGroups-244,dashboards-1659\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;EIP Infrastructure and Service Health and Performance&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Core platform health and performance.</div></div><div><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-117,dashboards-2255\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;Leadership Navigation Dashboard&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Executive overview and navigation.</div></div></div><!-- TIER 2 --><div class=\"tier-card\" style=\"background:#111c33; border:1px solid #223055; border-radius:14px; padding:12px; height:190px; margin-top:12px;\"><div style=\"font-size:12px; color:#fdba74; font-weight:700; margin-bottom:8px;\">TIER 2 &bull; Security &amp; Resilience</div><div style=\"margin-bottom:10px;\"><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-108,dashboards-2191\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;DDoS Detection&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Threat detection and disruption signals.</div></div><div><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-41,dashboardGroups-75,dashboardGroups-76,dashboardGroups-78,dashboards-1576\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;SCMR Datacenter UPS &amp; Environmental Status&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Power and environmental risk indicators.</div></div></div></td><!-- RIGHT COLUMN --><td class=\"tier-col\" valign=\"top\" style=\"width: 50%;\"><!-- TIER 2 --><div class=\"tier-card\" style=\"background:#111c33; border:1px solid #223055; border-radius:14px; padding:12px; height:210px;\"><div style=\"font-size:12px; color:#60a5fa; font-weight:700; margin-bottom:8px;\">TIER 2 &bull; Connectivity &amp; Network</div><div style=\"margin-bottom:10px;\"><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-138,dashboardGroups-135,dashboards-697\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;Azure Express Route Circuits&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Cloud-to-campus connectivity health.</div></div><div style=\"margin-bottom:10px;\"><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-138,dashboards-2282\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;Harvard Site-to-Site Data Center Connectivity&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Datacenter interconnect monitoring.</div></div><div><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-5,dashboardGroups-244,dashboards-1663\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;DNS Resolution Health Dashboard&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Foundational DNS service health.</div></div></div><!-- TIER 3 --><div class=\"tier-card\" style=\"background:#111c33; border:1px solid #223055; border-radius:14px; padding:12px; height:190px; margin-top:12px;\"><div style=\"font-size:12px; color:#a7f3d0; font-weight:700; margin-bottom:8px;\">TIER 3 &bull; Cloud &amp; Campus Visibility</div><div style=\"margin-bottom:10px;\"><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-173,dashboards-2005\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;Utilization of Internet2 (i2) and AWS Transit Gateways&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">Backbone and transit utilization.</div></div><div><a href=\"https://harvard.logicmonitor.com/santaba/uiv4/dashboards/dashboardGroups-108,dashboardGroups-109,dashboards-2013\" style=\"color:#93c5fd; text-decoration:none; font-weight:700;\">&nbsp;AWS Resource Counts and Usage&nbsp;</a><div style=\"font-size:12px; color:#9ca3af;\">AWS inventory and usage trends.</div></div></div></td></tr></tbody></table></div><!-- Footer --><div style=\"margin-top:14px; font-size:12px; color:#9ca3af;\">Tip: Start with <b style=\"color:#e5e7eb;\">Critical Service Health</b> if you are unsure where to begin.</div></div>"
+      }
+    }
+  ],
+  "version": 2
+}
