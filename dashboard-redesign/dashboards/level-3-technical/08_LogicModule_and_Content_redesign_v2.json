@@ -1,0 +1,1121 @@
+{
+  "santabaRelease": 242,
+  "defaultDashboardFilters": {
+    "defaultDashboardFilterDetails": []
+  },
+  "widgetTokens": [
+    {
+      "name": "defaultResourceGroup",
+      "value": "*"
+    },
+    {
+      "name": "defaultResourceName",
+      "value": "*.logicmonitor.com"
+    }
+  ],
+  "name": "08 - LogicModule and Content",
+  "description": "Level-3 content inventory and noisy LogicModules (including LogSources as health signals).",
+  "overwriteGroupFields": false,
+  "widgetsConfigVersion": 2,
+  "type": "dashboard",
+  "version": 2,
+  "widgets": [
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 1,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Suite Navigation Menu",
+        "description": "Global navigation across the Connected Experience suite.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;color:#f8fafc;\">SmartAdmin Connected Experience \u2014 Navigation</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:6px;\"><tr><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_00}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Home</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">00 - Home / Introductory</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_01}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Platform Value</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">01 - Platform Value Overview</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_02}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Environment</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">02 - Environment Health</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_03}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Alerts</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">03 - Alert Overview</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_04}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Coverage</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">04 - Coverage, Capacity &amp; Licenses</div></td></tr><tr><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_05}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Websites</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">05 - Websites and Services</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_06}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Admin</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">06 - Access and Administration</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_07}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Collectors</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">07 - Collector Health</div></td><td style=\"vertical-align:top;background:#0ea5e9;border:1px solid #38bdf8;border-radius:10px;padding:8px 10px;\"><div style=\"font-size:10px;font-weight:700;letter-spacing:0.04em;margin-bottom:4px;\">CURRENT</div><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_08}}\" style=\"color:#0b1220;text-decoration:none;font-size:12px;font-weight:700;\">Modules</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">08 - LogicModule and Content</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_09}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Adoption</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">09 - Adoption and Optimization</div></td></tr></table>\n<div style=\"font-size:11px;color:#94a3b8;margin-top:6px;\">After import, replace {{PORTAL_BASE}} and {{DASHBOARD_ID_NN}} placeholders. Metrics work even before links are configured.</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 4,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "LogicModule and Content \u2014 Read First",
+        "description": "Read first guide for this dashboard.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:16px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:18px;font-weight:700;color:#f9fafb;margin-bottom:4px;\">LogicModule and Content</div>\n<div style=\"font-size:13px;color:#9ca3af;margin-bottom:12px;\">Content inventory plus noisy modules. Decorative duplicate headers from the source pack were replaced by this guide.</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:10px;\"><tr>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Questions this dashboard answers</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\">What LogicModules are installed by type?</li><li style=\"margin:5px 0;\">Which modules alert most over 90 days?</li><li style=\"margin:5px 0;\">Which datasources have the most instances?</li></ul>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:34%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Recommended review flow</div>\n<ol style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\"><strong>Inventory scorecards</strong> \u2014 Counts by type</li><li style=\"margin:5px 0;\"><strong>90-day alert tables</strong> \u2014 Noise</li><li style=\"margin:5px 0;\"><strong>Instance count table</strong> \u2014 Footprint</li></ol>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Where to go next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\">Alert Overview \u2014 03</li><li style=\"margin:5px 0;\">Adoption \u2014 09</li><li style=\"margin:5px 0;\">Coverage \u2014 04</li></ul>\n<div style=\"margin-top:10px;font-size:11px;color:#94a3b8;\">Empty / zero: confirm tokens and LogicModules. Healthy zero critical alerts still warrants Warning and dead-resource checks.</div>\n</td>\n</tr></table>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 9,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "LogicModule inventory",
+        "description": "Section: LogicModule inventory",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">LogicModule inventory</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 1,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "DataSourceInUse",
+              "instanceName": "*",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "DataSourceInUse",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "DataSourceNotInUse",
+              "instanceName": "*",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "DataSourceNotInUse",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "DataSourceNew",
+              "instanceName": "*",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "DataSourceNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "DataSourceInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "DataSourceNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "DataSourceNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "DataSources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 4,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "EventSourceInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "EventSourceInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "*"
+            },
+            {
+              "dataPointName": "EventSourceNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "EventSourceNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "*"
+            },
+            {
+              "dataPointName": "EventSourceNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "EventSourceNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "*"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "EventSourceInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "EventSourceNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "EventSourceNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "EventSources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "ConfigSourceInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "ConfigSourceInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "ConfigSourceNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "ConfigSourceNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "ConfigSourceNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "ConfigSourceNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "ConfigSourceInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "ConfigSourceNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "ConfigSourceNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "ConfigSources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "PropertySourceInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "PropertySourceInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "PropertySourceNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "PropertySourceNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "PropertySourceNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "PropertySourceNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "PropertySourceInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "PropertySourceNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "PropertySourceNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "PropertySources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 1,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "LogSourceInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "LogSourceInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "LogSourceNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "LogSourceNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "LogSourceNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "LogSourceNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "LogSourceInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "LogSourceNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "LogSourceNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "LogSources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 4,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "TopologySourceInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "TopologySourceInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "TopologySourceNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "TopologySourceNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "TopologySourceNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "TopologySourceNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "TopologySourceInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "TopologySourceNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "TopologySourceNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "TopologySources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "SysoidMapInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "SysoidMapInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "SysoidMapNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "SysoidMapNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "SysoidMapNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "SysoidMapNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "SysoidMapInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "SysoidMapNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "SysoidMapNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "SNMP SYSOID Maps",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "AppliesToNotInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "AppliesToNotInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "AppliesToInUse",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "AppliesToInUse",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "AppliesToNew",
+              "instanceName": "LogicMonitor_Portal_LogicModuleStatus",
+              "dataSourceFullName": "LogicMonitor_Portal_LogicModuleStatus",
+              "name": "AppliesToNew",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "AppliesToInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedInUse",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "AppliesToNotInUse",
+              "useCommaSeparators": false,
+              "bottomLabel": "UpdatedNotInUse",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "AppliesToNew",
+              "useCommaSeparators": false,
+              "bottomLabel": "New",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "AppliesTo Functions",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 14,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Noisy modules and instance footprint",
+        "description": "Section: Noisy modules and instance footprint",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Noisy modules and instance footprint</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 15,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Name",
+              "columnSize": 309,
+              "columnKey": "name"
+            },
+            {
+              "visible": true,
+              "columnLabel": "DataSourceAlert",
+              "columnSize": 150,
+              "columnKey": "DataSourceAlert"
+            }
+          ],
+          "pageSize": "25"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "DataSourceAlert",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "DataSourceAlert",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "LogicModule Alert over 90 days-ds_*",
+            "label": "##RESOURCENAME##_##INSTANCE##",
+            "deviceDisplayName": "##defaultResource##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "LogicModule Alert over 90 days",
+        "sortOrder": "descending",
+        "name": "DataSource Alerts Last 90 Days",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 15,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "pageSize": "25"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "EventSourceAlert",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "EventSourceAlert",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "LogicModule Alert over 90 days-es*",
+            "label": "##RESOURCENAME##_##INSTANCE##",
+            "deviceDisplayName": "##defaultResource##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "LogicModule Alert over 90 days",
+        "sortOrder": "descending",
+        "name": "EventSource Alerts Last 90 Days",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 19,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "pageSize": "25"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "ConfigSourceAlert",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "ConfigSourceAlert",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "LogicModule Alert over 90 days-cs_*",
+            "label": "##RESOURCENAME##_##INSTANCE##",
+            "deviceDisplayName": "##defaultResource##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 10,
+        "dataSourceFullName": "LogicModule Alert over 90 days",
+        "sortOrder": "descending",
+        "name": "ConfigSource Alerts Last 90 Days",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 19,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Name",
+              "columnSize": 172,
+              "columnKey": "name"
+            },
+            {
+              "visible": true,
+              "columnLabel": "TotalLogSources",
+              "columnSize": 150,
+              "columnKey": "TotalLogSources"
+            }
+          ],
+          "propertyColumns": [],
+          "pageSize": "25",
+          "columnsV4": [
+            {
+              "maxValue": 100,
+              "index": 0,
+              "enableForecast": false,
+              "roundingDecimal": 2,
+              "propertiesOptions": "1",
+              "rpn": "",
+              "dataPointName": "TotalLogSources",
+              "displayType": "raw",
+              "minValue": 0,
+              "unitLabel": "",
+              "position": 0,
+              "id": "undefined_0",
+              "colorThresholds": [],
+              "columnName": "TotalLogSources"
+            }
+          ]
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "TotalLogSources",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "TotalLogSources",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "ARIMA"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##_##INSTANCE##",
+            "deviceDisplayName": "*.logicmonitor.com*",
+            "groupFullPath": "*"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "LogicModule Alert over 90 days",
+        "sortOrder": "descending",
+        "name": "LogSource Alerts Last 90 Days",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 23,
+        "col": 1,
+        "sizex": 12,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "pageSize": "25"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "instanceCount",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "instanceCount",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##INSTANCE##",
+            "deviceDisplayName": "##defaultResource##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 10,
+        "dataSourceFullName": "LogicMonitor DataSources (LogicMonitor_Portal_DataSources)",
+        "sortOrder": "descending",
+        "name": "Top Datasources by Instance Count",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 27,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Where Next",
+        "description": "Contextual drill-down suggestions.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;\">\n<div style=\"font-size:14px;font-weight:700;margin-bottom:6px;\">Where next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:4px 0;\"><strong>Alert Overview</strong> \u2014 03</li><li style=\"margin:4px 0;\"><strong>Adoption</strong> \u2014 09</li><li style=\"margin:4px 0;\"><strong>Coverage</strong> \u2014 04</li></ul>\n</div>"
+      }
+    }
+  ]
+}

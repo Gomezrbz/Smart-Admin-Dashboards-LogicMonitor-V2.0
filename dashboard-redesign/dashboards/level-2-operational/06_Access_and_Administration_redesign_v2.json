@@ -1,0 +1,714 @@
+{
+  "santabaRelease": 242,
+  "defaultDashboardFilters": {
+    "defaultDashboardFilterDetails": []
+  },
+  "widgetTokens": [
+    {
+      "name": "defaultResource",
+      "value": "*.logicmonitor.com"
+    },
+    {
+      "name": "defaultResourceGroup",
+      "value": "*"
+    }
+  ],
+  "name": "06 - Access and Administration",
+  "description": "Level-2 access governance: users, roles, groups, API tokens, and idle access.",
+  "overwriteGroupFields": false,
+  "widgetsConfigVersion": 2,
+  "type": "dashboard",
+  "version": 2,
+  "widgets": [
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 1,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Suite Navigation Menu",
+        "description": "Global navigation across the Connected Experience suite.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;color:#f8fafc;\">SmartAdmin Connected Experience \u2014 Navigation</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:6px;\"><tr><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_00}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Home</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">00 - Home / Introductory</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_01}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Platform Value</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">01 - Platform Value Overview</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_02}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Environment</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">02 - Environment Health</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_03}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Alerts</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">03 - Alert Overview</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_04}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Coverage</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">04 - Coverage, Capacity &amp; Licenses</div></td></tr><tr><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_05}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Websites</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">05 - Websites and Services</div></td><td style=\"vertical-align:top;background:#0ea5e9;border:1px solid #38bdf8;border-radius:10px;padding:8px 10px;\"><div style=\"font-size:10px;font-weight:700;letter-spacing:0.04em;margin-bottom:4px;\">CURRENT</div><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_06}}\" style=\"color:#0b1220;text-decoration:none;font-size:12px;font-weight:700;\">Admin</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">06 - Access and Administration</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_07}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Collectors</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">07 - Collector Health</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_08}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Modules</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">08 - LogicModule and Content</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_09}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Adoption</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">09 - Adoption and Optimization</div></td></tr></table>\n<div style=\"font-size:11px;color:#94a3b8;margin-top:6px;\">After import, replace {{PORTAL_BASE}} and {{DASHBOARD_ID_NN}} placeholders. Metrics work even before links are configured.</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 4,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Access and Administration \u2014 Read First",
+        "description": "Read first guide for this dashboard.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:16px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:18px;font-weight:700;color:#f9fafb;margin-bottom:4px;\">Access and Administration</div>\n<div style=\"font-size:13px;color:#9ca3af;margin-bottom:12px;\">Users, roles, groups, and API token hygiene for security and portal administration.</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:10px;\"><tr>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Questions this dashboard answers</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\">How many active vs idle users/tokens?</li><li style=\"margin:5px 0;\">Unused roles or empty groups?</li><li style=\"margin:5px 0;\">API-only sprawl?</li></ul>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:34%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Recommended review flow</div>\n<ol style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\"><strong>User KPIs</strong> \u2014 Active / API</li><li style=\"margin:5px 0;\"><strong>Roles and groups</strong> \u2014 Empty / unused</li><li style=\"margin:5px 0;\"><strong>Token idle metrics</strong> \u2014 90-day hygiene</li></ol>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Where to go next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\">Adoption \u2014 09 \u2014 idle access trends</li><li style=\"margin:5px 0;\">Home \u2014 00</li></ul>\n<div style=\"margin-top:10px;font-size:11px;color:#94a3b8;\">Empty / zero: confirm tokens and LogicModules. Healthy zero critical alerts still warrants Warning and dead-resource checks.</div>\n</td>\n</tr></table>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 9,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Users and access",
+        "description": "Section: Users and access",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Users and access</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 1,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalUsers",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "totalUsers",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalUsers",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Total Users",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 4,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "activeUsers",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "activeUsers",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "activeUsers",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Active Users",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "apiAccessUsers",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "apiAccessUsers",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "apiAccessUsers",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Users with API Access",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "apiOnly",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "apiOnly",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "apiOnly",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "API-Only Users",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 12,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Roles and groups",
+        "description": "Section: Roles and groups",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Roles and groups</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 1,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "userRoles",
+              "instanceName": "LogicMonitor_Portal_Users",
+              "dataSourceFullName": "LogicMonitor Users (LogicMonitor_Portal_Users)",
+              "name": "userRoles",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "userRoles",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "User Roles",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 4,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalEmptyRoles",
+              "instanceName": "LogicMonitor_Portal_Roles",
+              "dataSourceFullName": "LogicMonitor_Portal_Roles",
+              "name": "totalEmptyRoles",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalEmptyRoles",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Roles with No Assigned Users",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalUserGroups",
+              "instanceName": "LogicMonitor_Portal_UserGroups",
+              "dataSourceFullName": "LogicMonitor_Portal_UserGroups",
+              "name": "totalUserGroups",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalUserGroups",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "User Groups",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalEmptyUserGroups",
+              "instanceName": "LogicMonitor_Portal_UserGroups",
+              "dataSourceFullName": "LogicMonitor_Portal_UserGroups",
+              "name": "totalEmptyUserGroups",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalEmptyUserGroups",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Empty User Groups",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 15,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Tokens and idle access (90 days)",
+        "description": "Section: Tokens and idle access (90 days)",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Tokens and idle access (90 days)</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 16,
+        "col": 1,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "apiTokenCount",
+              "instanceName": "LogicMonitor_Portal_APITokens",
+              "dataSourceFullName": "LogicMonitor_Portal_APITokens",
+              "name": "apiTokenCount",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "apiTokenCount",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "API Tokens",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 16,
+        "col": 4,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "apiTokenNotUsed",
+              "instanceName": "LogicMonitor_Portal_APITokens",
+              "dataSourceFullName": "LogicMonitor_Portal_APITokens",
+              "name": "apiTokenNotUsed",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "apiTokenNotUsed",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Idle API Tokens (90 Days)",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 16,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalUsersNotLogined",
+              "instanceName": "LogicMonitor_Portal_Users_NotLogin",
+              "dataSourceFullName": "LogicMonitor_Portal_Users_NotLogin",
+              "name": "totalUsersNotLogined",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalUsersNotLogined",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Idle Users (90 Days)",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 16,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalApiUsersNotUsed",
+              "instanceName": "LogicMonitor_Portal_Users_NotLogin",
+              "dataSourceFullName": "LogicMonitor_Portal_Users_NotLogin",
+              "name": "totalApiUsersNotUsed",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalApiUsersNotUsed",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Idle API-Only Users (90 Days)",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 18,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Where Next",
+        "description": "Contextual drill-down suggestions.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;\">\n<div style=\"font-size:14px;font-weight:700;margin-bottom:6px;\">Where next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:4px 0;\"><strong>Adoption and Optimization</strong> \u2014 09</li><li style=\"margin:4px 0;\"><strong>Home</strong> \u2014 00</li><li style=\"margin:4px 0;\"><strong>Platform Value</strong> \u2014 01</li></ul>\n</div>"
+      }
+    }
+  ]
+}

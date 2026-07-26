@@ -1,0 +1,2308 @@
+{
+  "santabaRelease": 242,
+  "defaultDashboardFilters": {
+    "defaultDashboardFilterDetails": []
+  },
+  "widgetTokens": [
+    {
+      "name": "defaultResourceGroup",
+      "value": "*"
+    },
+    {
+      "name": "defaultResourceName",
+      "value": "*"
+    }
+  ],
+  "name": "07 - Collector Health",
+  "description": "Level-3 collector diagnostics (single canonical dashboard; duplicate SmartAdmin Collector Health removed).",
+  "overwriteGroupFields": false,
+  "widgetsConfigVersion": 2,
+  "type": "dashboard",
+  "version": 2,
+  "widgets": [
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 1,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Suite Navigation Menu",
+        "description": "Global navigation across the Connected Experience suite.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;color:#f8fafc;\">SmartAdmin Connected Experience \u2014 Navigation</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:6px;\"><tr><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_00}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Home</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">00 - Home / Introductory</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_01}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Platform Value</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">01 - Platform Value Overview</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_02}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Environment</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">02 - Environment Health</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_03}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Alerts</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">03 - Alert Overview</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_04}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Coverage</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">04 - Coverage, Capacity &amp; Licenses</div></td></tr><tr><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_05}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Websites</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">05 - Websites and Services</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_06}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Admin</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">06 - Access and Administration</div></td><td style=\"vertical-align:top;background:#0ea5e9;border:1px solid #38bdf8;border-radius:10px;padding:8px 10px;\"><div style=\"font-size:10px;font-weight:700;letter-spacing:0.04em;margin-bottom:4px;\">CURRENT</div><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_07}}\" style=\"color:#0b1220;text-decoration:none;font-size:12px;font-weight:700;\">Collectors</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">07 - Collector Health</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_08}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Modules</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">08 - LogicModule and Content</div></td><td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:8px 10px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_09}}\" style=\"color:#e5e7eb;text-decoration:none;font-size:12px;font-weight:700;\">Adoption</a><div style=\"font-size:10px;color:#94a3b8;margin-top:4px;\">09 - Adoption and Optimization</div></td></tr></table>\n<div style=\"font-size:11px;color:#94a3b8;margin-top:6px;\">After import, replace {{PORTAL_BASE}} and {{DASHBOARD_ID_NN}} placeholders. Metrics work even before links are configured.</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 4,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Health \u2014 Read First",
+        "description": "Read first guide for this dashboard.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:16px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:18px;font-weight:700;color:#f9fafb;margin-bottom:4px;\">Collector Health</div>\n<div style=\"font-size:13px;color:#9ca3af;margin-bottom:12px;\">Technical dashboard for collector availability, JVM pressure, and collection/AD task health. Canonical single copy (duplicate removed).</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:10px;\"><tr>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Questions this dashboard answers</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\">Alive instance method mix?</li><li style=\"margin:5px 0;\">JVM / CPU / heap pressure?</li><li style=\"margin:5px 0;\">Slow or failing collection / AD tasks?</li></ul>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:34%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Recommended review flow</div>\n<ol style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\"><strong>Instance counts</strong> \u2014 Method mix</li><li style=\"margin:5px 0;\"><strong>JVM table + trends</strong> \u2014 Pressure</li><li style=\"margin:5px 0;\"><strong>Task graphs/tables</strong> \u2014 Slow / failing</li><li style=\"margin:5px 0;\"><strong>Collector alerts</strong> \u2014 Exceptions</li></ol>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;\">\n<div style=\"font-size:13px;font-weight:700;margin-bottom:8px;\">Where to go next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:5px 0;\">Environment Health \u2014 02</li><li style=\"margin:5px 0;\">Alert Overview \u2014 03</li></ul>\n<div style=\"margin-top:10px;font-size:11px;color:#94a3b8;\">Empty / zero: confirm tokens and LogicModules. Healthy zero critical alerts still warrants Warning and dead-resource checks.</div>\n</td>\n</tr></table>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 9,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Instance counts by collection method",
+        "description": "Section: Instance counts by collection method",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Instance counts by collection method</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 1,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "total"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-syntheticsselenium",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "total",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Selenium Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 3,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-batchscript",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Batchscript Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 5,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-dns",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "DNS Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 7,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-jmx",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "JMX Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 9,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-ping",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Ping Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 10,
+        "col": 11,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-script",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Script Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 1,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-snmp",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "SNMP Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 3,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-webpage",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Webpage Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 5,
+        "sizex": 2,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-wmi",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "Instances",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "WMI Instance Count",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un( Script), 0, Script )",
+              "name": "scriptdata"
+            },
+            {
+              "rpn": "if(un( Batchscript), 0, Batchscript )",
+              "name": "batchscriptdata"
+            },
+            {
+              "rpn": "if(un( WMI), 0, WMI )",
+              "name": "wmidata"
+            },
+            {
+              "rpn": "if(un( SNMP), 0, SNMP )",
+              "name": "snmpdata"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-script",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Script",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-batchscript",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Batchscript",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-wmi",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "WMI",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            },
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "LogicMonitor_Collector_DataCollectingTasks-snmp",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "SNMP",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "batchscriptdata",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "Batchscript",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "scriptdata",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Script",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "wmidata",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 3,
+              "rightLabel": "WMI",
+              "colorThresholds": null,
+              "actions": []
+            },
+            {
+              "dataPointName": "snmpdata",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 4,
+              "rightLabel": "SNMP",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Data Collection Instance Counts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 12,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "if(un(Instances), 0, Instances )",
+              "name": "data"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": "*",
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "name": "Instances",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "data",
+              "useCommaSeparators": false,
+              "bottomLabel": "",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "Instance",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Total Data Collecting Instances",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 14,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Real-time collector stats",
+        "description": "Section: Real-time collector stats",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Real-time collector stats</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 15,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Name",
+              "columnSize": 146,
+              "columnKey": "name"
+            },
+            {
+              "visible": true,
+              "columnLabel": "CPU Utilization",
+              "columnSize": 128,
+              "columnKey": "CPU Utilization"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Heap Utilization",
+              "columnSize": 129,
+              "columnKey": "Heap Utilization"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Thread Rate",
+              "columnSize": 116,
+              "columnKey": "Thread Rate"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Threads",
+              "columnSize": 98,
+              "columnKey": "Threads"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Open Files",
+              "columnSize": 75,
+              "columnKey": "Open Files"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Max Files",
+              "columnSize": 214,
+              "columnKey": "Max Files"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "ProcessCPUPercent",
+            "displayType": "percent",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [
+              {
+                "level": 2,
+                "threshold": 90,
+                "relation": ">="
+              },
+              {
+                "level": 3,
+                "threshold": 95,
+                "relation": ">="
+              }
+            ],
+            "columnName": "CPU Utilization",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "HeapPercent",
+            "displayType": "percent",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [
+              {
+                "level": 2,
+                "threshold": 90,
+                "relation": ">="
+              },
+              {
+                "level": 3,
+                "threshold": 95,
+                "relation": ">="
+              }
+            ],
+            "columnName": "Heap Utilization",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "ThreadRate",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " threads/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Thread Rate",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "CurrentThreads",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Threads",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "OpenFiles",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Open Files",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "MaxFile",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Max Files",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##",
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "dataSourceFullName": "Collector JVM Status (LogicMonitor_Collector_JVMStatus)",
+        "sortOrder": "descending",
+        "name": "Collector JVM Performance",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 15,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "isShowAll": false,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": false,
+              "columnLabel": "Severity",
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Began",
+              "columnKey": "alert-began"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Resource/Website",
+              "columnKey": "alert-device"
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "columnKey": "alert-datasource"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "columnKey": "alert-datasource-instance"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnKey": "alert-datapoint"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Value",
+              "columnKey": "alert-value"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Static Threshold",
+              "columnKey": "alert-static-threshold"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Dynamic Threshold",
+              "columnKey": "alert-dynamic-threshold"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "columnKey": "alert-group"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notes",
+              "columnKey": "alert-notes"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged By",
+              "columnKey": "alert-acked-by"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged On",
+              "columnKey": "alert-acked-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared On",
+              "columnKey": "alert-cleared-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "In SDT",
+              "columnKey": "alert-in-sdt"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Rule",
+              "columnKey": "alert-rule-name"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Escalation Chain",
+              "columnKey": "alert-escalation-chain"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnKey": "alert-datasource-instance-description"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnKey": "alert-full-path"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Routing State",
+              "columnKey": "alert-routing-state"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependency Role",
+              "columnKey": "alert-dependency-role"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependent Alerts",
+              "columnKey": "alert-dependent-alerts"
+            }
+          ],
+          "playSound": {},
+          "fontsize": "normal-font",
+          "sort": "-startEpoch"
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Alert History",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "",
+          "anomaly": "",
+          "dataPoint": "",
+          "rule": "",
+          "acked": "all",
+          "dependencyRoutingState": "",
+          "isEscalation": "all",
+          "dependencyRole": "",
+          "host": "",
+          "isHistoricalSdt": "all",
+          "keyword": "",
+          "dataSource": "Collector*",
+          "cleared": "all",
+          "group": ""
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 19,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Top Collectors by Heap Utilization",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 25,
+          "maxValue": 100,
+          "dataPoints": [
+            {
+              "dataPointName": "HeapPercent",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector JVM Status (LogicMonitor_Collector_JVMStatus)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "HeapPercent",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "%",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "2days",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 19,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Top Collectors by CPU Utilization",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": 100,
+          "dataPoints": [
+            {
+              "dataPointName": "ProcessCPUPercent",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector JVM Status (LogicMonitor_Collector_JVMStatus)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ProcessCPUPercent",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "%",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "2days",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 23,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collection and Active Discovery tasks",
+        "description": "Section: Collection and Active Discovery tasks",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Collection and Active Discovery tasks</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 24,
+        "col": 1,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Slowest Successful Collection Tasks",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "TimePerSuccessfulCollection",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##_##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TimePerSuccessfulCollection",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "milliseconds",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 24,
+        "col": 5,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Active Discovery Tasks by Failure Rate",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "FailRate",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Active Discovery Tasks (LogicMonitor_Collector_ActiveDiscoveryTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "FailRate",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "tasks/sec",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 24,
+        "col": 9,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "\n        Name\n        \n    ",
+              "columnSize": 184,
+              "columnKey": "device-name-1452842526600"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Failures\n            \n        ",
+              "columnSize": 70,
+              "columnKey": "0"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Successes\n            \n        ",
+              "columnSize": 76,
+              "columnKey": "1"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Queued\n            \n        ",
+              "columnSize": 111,
+              "columnKey": "2"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "FailureRate",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Failures",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "SuccessRate",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Successes",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "TasksCountInQueue",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Queued",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##INSTANCE## - ##RESOURCENAME##",
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+        "sortOrder": "descending",
+        "name": "Top Collection Tasks (Real-time)",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 28,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "\n        Name\n        \n    ",
+              "columnSize": 185,
+              "columnKey": "device-name-1452842526600"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Failures\n            \n        ",
+              "columnSize": 57,
+              "columnKey": "0"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Successes\n            \n        ",
+              "columnSize": 72,
+              "columnKey": "1"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Queued\n            \n        ",
+              "columnSize": 127,
+              "columnKey": "2"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "Fail",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Failures",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "Success",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Successes",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "TasksCountInQueue",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Queued",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##INSTANCE## - ##RESOURCENAME##",
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "dataSourceFullName": "Collector Active Discovery Tasks (LogicMonitor_Collector_ActiveDiscoveryTasks)",
+        "sortOrder": "descending",
+        "name": "Top Active Discovery Tasks (Real-time)",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "row": 28,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Data Collecting Tasks Total",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 32,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-Unavailable Thread Scheduling",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "UnavailableScheduleTaskRate",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Unavailable Schedule Task Rate",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "UnavailableScheduleTaskRate",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": false,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 32,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Total Instance Counts by Collector",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": "NaN",
+          "topX": 100,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "InstanceCount",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "",
+                "type": "line",
+                "option": "default"
+              },
+              "name": "InstanceCount",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 36,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Individual collector methods",
+        "description": "Section: Individual collector methods",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;\">Individual collector methods</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 37,
+        "col": 1,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-script",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": false,
+                "value": "script"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": false,
+                "value": "script"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 37,
+        "col": 5,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-batchscript",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": false,
+                "value": "batchscript"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": false,
+                "value": "batchscript"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 37,
+        "col": 9,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-WMI",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": false,
+                "value": "wmi"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": false,
+                "value": "wmi"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 40,
+        "col": 1,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-SNMP",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": false,
+                "value": "snmp"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": false,
+                "value": "snmp"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 40,
+        "col": 5,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-Ping",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": false,
+                "value": "ping"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": false,
+                "value": "ping"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 40,
+        "col": 9,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Data Collecting Tasks-JMX",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "ExecutingTasks",
+              "instanceName": {
+                "isGlob": false,
+                "value": "jmx"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Executing",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ExecutingTasks",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "TasksCountInQueue",
+              "instanceName": {
+                "isGlob": false,
+                "value": "jmx"
+              },
+              "dataSourceFullName": "Collector Data Collecting Tasks (LogicMonitor_Collector_DataCollectingTasks)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "In Queue",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TasksCountInQueue",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 43,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Where Next",
+        "description": "Contextual drill-down suggestions.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;\">\n<div style=\"font-size:14px;font-weight:700;margin-bottom:6px;\">Where next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:4px 0;\"><strong>Environment Health</strong> \u2014 02</li><li style=\"margin:4px 0;\"><strong>Alert Overview</strong> \u2014 03</li><li style=\"margin:4px 0;\"><strong>Home</strong> \u2014 00</li></ul>\n</div>"
+      }
+    }
+  ]
+}
