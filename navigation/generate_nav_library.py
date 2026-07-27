@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Generate dashboard-specific navigation table library from dashboard_feedback.md inventory."""
+"""Generate dashboard-specific navigation library.
+
+Design: HTML5/CSS pattern from dashboard_feedback.md (azure-cost-section).
+Logic: SmartAdmin dashboard inventory, CURRENT highlighting, working LM links.
+"""
 
 from __future__ import annotations
 
@@ -11,7 +15,7 @@ HTML_DIR = ROOT / "html"
 LIBRARY_MD = ROOT / "dashboard-navigation-table-library.md"
 VALIDATION_MD = ROOT / "dashboard-link-validation.md"
 
-# Inventory from dashboard_feedback.md (source of truth). Do not invent or rename.
+# Inventory URLs and labels from the original dashboard_feedback link table.
 DASHBOARDS = [
     {
         "number": "00",
@@ -170,41 +174,125 @@ DASHBOARDS = [
 
 BY_NUMBER = {d["number"]: d for d in DASHBOARDS}
 
-CATEGORY_PILLS = {
-    "Home": "color:#a7f3d0",
-    "Executive": "color:#93c5fd",
-    "Operational": "color:#fdba74",
-    "Technical": "color:#fca5a5",
-}
-
 COLUMNS = [
-    ("Home", ["00"]),
-    ("Executive", ["10", "11", "12", "13", "14"]),
-    ("Operational", ["20", "21", "22", "23", "24", "25"]),
-    ("Technical", ["30", "31", "32", "33", "34"]),
+    ("Home", "home", ["00"]),
+    ("Executive", "executive", ["10", "11", "12", "13", "14"]),
+    ("Operational", "operational", ["20", "21", "22", "23", "24", "25"]),
+    ("Technical", "technical", ["30", "31", "32", "33", "34"]),
 ]
 
-TD_STYLE = (
-    "vertical-align:top;background:rgba(15,23,42,.76);"
-    "border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;"
-)
-PILL_BASE = (
-    "display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;"
-    "background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);"
-    "font-size:11px;font-weight:700;"
-)
-# Link markup follows the working menu in dashboard_feedback.md:
-# target="_blank", rel="noopener noreferrer", #93c5fd color, &nbsp; padding.
+# Working LM link pattern (proven in LogicMonitor text widgets).
 LINK_STYLE = "color:#93c5fd; text-decoration:none; font-weight:700;"
 LINK_ATTRS = 'target="_blank" rel="noopener noreferrer"'
-CURRENT_WRAP = (
-    "background:rgba(14,165,233,.25);border:1px solid #38bdf8;"
-    "border-radius:8px;padding:6px 8px;margin:4px 0;"
-)
-NORMAL_WRAP = "padding:4px 0;margin:3px 0;"
-CURRENT_BADGE = (
-    '<span style="font-size:9px;font-weight:800;color:#7dd3fc;margin-right:4px;">CURRENT</span>'
-)
+
+# Visual design adapted from dashboard_feedback.md azure-cost-section.
+NAV_CSS = """
+		.sa-nav-section {
+			font-family: Arial, Helvetica, sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0f766e 100%); color: #ffffff; border-radius: 14px; padding: 22px; box-sizing: border-box; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+		}
+
+		.sa-nav-header {
+			display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 22px;
+		}
+
+		.sa-nav-title h2 {
+			margin: 0 0 6px 0; font-size: 24px; font-weight: 700; letter-spacing: 0.2px;
+		}
+
+		.sa-nav-title p {
+			margin: 0; font-size: 14px; color: #cbd5e1; max-width: 760px; line-height: 1.5;
+		}
+
+		.sa-nav-badge {
+			background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 999px; padding: 8px 14px; font-size: 13px; white-space: nowrap; color: #e0f2fe;
+		}
+
+		.sa-nav-grid {
+			display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px;
+		}
+
+		.sa-nav-card {
+			background: rgba(15, 23, 42, 0.72); border: 1px solid rgba(148, 163, 184, 0.32); border-radius: 12px; padding: 16px; min-height: 130px; box-sizing: border-box;
+		}
+
+		.sa-nav-card h3 {
+			margin: 0 0 10px 0; font-size: 15px; color: #ffffff;
+		}
+
+		.sa-nav-card.home h3 { color: #a7f3d0; }
+		.sa-nav-card.executive h3 { color: #93c5fd; }
+		.sa-nav-card.operational h3 { color: #fdba74; }
+		.sa-nav-card.technical h3 { color: #fca5a5; }
+
+		.sa-nav-icon {
+			width: 34px; height: 34px; border-radius: 10px; background: rgba(56, 189, 248, 0.18); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 18px;
+		}
+
+		.sa-nav-item {
+			margin-bottom: 10px;
+		}
+
+		.sa-nav-item:last-child {
+			margin-bottom: 0;
+		}
+
+		.sa-nav-item p {
+			margin: 4px 0 0 0; font-size: 12px; line-height: 1.5; color: #cbd5e1;
+		}
+
+		.sa-nav-current {
+			background: rgba(56, 189, 248, 0.18); border: 1px solid #38bdf8; border-radius: 10px; padding: 8px 10px; margin-bottom: 10px;
+		}
+
+		.sa-nav-current:last-child {
+			margin-bottom: 0;
+		}
+
+		.sa-nav-current-label {
+			display: inline-block; font-size: 10px; font-weight: 800; color: #7dd3fc; margin-right: 6px; letter-spacing: 0.4px;
+		}
+
+		.sa-nav-footer {
+			display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; margin-top: 14px;
+		}
+
+		.sa-nav-panel {
+			background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; padding: 16px;
+		}
+
+		.sa-nav-panel h3 {
+			margin: 0 0 10px 0; font-size: 15px; color: #ffffff;
+		}
+
+		.sa-nav-panel ul {
+			margin: 0; padding-left: 18px; color: #dbeafe; font-size: 13px; line-height: 1.6;
+		}
+
+		.sa-nav-note {
+			font-size: 13px; line-height: 1.5; color: #dbeafe; margin: 0;
+		}
+
+		.sa-nav-pill-row {
+			display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+		}
+
+		.sa-nav-pill {
+			border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 600; background: rgba(56, 189, 248, 0.22); color: #e0f2fe; border: 1px solid rgba(147, 197, 253, 0.35);
+		}
+
+		@media (max-width: 900px) {
+			.sa-nav-header,
+			.sa-nav-footer {
+				grid-template-columns: 1fr; display: block;
+			}
+			.sa-nav-grid {
+				grid-template-columns: 1fr;
+			}
+			.sa-nav-badge {
+				display: inline-block; margin-top: 12px;
+			}
+		}
+"""
 
 
 def make_link(url: str, label: str) -> str:
@@ -216,42 +304,64 @@ def make_link(url: str, label: str) -> str:
 
 def nav_item(dash: dict, current_number: str) -> str:
     is_current = dash["number"] == current_number
-    link = (
-        make_link(dash["url"], dash["short"])
-        + f'<div style="font-size:10px;color:#9ca3af;">{dash["display_name"]}</div>'
+    body = (
+        f'{make_link(dash["url"], dash["short"])}'
+        f'<p>{dash["display_name"]}</p>'
     )
     if is_current:
-        return f'<div style="{CURRENT_WRAP}">{CURRENT_BADGE}{link}</div>'
-    return f'<div style="{NORMAL_WRAP}">{link}</div>'
+        return (
+            f'<div class="sa-nav-current">'
+            f'<span class="sa-nav-current-label">CURRENT</span>{body}'
+            f"</div>"
+        )
+    return f'<div class="sa-nav-item">{body}</div>'
 
 
 def build_table(current_number: str) -> str:
-    cells: list[str] = []
-    for group_name, numbers in COLUMNS:
-        pill_color = CATEGORY_PILLS[group_name]
+    current = BY_NUMBER[current_number]
+    cards: list[str] = []
+    for group_name, group_class, numbers in COLUMNS:
         items = "".join(nav_item(BY_NUMBER[n], current_number) for n in numbers)
-        cells.append(
-            f'<td style="{TD_STYLE}">'
-            f'<span style="{PILL_BASE}{pill_color}">{group_name}</span>'
+        cards.append(
+            f'<div class="sa-nav-card {group_class}">'
+            f'<div class="sa-nav-icon"><br></div>'
+            f"<h3>{group_name}</h3>"
             f"{items}"
-            f"</td>"
+            f"</div>"
         )
 
-    return f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:16px;padding:18px;width:100%;box-sizing:border-box;">
-	<div style="font-size:18px;font-weight:700;color:#ffffff;margin-bottom:6px;">SmartAdmin Connected Experience &mdash; Navigation</div>
-	<div style="font-size:13px;color:#a5b4fc;margin-bottom:12px;">Navigate between Home, Executive, Operational, and Technical dashboards.</div>
-	<div style="height:1px;background:#1f2a44;margin:12px 0;">
-		<br>
-	</div>
+    return f"""<div class="sa-nav-section">
+	<style>
+{NAV_CSS}
+	</style>
+	<div class="sa-nav-header">
+		<div class="sa-nav-title">
 
-	<table style="width:100%;border-collapse:separate;border-spacing:12px;">
-		<tbody>
-			<tr>
-				{"".join(cells)}
-			</tr>
-		</tbody>
-	</table>
-</div>"""
+			<h2>SmartAdmin Connected Experience &mdash; Navigation</h2>
+
+			<p>Navigate between Home, Executive, Operational, and Technical dashboards. Use this menu to move across the Connected Experience suite without leaving LogicMonitor.</p>
+		</div>
+		<div class="sa-nav-badge">Connected Experience Navigation</div></div>
+	<div class="sa-nav-grid">
+		{"".join(cards)}</div>
+	<div class="sa-nav-footer">
+		<div class="sa-nav-panel">
+
+			<h3>How to Use This Section</h3>
+
+			<ul>
+				<li>Start in Home for orientation, then open the Command Center for your role.</li>
+				<li>Use Executive for value and risk summaries.</li>
+				<li>Use Operational for alerts, health, and day-to-day triage.</li>
+				<li>Use Technical for investigation, collectors, modules, and adoption.</li>
+			</ul>
+		</div>
+		<div class="sa-nav-panel">
+
+			<h3>Current Dashboard</h3>
+
+			<p class="sa-nav-note">You are viewing <b>{current["name"]}</b> in the <b>{current["group"]}</b> group. The highlighted CURRENT item marks this dashboard in the navigation menu.</p>
+			<div class="sa-nav-pill-row"><span class="sa-nav-pill">{current["group"]}</span> <span class="sa-nav-pill">{current["short"]}</span></div></div></div></div>"""
 
 
 def validate_table(html: str, current: dict) -> dict:
@@ -260,7 +370,6 @@ def validate_table(html: str, current: dict) -> dict:
     if current_count != 1:
         issues.append(f"CURRENT count={current_count}, expected 1")
 
-    # CURRENT must appear immediately before the current dashboard's short-label link
     expected_link = make_link(current["url"], current["short"])
     pattern = r">CURRENT</span>" + re.escape(expected_link)
     if not re.search(pattern, html):
@@ -271,6 +380,13 @@ def validate_table(html: str, current: dict) -> dict:
 
     if "<script" in html.lower():
         issues.append("script tag found")
+
+    if 'class="sa-nav-section"' not in html:
+        issues.append("missing sa-nav-section design wrapper")
+    if "<style>" not in html:
+        issues.append("missing HTML5 style block")
+    if "linear-gradient(135deg, #0f172a" not in html:
+        issues.append("missing gradient design background")
 
     if html.count('target="_blank"') != len(DASHBOARDS):
         issues.append("missing target=_blank on one or more links")
@@ -290,8 +406,6 @@ def validate_table(html: str, current: dict) -> dict:
 
     if html.count("<div") != html.count("</div>"):
         issues.append("unbalanced div tags")
-    if html.count("<td") != html.count("</td>"):
-        issues.append("unbalanced td tags")
     if html.count("<a ") != html.count("</a>"):
         issues.append("unbalanced a tags")
 
@@ -333,7 +447,7 @@ def write_library(tables: dict[str, str], validations: dict[str, dict]) -> None:
                 "",
                 "- Current dashboard highlighted: Yes",
                 "- Complete URLs included: Yes",
-                "- LogicMonitor-compatible HTML: Yes",
+                "- HTML5 class-based design from dashboard_feedback.md: Yes",
                 "- Links use target=_blank and rel=noopener noreferrer: Yes",
                 "- JavaScript included: No",
                 "",
