@@ -24,10 +24,10 @@ Unresolved placeholders remain readable.
 | Pattern | Where |
 |---------|--------|
 | DCC intro card grid | 10, 20, 30 |
-| DCC nav guide (4 columns) | 00, 10, 20, 31 |
-| DCC inventory table (adapted rows) | 12, 30, 31 |
+| DCC nav guide (4 columns) | 00, 10, 20, 34 |
+| DCC inventory table (horizontal rows of 4) | 13, 30, 34 |
 | Where Next footer | All dashboards |
-| Technology directory | 00, 04, 05, 13, 31 |
+| Technology directory | 00, 14, 23, 24, 34 |
 
 ## Label standards
 

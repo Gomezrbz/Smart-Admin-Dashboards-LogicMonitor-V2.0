@@ -21,23 +21,23 @@ Expanded Connected Experience package with **Executive**, **Operational**, and *
 |----|-----------|-------|
 | 00 | Home / Introductory | Package root |
 | 10 | Executive Command Center | Executive |
-| 01 | Platform Value Overview | Executive |
-| 11 | Environment Health Executive | Executive |
-| 12 | Availability and Service Health | Executive |
-| 13 | Capacity and Risk Overview | Executive |
+| 11 | Platform Value Overview | Executive |
+| 12 | Environment Health Executive | Executive |
+| 13 | Availability and Service Health | Executive |
+| 14 | Capacity and Risk Overview | Executive |
 | 20 | Operational Command Center | Operational |
-| 03 | Active Alerts | Operational |
-| 02 | Resource Health | Operational |
-| 05 | Websites and Services | Operational |
-| 04 | Coverage, Capacity & Licenses | Operational |
-| 06 | Access and Administration | Operational |
+| 21 | Active Alerts | Operational |
+| 22 | Resource Health | Operational |
+| 23 | Websites and Services | Operational |
+| 24 | Coverage, Capacity & Licenses | Operational |
+| 25 | Access and Administration | Operational |
 | 30 | Technical Resource Investigation | Technical |
-| 07 | Collector Diagnostics | Technical |
-| 08 | LogicModule and Content | Technical |
-| 09 | Adoption and Optimization | Technical |
-| 31 | Technology Dashboard Directory | Technical |
+| 31 | Collector Diagnostics | Technical |
+| 32 | LogicModule and Content | Technical |
+| 33 | Adoption and Optimization | Technical |
+| 34 | Technology Dashboard Directory | Technical |
 
-Network / Server / Virtualization / Storage / Cloud are **not** empty shells — they are rows in **31** linking to OOTB packs.
+Network / Server / Virtualization / Storage / Cloud are **not** empty shells — they are rows in **34** linking to OOTB packs.
 
 ## Design system
 

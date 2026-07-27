@@ -44,25 +44,25 @@ W = {
     "intro": index_widgets(INTRO),
 }
 
-# id, short label, full name, group key
+# id, short label, full name, group key — sequential within each group
 NAV_ITEMS = [
     ("00", "Home", "00 - Home / Introductory", "home"),
     ("10", "Exec CC", "10 - Executive Command Center", "executive"),
-    ("01", "Platform Value", "01 - Platform Value Overview", "executive"),
-    ("11", "Env Health Exec", "11 - Environment Health Executive", "executive"),
-    ("12", "Availability", "12 - Availability and Service Health", "executive"),
-    ("13", "Capacity Risk", "13 - Capacity and Risk Overview", "executive"),
+    ("11", "Platform Value", "11 - Platform Value Overview", "executive"),
+    ("12", "Env Health Exec", "12 - Environment Health Executive", "executive"),
+    ("13", "Availability", "13 - Availability and Service Health", "executive"),
+    ("14", "Capacity Risk", "14 - Capacity and Risk Overview", "executive"),
     ("20", "Ops CC", "20 - Operational Command Center", "operational"),
-    ("03", "Active Alerts", "03 - Active Alerts", "operational"),
-    ("02", "Resource Health", "02 - Resource Health", "operational"),
-    ("05", "Websites", "05 - Websites and Services", "operational"),
-    ("04", "Coverage", "04 - Coverage, Capacity & Licenses", "operational"),
-    ("06", "Access", "06 - Access and Administration", "operational"),
+    ("21", "Active Alerts", "21 - Active Alerts", "operational"),
+    ("22", "Resource Health", "22 - Resource Health", "operational"),
+    ("23", "Websites", "23 - Websites and Services", "operational"),
+    ("24", "Coverage", "24 - Coverage, Capacity & Licenses", "operational"),
+    ("25", "Access", "25 - Access and Administration", "operational"),
     ("30", "Investigation", "30 - Technical Resource Investigation", "technical"),
-    ("07", "Collectors", "07 - Collector Diagnostics", "technical"),
-    ("08", "Modules", "08 - LogicModule and Content", "technical"),
-    ("09", "Adoption", "09 - Adoption and Optimization", "technical"),
-    ("31", "Tech Directory", "31 - Technology Dashboard Directory", "technical"),
+    ("31", "Collectors", "31 - Collector Diagnostics", "technical"),
+    ("32", "Modules", "32 - LogicModule and Content", "technical"),
+    ("33", "Adoption", "33 - Adoption and Optimization", "technical"),
+    ("34", "Tech Directory", "34 - Technology Dashboard Directory", "technical"),
 ]
 
 PORTAL_TOKENS = [
@@ -277,10 +277,16 @@ def guide_widget(
     return text_widget(name, content, row=row, sizey=sizey, description="Read first guide for this dashboard.")
 
 
-def section_banner(title: str, row: int, sizey: int = 1) -> dict:
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border:1px solid #1f2a44;border-left:4px solid #38bdf8;padding:10px 14px;border-radius:8px;">
-<div style="font-size:15px;font-weight:700;color:#f9fafb;">{escape(title)}</div>
-</div>"""
+def section_banner(title: str, row: int, sizey: int = 2) -> dict:
+    content = f"""<p>
+<style type="text/css">
+.html-wpsites {{
+height: 72px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 32px; color: #ffffff; font-weight: bold; text-align: center;
+}}
+</style>
+</p>
+<div class="html-wpsites">{escape(title)}</div>
+<p>&nbsp;</p>"""
     return text_widget(title, content, row=row, sizey=sizey, description=f"Section: {title}")
 
 
@@ -386,8 +392,8 @@ def dcc_inventory_table(
     row: int,
     sizey: int = 4,
 ) -> dict:
-    """Adapted DCC card cells as inventory rows: (status_pill, title, description, link_label_or_id)."""
-    trs = []
+    """Adapted DCC card cells in horizontal rows of 4: (status_pill, title, description, link_label_or_id)."""
+    cells = []
     for status, rtitle, desc, link_id in rows:
         if link_id.startswith("http") or link_id.startswith("{{"):
             a = f'<a href="{link_id}" style="color:#93c5fd;text-decoration:none;font-weight:700;">{escape(rtitle)}</a>'
@@ -395,14 +401,19 @@ def dcc_inventory_table(
             a = link(link_id, rtitle, "#93c5fd")
         else:
             a = f'<span style="color:#ffffff;font-weight:700;">{escape(rtitle)}</span>'
-        trs.append(
-            f'<tr><td style="vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);'
-            f'border-radius:12px;padding:12px 14px;">'
+        cells.append(
+            f'<td style="vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);'
+            f'border-radius:12px;padding:12px 14px;width:25%;">'
             f'<span style="display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);'
-            f'border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;">'
+            f'border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;">'
             f"{escape(status)}</span>"
-            f'{a}<div style="font-size:12px;color:#9ca3af;margin-top:6px;">{escape(desc)}</div></td></tr>'
+            f'<div style="margin-top:8px;">{a}</div>'
+            f'<div style="font-size:12px;color:#9ca3af;margin-top:6px;">{escape(desc)}</div></td>'
         )
+    trs = []
+    for i in range(0, len(cells), 4):
+        chunk = cells[i : i + 4]
+        trs.append(f"<tr>{''.join(chunk)}</tr>")
     content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#111827 0%,#172554 100%);color:#ffffff;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;">
 <div style="font-size:20px;font-weight:700;margin-bottom:4px;">{escape(title)}</div>
 <div style="font-size:13px;color:#dbeafe;margin-bottom:12px;">{escape(subtitle)}</div>
@@ -423,7 +434,7 @@ def footer_links(items: list[tuple[str, str]], row: int, sizey: int = 2) -> dict
     return text_widget("Where Next", content, row=row, sizey=sizey, description="Contextual drill-down suggestions.")
 
 
-def tech_directory_panel(row: int, sizey: int = 5) -> dict:
+def tech_directory_panel(row: int, sizey: int = 4) -> dict:
     rows = [
         ("Capacity", "Capacity Management", "Host / storage utilization trends", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CAPACITY_ID}}"),
         ("Cloud", "Cloud — AWS / Azure / GCP", "Cloud account and service health", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CLOUD_ID}}"),
@@ -469,9 +480,9 @@ def build_00() -> dict:
         ("10", "Executive", "Leaders", "Is the environment healthy? What needs attention?"),
         ("20", "Operational", "NOC / Ops", "Which alerts and resources need action now?"),
         ("30", "Technical", "Engineers", "Which metric or collector explains the issue?"),
-        ("01", "Platform Value", "CS / Exec", "What operational value is the platform providing?"),
-        ("03", "Active Alerts", "Triage", "Severity, noise, routing health."),
-        ("31", "Tech Directory", "Deep dive", "Network, server, storage, cloud OOTB boards."),
+        ("11", "Platform Value", "CS / Exec", "What operational value is the platform providing?"),
+        ("21", "Active Alerts", "Triage", "Severity, noise, routing health."),
+        ("34", "Tech Directory", "Deep dive", "Network, server, storage, cloud OOTB boards."),
     ]
     card_html = "".join(
         f'<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:16%;">'
@@ -578,13 +589,13 @@ def build_00() -> dict:
         place(take("overview", "Total Number of Dead Resources"), 22, 7, 3, 2, name="Dead Resources (Portal)"),
         place(take("overview", "Local Resource Licenses"), 22, 10, 3, 2, name="Local License Footprint"),
         text_widget("Filters and Time Ranges", how, row=24, sizey=5, col=1, sizex=12),
-        tech_directory_panel(row=29, sizey=5),
+        tech_directory_panel(row=29, sizey=4),
         footer_links(
             [
                 ("Executive Command Center", "10 — leadership snapshot"),
                 ("Operational Command Center", "20 — triage hub"),
                 ("Technical Resource Investigation", "30 — root cause"),
-                ("Platform Value", "01 — coverage and value"),
+                ("Platform Value", "11 — coverage and value"),
             ],
             row=34,
         ),
@@ -627,41 +638,41 @@ def build_10() -> dict:
             row=12,
         ),
         section_banner("Critical status", row=13),
-        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 14, 1, 3, 2, name="Critical Alerts Requiring Attention"),
-        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 14, 4, 3, 2, name="Error Alerts"),
-        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 14, 7, 3, 2, name="Warning Alerts"),
-        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 14, 10, 3, 2, name="Total Alerts"),
-        place(take("overview", "Total Number of Alive Collectors"), 16, 1, 3, 2, name="Alive Collectors"),
-        place(take("overview", "Total Number of Down Collectors"), 16, 4, 3, 2, name="Down Collectors"),
-        place(take("overview", "Total Number of Dead Resources"), 16, 7, 3, 2, name="Dead Resources"),
-        place(take("overview", "Total Number of Dead Websites"), 16, 10, 3, 2, name="Dead Websites"),
-        section_banner("Situation awareness", row=18),
-        place(take("overview", "Alert Status by Resource Location"), 19, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 19, 7, 6, 5, name="Alert Status by Resource Types"),
-        place(take("overview", "All Resource Alerts"), 24, 1, 8, 5, name="Executive Exceptions"),
-        place(take("overview", "Current Collector Alerts"), 24, 9, 4, 5, name="Collector Exceptions"),
-        place(take("overview", "Alert Counts over time"), 29, 1, 6, 4, name="Alert Count Trend"),
-        place(take("overview", "Top Dead Resources Over Time"), 29, 7, 6, 4, name="Dead Resources Trend"),
+        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 15, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 15, 4, 3, 2, name="Error Alerts"),
+        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 15, 7, 3, 2, name="Warning Alerts"),
+        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 15, 10, 3, 2, name="Total Alerts"),
+        place(take("overview", "Total Number of Alive Collectors"), 17, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 17, 4, 3, 2, name="Down Collectors"),
+        place(take("overview", "Total Number of Dead Resources"), 17, 7, 3, 2, name="Dead Resources"),
+        place(take("overview", "Total Number of Dead Websites"), 17, 10, 3, 2, name="Dead Websites"),
+        section_banner("Situation awareness", row=19),
+        place(take("overview", "Alert Status by Resource Location"), 21, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 21, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("overview", "All Resource Alerts"), 26, 1, 8, 5, name="Executive Exceptions"),
+        place(take("overview", "Current Collector Alerts"), 26, 9, 4, 5, name="Collector Exceptions"),
+        place(take("overview", "Alert Counts over time"), 31, 1, 6, 4, name="Alert Count Trend"),
+        place(take("overview", "Top Dead Resources Over Time"), 31, 7, 6, 4, name="Dead Resources Trend"),
         dcc_nav_guide(
             "Team Navigation and Drill-Down",
             "Where leaders go next",
             [
-                ("Executive", "Stay high-level", ["Platform Value (01)", "Env Health Exec (11)", "Availability (12)", "Capacity Risk (13)"]),
-                ("Operations", "Triage detail", ["Ops Command Center (20)", "Active Alerts (03)", "Resource Health (02)"]),
-                ("Technical", "Investigate", ["Resource Investigation (30)", "Collector Diagnostics (07)"]),
+                ("Executive", "Stay high-level", ["Platform Value (11)", "Env Health Exec (12)", "Availability (13)", "Capacity Risk (14)"]),
+                ("Operations", "Triage detail", ["Ops Command Center (20)", "Active Alerts (21)", "Resource Health (22)"]),
+                ("Technical", "Investigate", ["Resource Investigation (30)", "Collector Diagnostics (31)"]),
                 ("Decision", "Escalate when", ["Critical rising", "Collectors down", "Dead websites", "License pressure"]),
             ],
-            row=33,
+            row=35,
             sizey=4,
         ),
         footer_links(
             [
-                ("Platform Value Overview", "01"),
+                ("Platform Value Overview", "11"),
                 ("Operational Command Center", "20"),
-                ("Active Alerts", "03"),
-                ("Collector Diagnostics", "07"),
+                ("Active Alerts", "21"),
+                ("Collector Diagnostics", "31"),
             ],
-            row=37,
+            row=39,
         ),
     ]
     return make_dashboard(
@@ -672,9 +683,9 @@ def build_10() -> dict:
     )
 
 
-def build_01() -> dict:
+def build_11() -> dict:
     widgets = [
-        global_nav_widget("01", row=1, sizey=5),
+        global_nav_widget("11", row=1, sizey=5),
         guide_widget(
             "Platform Value Overview — Read First",
             "Platform Value Overview",
@@ -692,56 +703,56 @@ def build_01() -> dict:
                 ("Drill only when signaled", "Alerts, Coverage, Collectors"),
             ],
             [
-                "Elevated alerts → 03 Active Alerts",
-                "Dead/minimal → 02 Resource Health / 11 Exec",
-                "License pressure → 13 / 04",
-                "Down collectors → 07 Collector Diagnostics",
+                "Elevated alerts → 21 Active Alerts",
+                "Dead/minimal → 22 Resource Health / 12 Exec",
+                "License pressure → 14 / 24",
+                "Down collectors → 31 Collector Diagnostics",
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Critical status — alert posture", row=11),
-        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 12, 1, 3, 2, name="Critical Alerts Requiring Attention"),
-        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 12, 4, 3, 2, name="Error Alerts"),
-        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 12, 7, 3, 2, name="Warning Alerts"),
-        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 12, 10, 3, 2, name="Total Alerts (Ack and Unack)"),
-        section_banner("Platform coverage and collector health", row=14),
-        place(take("overview", "Total Number of Alive Collectors"), 15, 1, 3, 2, name="Alive Collectors"),
-        place(take("overview", "Total Number of Down Collectors"), 15, 4, 3, 2, name="Down Collectors"),
-        place(take("alerts", "Total Number of Resources"), 15, 7, 3, 2, name="Monitored Resources"),
-        place(take("alerts", "Total Number of Cloud Resources"), 15, 10, 3, 2, name="Cloud Resources"),
-        place(take("overview", "Local Resource Licenses"), 17, 1, 3, 2, name="Local Resource Licenses"),
-        place(take("overview", "Cloud Resource Licences"), 17, 4, 3, 2, name="Cloud Resource Licenses"),
-        place(take("overview", "LogSources"), 17, 7, 3, 2, name="LogSources Installed"),
-        place(take("overview", "Active Users"), 17, 10, 3, 2, name="Active Users"),
-        section_banner("Situation awareness", row=19),
-        place(take("overview", "Alert Status by Resource Location"), 20, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 20, 7, 6, 5, name="Alert Status by Resource Types"),
-        place(take("overview", "Alert Counts over time"), 25, 1, 6, 4, name="Alert Count Trend"),
-        place(take("overview", "Top Dead Resources Over Time"), 25, 7, 6, 4, name="Dead Resources Trend"),
+        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 13, 4, 3, 2, name="Error Alerts"),
+        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 13, 7, 3, 2, name="Warning Alerts"),
+        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 13, 10, 3, 2, name="Total Alerts (Ack and Unack)"),
+        section_banner("Platform coverage and collector health", row=15),
+        place(take("overview", "Total Number of Alive Collectors"), 17, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 17, 4, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of Resources"), 17, 7, 3, 2, name="Monitored Resources"),
+        place(take("alerts", "Total Number of Cloud Resources"), 17, 10, 3, 2, name="Cloud Resources"),
+        place(take("overview", "Local Resource Licenses"), 19, 1, 3, 2, name="Local Resource Licenses"),
+        place(take("overview", "Cloud Resource Licences"), 19, 4, 3, 2, name="Cloud Resource Licenses"),
+        place(take("overview", "LogSources"), 19, 7, 3, 2, name="LogSources Installed"),
+        place(take("overview", "Active Users"), 19, 10, 3, 2, name="Active Users"),
+        section_banner("Situation awareness", row=21),
+        place(take("overview", "Alert Status by Resource Location"), 23, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 23, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("overview", "Alert Counts over time"), 28, 1, 6, 4, name="Alert Count Trend"),
+        place(take("overview", "Top Dead Resources Over Time"), 28, 7, 6, 4, name="Dead Resources Trend"),
         footer_links(
             [
                 ("Executive Command Center", "10"),
-                ("Resource Health", "02"),
-                ("Active Alerts", "03"),
-                ("Capacity and Risk", "13"),
-                ("Collector Diagnostics", "07"),
+                ("Resource Health", "22"),
+                ("Active Alerts", "21"),
+                ("Capacity and Risk", "14"),
+                ("Collector Diagnostics", "31"),
             ],
-            row=29,
+            row=32,
         ),
     ]
     return make_dashboard(
-        "01 - Platform Value Overview",
+        "11 - Platform Value Overview",
         "Executive view: alert posture, collectors, footprint, licenses, map/NOC, and navigation.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
-def build_11() -> dict:
+def build_12() -> dict:
     """NEW — Environment Health Executive (exec-density)."""
     widgets = [
-        global_nav_widget("11", row=1, sizey=5),
+        global_nav_widget("12", row=1, sizey=5),
         guide_widget(
             "Environment Health Executive — Read First",
             "Environment Health Executive Overview",
@@ -758,51 +769,51 @@ def build_11() -> dict:
                 ("Drill to Ops", "Resource Health / Alerts"),
             ],
             [
-                "Operational Resource Health → 02",
-                "Active Alerts → 03",
-                "Collector Diagnostics → 07",
-                "Websites → 05 / 12",
+                "Operational Resource Health → 22",
+                "Active Alerts → 21",
+                "Collector Diagnostics → 31",
+                "Websites → 23 / 13",
             ],
             row=6,
             sizey=5,
         ),
         scope_pills([("Health", "health"), ("Alerts", "alerts"), ("Capacity", "capacity"), ("Services", "sites")], row=11),
         section_banner("Executive risk indicators", row=12),
-        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts"),
-        place(take("alerts", "Total Number of Dead Resources"), 13, 4, 3, 2, name="Dead Resources"),
-        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 13, 7, 3, 2, name="Minimally Monitored Resources"),
-        place(take("overview", "Total Number of Dead Websites"), 13, 10, 3, 2, name="Dead Websites"),
-        place(take("overview", "Total Number of Alive Collectors"), 15, 1, 3, 2, name="Alive Collectors"),
-        place(take("overview", "Total Number of Down Collectors"), 15, 4, 3, 2, name="Down Collectors"),
-        place(take("alerts", "Total Number of SDT Resource"), 15, 7, 3, 2, name="Resources in SDT"),
-        place(take("alerts", "Total Number of Resources"), 15, 10, 3, 2, name="Monitored Resources"),
-        section_banner("Situation visuals", row=17),
-        place(take("overview", "Alert Status by Resource Location"), 18, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 18, 7, 6, 5, name="Alert Status by Resource Types"),
-        place(take("alerts", "Top Dead Resources Over Time"), 23, 1, 6, 4, name="Dead Resources Trend"),
-        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 23, 7, 6, 4, name="Minimal Monitoring Trend"),
+        place(take("alerts", "Total Number of Critical Alerts"), 14, 1, 3, 2, name="Critical Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 14, 4, 3, 2, name="Dead Resources"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 14, 7, 3, 2, name="Minimally Monitored Resources"),
+        place(take("overview", "Total Number of Dead Websites"), 14, 10, 3, 2, name="Dead Websites"),
+        place(take("overview", "Total Number of Alive Collectors"), 16, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 16, 4, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of SDT Resource"), 16, 7, 3, 2, name="Resources in SDT"),
+        place(take("alerts", "Total Number of Resources"), 16, 10, 3, 2, name="Monitored Resources"),
+        section_banner("Situation visuals", row=18),
+        place(take("overview", "Alert Status by Resource Location"), 20, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 20, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("alerts", "Top Dead Resources Over Time"), 25, 1, 6, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 25, 7, 6, 4, name="Minimal Monitoring Trend"),
         footer_links(
             [
                 ("Executive Command Center", "10"),
-                ("Resource Health (Operational)", "02"),
-                ("Active Alerts", "03"),
-                ("Collector Diagnostics", "07"),
+                ("Resource Health (Operational)", "22"),
+                ("Active Alerts", "21"),
+                ("Collector Diagnostics", "31"),
             ],
-            row=27,
+            row=29,
         ),
     ]
     return make_dashboard(
-        "11 - Environment Health Executive",
+        "12 - Environment Health Executive",
         "Executive environment health: map/NOC, dead/minimal/website/collector signals without deep ops tables.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
-def build_12() -> dict:
+def build_13() -> dict:
     """NEW — Availability and Service Health."""
     widgets = [
-        global_nav_widget("12", row=1, sizey=5),
+        global_nav_widget("13", row=1, sizey=5),
         guide_widget(
             "Availability and Service Health — Read First",
             "Availability and Service Health",
@@ -815,61 +826,61 @@ def build_12() -> dict:
             [
                 ("Website KPIs", "Counts and dead"),
                 ("Alert severity", "Service impact signal"),
-                ("Ops websites", "Deep hygiene on 05"),
+                ("Ops websites", "Deep hygiene on 23"),
             ],
             [
-                "Websites and Services → 05",
-                "Active Alerts → 03",
-                "OOTB Websites → 31 directory",
+                "Websites and Services → 23",
+                "Active Alerts → 21",
+                "OOTB Websites → 34 directory",
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Service availability", row=11),
-        place(take("groups", "Total Number of Websites"), 12, 1, 3, 2, name="Websites Monitored"),
-        place(take("groups", "Total Number of Dead Website"), 12, 4, 3, 2, name="Dead Websites"),
-        place(take("groups", "Total Number of Website Groups"), 12, 7, 3, 2, name="Website Groups"),
-        place(take("groups", "Total Number of Empty Website Groups"), 12, 10, 3, 2, name="Empty Website Groups"),
-        section_banner("Related alert posture", row=14),
-        place(take("intro", "Critical Alerts"), 15, 1, 3, 2, name="Critical Alerts"),
-        place(take("intro", "Error Alerts"), 15, 4, 3, 2, name="Error Alerts"),
-        place(take("intro", "Warning Alerts"), 15, 7, 3, 2, name="Warning Alerts"),
-        place(take("intro", "Total Number of Alerts"), 15, 10, 3, 2, name="Total Active Alerts"),
-        place(take("intro", "Alert Count over time"), 17, 1, 12, 4, name="Alert Count Trend"),
+        place(take("groups", "Total Number of Websites"), 13, 1, 3, 2, name="Websites Monitored"),
+        place(take("groups", "Total Number of Dead Website"), 13, 4, 3, 2, name="Dead Websites"),
+        place(take("groups", "Total Number of Website Groups"), 13, 7, 3, 2, name="Website Groups"),
+        place(take("groups", "Total Number of Empty Website Groups"), 13, 10, 3, 2, name="Empty Website Groups"),
+        section_banner("Related alert posture", row=15),
+        place(take("intro", "Critical Alerts"), 17, 1, 3, 2, name="Critical Alerts"),
+        place(take("intro", "Error Alerts"), 17, 4, 3, 2, name="Error Alerts"),
+        place(take("intro", "Warning Alerts"), 17, 7, 3, 2, name="Warning Alerts"),
+        place(take("intro", "Total Number of Alerts"), 17, 10, 3, 2, name="Total Active Alerts"),
+        place(take("intro", "Alert Count over time"), 19, 1, 12, 4, name="Alert Count Trend"),
         dcc_inventory_table(
             "Service Drill-Down Links",
             "Related operational and technical views",
             "Configure IDs after import.",
             [
-                ("Ops", "Websites and Services", "Group and website hygiene detail", "05"),
-                ("Ops", "Active Alerts", "Live exceptions and noise", "03"),
-                ("Tech", "Technology Directory", "OOTB website diagnostics", "31"),
+                ("Ops", "Websites and Services", "Group and website hygiene detail", "23"),
+                ("Ops", "Active Alerts", "Live exceptions and noise", "21"),
+                ("Tech", "Technology Directory", "OOTB website diagnostics", "34"),
                 ("Exec", "Executive Command Center", "Return to leadership hub", "10"),
             ],
-            row=21,
+            row=23,
             sizey=4,
         ),
         footer_links(
             [
-                ("Websites and Services", "05"),
+                ("Websites and Services", "23"),
                 ("Executive Command Center", "10"),
                 ("Operational Command Center", "20"),
             ],
-            row=25,
+            row=27,
         ),
     ]
     return make_dashboard(
-        "12 - Availability and Service Health",
+        "13 - Availability and Service Health",
         "Executive availability: websites/services KPIs plus alert severity and drill-downs.",
         WEBSITE_TOKENS,
         widgets,
     )
 
 
-def build_13() -> dict:
+def build_14() -> dict:
     """NEW — Capacity and Risk Overview."""
     widgets = [
-        global_nav_widget("13", row=1, sizey=5),
+        global_nav_widget("14", row=1, sizey=5),
         guide_widget(
             "Capacity and Risk Overview — Read First",
             "Capacity and Risk Overview",
@@ -885,38 +896,38 @@ def build_13() -> dict:
                 ("OOTB capacity", "Infra utilization"),
             ],
             [
-                "Ops Coverage detail → 04",
-                "Technology Directory → 31",
-                "Platform Value → 01",
+                "Ops Coverage detail → 24",
+                "Technology Directory → 34",
+                "Platform Value → 11",
             ],
             row=6,
             sizey=5,
         ),
         scope_pills([("Capacity", "capacity"), ("Coverage", "region"), ("Risk", "alerts")], row=11),
         section_banner("License and footprint risk", row=12),
-        place(take("licenses", "IaaS - Total"), 13, 1, 3, 2, name="IaaS Licenses Total"),
-        place(take("licenses", "PaaS - Total"), 13, 4, 3, 2, name="PaaS Licenses Total"),
-        place(take("licenses", "Non-Compute - Total"), 13, 7, 3, 2, name="Non-Compute Licenses Total"),
-        place(take("licenses", "Local Licenses"), 13, 10, 3, 2, name="Local Licenses"),
-        place(take("licenses", "Local Licenses Percents"), 15, 1, 3, 2, name="Local License Percent Used"),
-        place(take("alerts", "Total Number of Resources"), 15, 4, 3, 2, name="Monitored Resources"),
-        place(take("alerts", "Total Number of Dead Resources"), 15, 7, 3, 2, name="Dead Resources"),
-        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 15, 10, 3, 2, name="Minimally Monitored"),
-        section_banner("Coverage risk trends", row=17),
-        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 18, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
-        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 18, 7, 6, 4, name="Minimal Monitoring Trend"),
-        tech_directory_panel(row=22, sizey=5),
+        place(take("licenses", "IaaS - Total"), 14, 1, 3, 2, name="IaaS Licenses Total"),
+        place(take("licenses", "PaaS - Total"), 14, 4, 3, 2, name="PaaS Licenses Total"),
+        place(take("licenses", "Non-Compute - Total"), 14, 7, 3, 2, name="Non-Compute Licenses Total"),
+        place(take("licenses", "Local Licenses"), 14, 10, 3, 2, name="Local Licenses"),
+        place(take("licenses", "Local Licenses Percents"), 16, 1, 3, 2, name="Local License Percent Used"),
+        place(take("alerts", "Total Number of Resources"), 16, 4, 3, 2, name="Monitored Resources"),
+        place(take("alerts", "Total Number of Dead Resources"), 16, 7, 3, 2, name="Dead Resources"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 16, 10, 3, 2, name="Minimally Monitored"),
+        section_banner("Coverage risk trends", row=18),
+        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 20, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 20, 7, 6, 4, name="Minimal Monitoring Trend"),
+        tech_directory_panel(row=24, sizey=4),
         footer_links(
             [
                 ("Coverage, Capacity & Licenses", "04 — operational detail"),
                 ("Technology Directory", "31 — OOTB capacity"),
                 ("Executive Command Center", "10"),
             ],
-            row=27,
+            row=29,
         ),
     ]
     return make_dashboard(
-        "13 - Capacity and Risk Overview",
+        "14 - Capacity and Risk Overview",
         "Executive capacity and coverage risk: licenses, gaps, and OOTB capacity links.",
         LICENSE_TOKENS,
         widgets,
@@ -943,39 +954,39 @@ def build_20() -> dict:
             sizey=6,
         ),
         section_banner("Triage strip", row=12),
-        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts Requiring Attention"),
-        place(take("alerts", "Total Number of Error Alerts"), 13, 4, 3, 2, name="Error Alerts"),
-        place(take("alerts", "Total Number of Dead Resources"), 13, 7, 3, 2, name="Dead Resources"),
-        place(take("overview", "Total Number of Down Collectors"), 13, 10, 3, 2, name="Down Collectors"),
-        place(take("overview", "Total Number of Dead Websites"), 15, 1, 3, 2, name="Dead Websites"),
-        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 15, 4, 3, 2, name="Minimally Monitored"),
-        place(take("alerts", "Total Number of SDT Resource"), 15, 7, 3, 2, name="Resources in SDT"),
-        place(take("overview", "Total Number of Alive Collectors"), 15, 10, 3, 2, name="Alive Collectors"),
-        section_banner("Live exceptions and concentration", row=17),
-        place(take("overview", "All Resource Alerts"), 18, 1, 8, 5, name="Active Resource Alerts"),
-        place(take("overview", "Current Collector Alerts"), 18, 9, 4, 5, name="Collector Alerts"),
-        place(take("overview", "Alert Status by Resource Location"), 23, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 23, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("alerts", "Total Number of Critical Alerts"), 14, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("alerts", "Total Number of Error Alerts"), 14, 4, 3, 2, name="Error Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 14, 7, 3, 2, name="Dead Resources"),
+        place(take("overview", "Total Number of Down Collectors"), 14, 10, 3, 2, name="Down Collectors"),
+        place(take("overview", "Total Number of Dead Websites"), 16, 1, 3, 2, name="Dead Websites"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 16, 4, 3, 2, name="Minimally Monitored"),
+        place(take("alerts", "Total Number of SDT Resource"), 16, 7, 3, 2, name="Resources in SDT"),
+        place(take("overview", "Total Number of Alive Collectors"), 16, 10, 3, 2, name="Alive Collectors"),
+        section_banner("Live exceptions and concentration", row=18),
+        place(take("overview", "All Resource Alerts"), 20, 1, 8, 5, name="Active Resource Alerts"),
+        place(take("overview", "Current Collector Alerts"), 20, 9, 4, 5, name="Collector Alerts"),
+        place(take("overview", "Alert Status by Resource Location"), 25, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 25, 7, 6, 5, name="Alert Status by Resource Types"),
         dcc_nav_guide(
             "Operational Drill Paths",
             "Next operational and technical steps",
             [
-                ("Alerts", "Active Alerts (03)", ["Severity KPIs", "Rules / integrations", "Module noise"]),
-                ("Resources", "Resource Health (02)", ["Dead / minimal trends", "Idle interval", "Collector signals"]),
-                ("Services", "Websites (05)", ["Dead websites", "Empty groups", "Website token"]),
+                ("Alerts", "Active Alerts (21)", ["Severity KPIs", "Rules / integrations", "Module noise"]),
+                ("Resources", "Resource Health (22)", ["Dead / minimal trends", "Idle interval", "Collector signals"]),
+                ("Services", "Websites (23)", ["Dead websites", "Empty groups", "Website token"]),
                 ("Technical", "Investigation (30)", ["Metric families", "Collector diagnostics", "OOTB directory"]),
             ],
-            row=28,
+            row=30,
             sizey=4,
         ),
         footer_links(
             [
-                ("Active Alerts", "03"),
-                ("Resource Health", "02"),
+                ("Active Alerts", "21"),
+                ("Resource Health", "22"),
                 ("Technical Resource Investigation", "30"),
                 ("Executive Command Center", "10"),
             ],
-            row=32,
+            row=34,
         ),
     ]
     return make_dashboard(
@@ -986,9 +997,9 @@ def build_20() -> dict:
     )
 
 
-def build_02() -> dict:
+def build_22() -> dict:
     widgets = [
-        global_nav_widget("02", row=1, sizey=5),
+        global_nav_widget("22", row=1, sizey=5),
         guide_widget(
             "Resource Health — Read First",
             "Resource Health",
@@ -1006,53 +1017,53 @@ def build_02() -> dict:
                 ("Website dead count", "Service checks"),
             ],
             [
-                "Active alert triage → 03",
-                "Collector diagnostics → 07",
-                "Website detail → 05",
-                "Coverage / discovery → 04",
+                "Active alert triage → 21",
+                "Collector diagnostics → 31",
+                "Website detail → 23",
+                "Coverage / discovery → 24",
                 "Technical investigation → 30",
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Critical status", row=11),
-        place(take("alerts", "Total Number of Critical Alerts"), 12, 1, 3, 2, name="Critical Alerts"),
-        place(take("alerts", "Total Number of Dead Resources"), 12, 4, 3, 2, name="Dead Resources"),
-        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 12, 7, 3, 2, name="Minimally Monitored Resources"),
-        place(take("overview", "Total Number of Dead Websites"), 12, 10, 3, 2, name="Dead Websites"),
-        place(take("overview", "Total Number of Alive Collectors"), 14, 1, 3, 2, name="Alive Collectors"),
-        place(take("overview", "Total Number of Down Collectors"), 14, 4, 3, 2, name="Down Collectors"),
-        place(take("alerts", "Total Number of SDT Resource"), 14, 7, 3, 2, name="Resources in SDT"),
-        place(take("alerts", "Total Number of Netflow Resource"), 14, 10, 3, 2, name="Netflow Resources"),
-        section_banner("Situation visuals", row=16),
-        place(take("overview", "Alert Status by Resource Location"), 17, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 17, 7, 6, 5, name="Alert Status by Resource Types"),
-        section_banner("Trends and collector signals", row=22),
-        place(take("alerts", "Top Dead Resources Over Time"), 23, 1, 4, 4, name="Dead Resources Trend"),
-        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 23, 5, 4, 4, name="Minimal Monitoring Trend"),
-        place(take("overview", "Current Collector Alerts"), 23, 9, 4, 4, name="Current Collector Alerts"),
-        place(take("alerts", "Idle Interval"), 27, 1, 12, 4, name="Resources with Idle Interval Risk"),
+        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 13, 4, 3, 2, name="Dead Resources"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 13, 7, 3, 2, name="Minimally Monitored Resources"),
+        place(take("overview", "Total Number of Dead Websites"), 13, 10, 3, 2, name="Dead Websites"),
+        place(take("overview", "Total Number of Alive Collectors"), 15, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 15, 4, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of SDT Resource"), 15, 7, 3, 2, name="Resources in SDT"),
+        place(take("alerts", "Total Number of Netflow Resource"), 15, 10, 3, 2, name="Netflow Resources"),
+        section_banner("Situation visuals", row=17),
+        place(take("overview", "Alert Status by Resource Location"), 19, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 19, 7, 6, 5, name="Alert Status by Resource Types"),
+        section_banner("Trends and collector signals", row=24),
+        place(take("alerts", "Top Dead Resources Over Time"), 26, 1, 4, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 26, 5, 4, 4, name="Minimal Monitoring Trend"),
+        place(take("overview", "Current Collector Alerts"), 26, 9, 4, 4, name="Current Collector Alerts"),
+        place(take("alerts", "Idle Interval"), 30, 1, 12, 4, name="Resources with Idle Interval Risk"),
         footer_links(
             [
                 ("Operational Command Center", "20"),
-                ("Active Alerts", "03"),
-                ("Collector Diagnostics", "07"),
+                ("Active Alerts", "21"),
+                ("Collector Diagnostics", "31"),
                 ("Technical Investigation", "30"),
             ],
-            row=31,
+            row=34,
         ),
     ]
     return make_dashboard(
-        "02 - Resource Health",
+        "22 - Resource Health",
         "Operational resource health: map/NOC, dead/minimal resources, collector and website signals.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
-def build_03() -> dict:
+def build_21() -> dict:
     widgets = [
-        global_nav_widget("03", row=1, sizey=5),
+        global_nav_widget("21", row=1, sizey=5),
         guide_widget(
             "Active Alerts — Read First",
             "Active Alerts",
@@ -1071,56 +1082,56 @@ def build_03() -> dict:
                 ("90-day module tables", "Content noise"),
             ],
             [
-                "Collector-caused gaps → 07",
-                "Noisy modules deep dive → 08",
-                "Spatial concentration → 02",
+                "Collector-caused gaps → 31",
+                "Noisy modules deep dive → 32",
+                "Spatial concentration → 22",
                 "Technical investigation → 30",
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Severity and volume", row=11),
-        place(take("alerts", "Total Number of Critical Alerts"), 12, 1, 3, 2, name="Critical Alerts Requiring Attention"),
-        place(take("alerts", "Total Number of Error Alerts"), 12, 4, 3, 2, name="Error Alerts"),
-        place(take("alerts", "Total Number of Warning Alerts"), 12, 7, 3, 2, name="Warning Alerts"),
-        place(take("alerts", "Total Number of Alerts"), 12, 10, 3, 2, name="Total Alerts"),
-        place(take("alerts", "Alert Counts over time"), 14, 1, 6, 4, name="Alert Count Trend"),
-        place(take("alerts", "Top Datasources by Alerts"), 14, 7, 6, 4, name="Top Datasources by Alert Volume"),
-        section_banner("Live exceptions", row=18),
-        place(take("overview", "All Resource Alerts"), 19, 1, 8, 5, name="All Resource Alerts"),
-        place(take("overview", "Current Collector Alerts"), 19, 9, 4, 5, name="Current Collector Alerts"),
-        section_banner("Routing and integrations", row=24),
-        place(take("alerts", "Alert Rules"), 25, 1, 4, 4, name="Alert Rules in Use"),
-        place(take("alerts", "Escalation Chains inUse by Alert Rules"), 25, 5, 4, 4, name="Escalation Chains in Use"),
-        place(take("alerts", "Total Number of Escalation Chains"), 25, 9, 3, 2, name="Escalation Chain Count"),
-        place(take("alerts", "Total Number of Portal Integration"), 27, 9, 3, 2, name="Portal Integrations"),
-        place(take("alerts", "Number of Integrations with Non 200 Response"), 29, 1, 6, 4, name="Integrations with Non-200 Responses"),
-        section_banner("LogicModule alert noise (90 days)", row=33),
-        place(take("alerts", "Datasource Alerts in last 90 days"), 34, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
-        place(take("alerts", "EventSource Alerts in last 90 days"), 34, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
-        place(take("alerts", "ConfigSource Alerts in last 90 days"), 38, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
-        place(take("alerts", "LogSource Alerts in last 90 days"), 38, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
+        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("alerts", "Total Number of Error Alerts"), 13, 4, 3, 2, name="Error Alerts"),
+        place(take("alerts", "Total Number of Warning Alerts"), 13, 7, 3, 2, name="Warning Alerts"),
+        place(take("alerts", "Total Number of Alerts"), 13, 10, 3, 2, name="Total Alerts"),
+        place(take("alerts", "Alert Counts over time"), 15, 1, 6, 4, name="Alert Count Trend"),
+        place(take("alerts", "Top Datasources by Alerts"), 15, 7, 6, 4, name="Top Datasources by Alert Volume"),
+        section_banner("Live exceptions", row=19),
+        place(take("overview", "All Resource Alerts"), 21, 1, 8, 5, name="All Resource Alerts"),
+        place(take("overview", "Current Collector Alerts"), 21, 9, 4, 5, name="Current Collector Alerts"),
+        section_banner("Routing and integrations", row=26),
+        place(take("alerts", "Alert Rules"), 28, 1, 4, 4, name="Alert Rules in Use"),
+        place(take("alerts", "Escalation Chains inUse by Alert Rules"), 28, 5, 4, 4, name="Escalation Chains in Use"),
+        place(take("alerts", "Total Number of Escalation Chains"), 28, 9, 3, 2, name="Escalation Chain Count"),
+        place(take("alerts", "Total Number of Portal Integration"), 30, 9, 3, 2, name="Portal Integrations"),
+        place(take("alerts", "Number of Integrations with Non 200 Response"), 32, 1, 6, 4, name="Integrations with Non-200 Responses"),
+        section_banner("LogicModule alert noise (90 days)", row=36),
+        place(take("alerts", "Datasource Alerts in last 90 days"), 38, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
+        place(take("alerts", "EventSource Alerts in last 90 days"), 38, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
+        place(take("alerts", "ConfigSource Alerts in last 90 days"), 42, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
+        place(take("alerts", "LogSource Alerts in last 90 days"), 42, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
         footer_links(
             [
                 ("Operational Command Center", "20"),
-                ("Resource Health", "02"),
-                ("Collector Diagnostics", "07"),
-                ("LogicModule and Content", "08"),
+                ("Resource Health", "22"),
+                ("Collector Diagnostics", "31"),
+                ("LogicModule and Content", "32"),
             ],
-            row=42,
+            row=46,
         ),
     ]
     return make_dashboard(
-        "03 - Active Alerts",
+        "21 - Active Alerts",
         "Operational alert cockpit: severity, trends, live alerts, rules, escalations, integrations, and module noise.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
-def build_04() -> dict:
+def build_24() -> dict:
     widgets = [
-        global_nav_widget("04", row=1, sizey=5),
+        global_nav_widget("24", row=1, sizey=5),
         guide_widget(
             "Coverage Capacity Licenses — Read First",
             "Coverage, Capacity & Licenses",
@@ -1139,64 +1150,64 @@ def build_04() -> dict:
                 ("OOTB capacity links", "Infra utilization"),
             ],
             [
-                "Executive Capacity Risk → 13",
-                "Modules → 08",
-                "Websites → 05",
-                "Technology Directory → 31",
+                "Executive Capacity Risk → 14",
+                "Modules → 32",
+                "Websites → 23",
+                "Technology Directory → 34",
             ],
             row=6,
             sizey=5,
         ),
         section_banner("License consumption", row=11),
-        place(take("licenses", "IaaS - Total"), 12, 1, 3, 2, name="IaaS Licenses Total"),
-        place(take("licenses", "PaaS - Total"), 12, 4, 3, 2, name="PaaS Licenses Total"),
-        place(take("licenses", "Non-Compute - Total"), 12, 7, 3, 2, name="Non-Compute Licenses Total"),
-        place(take("licenses", "Local Licenses"), 12, 10, 3, 2, name="Local Licenses"),
-        place(take("licenses", "AWS - IaaS"), 14, 1, 2, 2),
-        place(take("licenses", "AWS - PaaS"), 14, 3, 2, 2),
-        place(take("licenses", "AWS - Non-Compute"), 14, 5, 2, 2),
-        place(take("licenses", "Azure - IaaS"), 14, 7, 2, 2),
-        place(take("licenses", "Azure - PaaS"), 14, 9, 2, 2),
-        place(take("licenses", "Azure - Non-Compute"), 14, 11, 2, 2),
-        place(take("licenses", "GCP - IaaS"), 16, 1, 2, 2),
-        place(take("licenses", "GCP - PaaS"), 16, 3, 2, 2),
-        place(take("licenses", "GCP - Non-Compute"), 16, 5, 2, 2),
-        place(take("licenses", "Local Licenses Percents"), 16, 7, 3, 2, name="Local License Percent Used"),
-        section_banner("Discovery and coverage gaps", row=18),
-        place(take("alerts", "Total Number of Netscans"), 19, 1, 3, 2, name="Netscans Total"),
-        place(take("alerts", "Total Number of Netscans - EC2"), 19, 4, 3, 2),
-        place(take("alerts", "Total Number of Netscans - Script"), 19, 7, 3, 2),
-        place(take("alerts", "Total Number of Netscans - Scheduled"), 19, 10, 3, 2),
-        place(take("alerts", "Netscans"), 21, 1, 12, 4, name="Netscan Inventory"),
-        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 25, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
-        place(take("alerts", "Number of Netscan Devices Added Per Day Over 90 Days"), 25, 7, 6, 4, name="Netscan Devices Added Per Day"),
-        section_banner("Group hygiene", row=29),
-        place(take("groups", "Total Number of Device Groups"), 30, 1, 3, 2),
-        place(take("groups", "Total Number of Empty Static Groups"), 30, 4, 3, 2, name="Empty Static Device Groups"),
-        place(take("groups", "Total Number of Website Groups"), 30, 7, 3, 2),
-        place(take("groups", "Total Number of Empty Website Groups"), 30, 10, 3, 2, name="Empty Website Groups"),
-        tech_directory_panel(row=32, sizey=5),
+        place(take("licenses", "IaaS - Total"), 13, 1, 3, 2, name="IaaS Licenses Total"),
+        place(take("licenses", "PaaS - Total"), 13, 4, 3, 2, name="PaaS Licenses Total"),
+        place(take("licenses", "Non-Compute - Total"), 13, 7, 3, 2, name="Non-Compute Licenses Total"),
+        place(take("licenses", "Local Licenses"), 13, 10, 3, 2, name="Local Licenses"),
+        place(take("licenses", "AWS - IaaS"), 15, 1, 2, 2),
+        place(take("licenses", "AWS - PaaS"), 15, 3, 2, 2),
+        place(take("licenses", "AWS - Non-Compute"), 15, 5, 2, 2),
+        place(take("licenses", "Azure - IaaS"), 15, 7, 2, 2),
+        place(take("licenses", "Azure - PaaS"), 15, 9, 2, 2),
+        place(take("licenses", "Azure - Non-Compute"), 15, 11, 2, 2),
+        place(take("licenses", "GCP - IaaS"), 17, 1, 2, 2),
+        place(take("licenses", "GCP - PaaS"), 17, 3, 2, 2),
+        place(take("licenses", "GCP - Non-Compute"), 17, 5, 2, 2),
+        place(take("licenses", "Local Licenses Percents"), 17, 7, 3, 2, name="Local License Percent Used"),
+        section_banner("Discovery and coverage gaps", row=19),
+        place(take("alerts", "Total Number of Netscans"), 21, 1, 3, 2, name="Netscans Total"),
+        place(take("alerts", "Total Number of Netscans - EC2"), 21, 4, 3, 2),
+        place(take("alerts", "Total Number of Netscans - Script"), 21, 7, 3, 2),
+        place(take("alerts", "Total Number of Netscans - Scheduled"), 21, 10, 3, 2),
+        place(take("alerts", "Netscans"), 23, 1, 12, 4, name="Netscan Inventory"),
+        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 27, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
+        place(take("alerts", "Number of Netscan Devices Added Per Day Over 90 Days"), 27, 7, 6, 4, name="Netscan Devices Added Per Day"),
+        section_banner("Group hygiene", row=31),
+        place(take("groups", "Total Number of Device Groups"), 33, 1, 3, 2),
+        place(take("groups", "Total Number of Empty Static Groups"), 33, 4, 3, 2, name="Empty Static Device Groups"),
+        place(take("groups", "Total Number of Website Groups"), 33, 7, 3, 2),
+        place(take("groups", "Total Number of Empty Website Groups"), 33, 10, 3, 2, name="Empty Website Groups"),
+        tech_directory_panel(row=35, sizey=4),
         footer_links(
             [
-                ("Capacity and Risk Overview", "13"),
-                ("LogicModule and Content", "08"),
-                ("Websites and Services", "05"),
-                ("Adoption", "09"),
+                ("Capacity and Risk Overview", "14"),
+                ("LogicModule and Content", "32"),
+                ("Websites and Services", "23"),
+                ("Adoption", "33"),
             ],
-            row=37,
+            row=40,
         ),
     ]
     return make_dashboard(
-        "04 - Coverage, Capacity & Licenses",
+        "24 - Coverage, Capacity & Licenses",
         "Operational coverage: licenses, netscans, unmonitored trends, group hygiene, and OOTB capacity links.",
         LICENSE_TOKENS,
         widgets,
     )
 
 
-def build_05() -> dict:
+def build_23() -> dict:
     widgets = [
-        global_nav_widget("05", row=1, sizey=5),
+        global_nav_widget("23", row=1, sizey=5),
         guide_widget(
             "Websites and Services — Read First",
             "Websites and Services",
@@ -1212,54 +1223,54 @@ def build_05() -> dict:
                 ("OOTB Website links", "Performance deep dive"),
             ],
             [
-                ("Availability Exec", "12"),
-                ("Resource Health", "02"),
-                ("Coverage", "04"),
-                ("OOTB Websites", "31"),
+                ("Availability Exec", "13"),
+                ("Resource Health", "22"),
+                ("Coverage", "24"),
+                ("OOTB Websites", "34"),
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Website health", row=11),
-        place(take("groups", "Total Number of Websites"), 12, 1, 3, 2, name="Websites Monitored"),
-        place(take("groups", "Total Number of Dead Website"), 12, 4, 3, 2, name="Dead Websites"),
-        place(take("groups", "Total Number of Website Groups"), 12, 7, 3, 2, name="Website Groups"),
-        place(take("groups", "Total Number of Empty Website Groups"), 12, 10, 3, 2, name="Empty Website Groups"),
-        section_banner("Device group structure", row=14),
-        place(take("groups", "Total Number of Device Groups"), 15, 1, 3, 2),
-        place(take("groups", "Total Number of Static Device Groups"), 15, 4, 3, 2),
-        place(take("groups", "Total Number of Dynamic Device Groups"), 15, 7, 3, 2),
-        place(take("groups", "Total Number of Empty Static Groups"), 15, 10, 3, 2, name="Empty Static Device Groups"),
+        place(take("groups", "Total Number of Websites"), 13, 1, 3, 2, name="Websites Monitored"),
+        place(take("groups", "Total Number of Dead Website"), 13, 4, 3, 2, name="Dead Websites"),
+        place(take("groups", "Total Number of Website Groups"), 13, 7, 3, 2, name="Website Groups"),
+        place(take("groups", "Total Number of Empty Website Groups"), 13, 10, 3, 2, name="Empty Website Groups"),
+        section_banner("Device group structure", row=15),
+        place(take("groups", "Total Number of Device Groups"), 17, 1, 3, 2),
+        place(take("groups", "Total Number of Static Device Groups"), 17, 4, 3, 2),
+        place(take("groups", "Total Number of Dynamic Device Groups"), 17, 7, 3, 2),
+        place(take("groups", "Total Number of Empty Static Groups"), 17, 10, 3, 2, name="Empty Static Device Groups"),
         text_widget(
             "Website Token Scope",
             """<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;">
 <div style="font-size:20px;font-weight:700;color:#f9fafb;">defaultWebsiteGroup</div>
 <div style="font-size:13px;color:#9ca3af;margin-top:4px;">Set <code>##defaultWebsiteGroup##</code> to scope website views when OOTB website dashboards are linked. Default is <code>*</code>.</div>
 </div>""",
-            row=17,
+            row=19,
             sizey=2,
         ),
-        tech_directory_panel(row=19, sizey=5),
+        tech_directory_panel(row=21, sizey=4),
         footer_links(
             [
-                ("Availability and Service Health", "12"),
-                ("Resource Health", "02"),
-                ("Active Alerts", "03"),
+                ("Availability and Service Health", "13"),
+                ("Resource Health", "22"),
+                ("Active Alerts", "21"),
             ],
-            row=24,
+            row=26,
         ),
     ]
     return make_dashboard(
-        "05 - Websites and Services",
+        "23 - Websites and Services",
         "Operational websites and group hygiene with defaultWebsiteGroup token.",
         WEBSITE_TOKENS,
         widgets,
     )
 
 
-def build_06() -> dict:
+def build_25() -> dict:
     widgets = [
-        global_nav_widget("06", row=1, sizey=5),
+        global_nav_widget("25", row=1, sizey=5),
         guide_widget(
             "Access and Administration — Read First",
             "Access and Administration",
@@ -1282,31 +1293,31 @@ def build_06() -> dict:
             sizey=5,
         ),
         section_banner("Users and access", row=11),
-        place(take("users", "Users"), 12, 1, 3, 2, name="Total Users"),
-        place(take("users", "Users with Active Status"), 12, 4, 3, 2, name="Active Users"),
-        place(take("users", "API Access Users"), 12, 7, 3, 2, name="Users with API Access"),
-        place(take("users", "API Only users"), 12, 10, 3, 2, name="API-Only Users"),
-        section_banner("Roles and groups", row=14),
-        place(take("users", "User Roles"), 15, 1, 3, 2),
-        place(take("users", "Roles with no assigned Users"), 15, 4, 3, 2, name="Roles with No Assigned Users"),
-        place(take("users", "User Groups"), 15, 7, 3, 2),
-        place(take("users", "Empty User Groups"), 15, 10, 3, 2, name="Empty User Groups"),
-        section_banner("Tokens and idle access (90 days)", row=17),
-        place(take("users", "API Tokens"), 18, 1, 3, 2),
-        place(take("users", "API Token not used in last 90 days"), 18, 4, 3, 2, name="Idle API Tokens (90 Days)"),
-        place(take("users", "Users not logged in last 90 days"), 18, 7, 3, 2, name="Idle Users (90 Days)"),
-        place(take("users", "API Only Users not logged in last 90 days"), 18, 10, 3, 2, name="Idle API-Only Users (90 Days)"),
+        place(take("users", "Users"), 13, 1, 3, 2, name="Total Users"),
+        place(take("users", "Users with Active Status"), 13, 4, 3, 2, name="Active Users"),
+        place(take("users", "API Access Users"), 13, 7, 3, 2, name="Users with API Access"),
+        place(take("users", "API Only users"), 13, 10, 3, 2, name="API-Only Users"),
+        section_banner("Roles and groups", row=15),
+        place(take("users", "User Roles"), 17, 1, 3, 2),
+        place(take("users", "Roles with no assigned Users"), 17, 4, 3, 2, name="Roles with No Assigned Users"),
+        place(take("users", "User Groups"), 17, 7, 3, 2),
+        place(take("users", "Empty User Groups"), 17, 10, 3, 2, name="Empty User Groups"),
+        section_banner("Tokens and idle access (90 days)", row=19),
+        place(take("users", "API Tokens"), 21, 1, 3, 2),
+        place(take("users", "API Token not used in last 90 days"), 21, 4, 3, 2, name="Idle API Tokens (90 Days)"),
+        place(take("users", "Users not logged in last 90 days"), 21, 7, 3, 2, name="Idle Users (90 Days)"),
+        place(take("users", "API Only Users not logged in last 90 days"), 21, 10, 3, 2, name="Idle API-Only Users (90 Days)"),
         footer_links(
             [
-                ("Adoption and Optimization", "09"),
+                ("Adoption and Optimization", "33"),
                 ("Home", "00"),
-                ("Platform Value", "01"),
+                ("Platform Value", "11"),
             ],
-            row=20,
+            row=23,
         ),
     ]
     return make_dashboard(
-        "06 - Access and Administration",
+        "25 - Access and Administration",
         "Operational access governance: users, roles, groups, API tokens, and idle access.",
         PORTAL_TOKENS,
         widgets,
@@ -1333,38 +1344,38 @@ def build_30() -> dict:
             sizey=6,
         ),
         section_banner("Investigation signals", row=12),
-        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts"),
-        place(take("alerts", "Total Number of Dead Resources"), 13, 4, 3, 2, name="Dead Resources"),
-        place(take("overview", "Total Number of Down Collectors"), 13, 7, 3, 2, name="Down Collectors"),
-        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 13, 10, 3, 2, name="Minimally Monitored"),
-        place(take("overview", "All Resource Alerts"), 15, 1, 8, 5, name="Scoped Resource Alerts"),
-        place(take("overview", "Current Collector Alerts"), 15, 9, 4, 5, name="Collector Alerts"),
-        place(take("alerts", "Alert Counts over time"), 20, 1, 6, 4, name="Alert Count Trend"),
-        place(take("alerts", "Top Dead Resources Over Time"), 20, 7, 6, 4, name="Dead Resources Trend"),
-        place(take("alerts", "Idle Interval"), 24, 1, 12, 4, name="Idle Interval Risk Resources"),
+        place(take("alerts", "Total Number of Critical Alerts"), 14, 1, 3, 2, name="Critical Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 14, 4, 3, 2, name="Dead Resources"),
+        place(take("overview", "Total Number of Down Collectors"), 14, 7, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 14, 10, 3, 2, name="Minimally Monitored"),
+        place(take("overview", "All Resource Alerts"), 16, 1, 8, 5, name="Scoped Resource Alerts"),
+        place(take("overview", "Current Collector Alerts"), 16, 9, 4, 5, name="Collector Alerts"),
+        place(take("alerts", "Alert Counts over time"), 21, 1, 6, 4, name="Alert Count Trend"),
+        place(take("alerts", "Top Dead Resources Over Time"), 21, 7, 6, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Idle Interval"), 25, 1, 12, 4, name="Idle Interval Risk Resources"),
         dcc_inventory_table(
             "Investigation Paths",
             "Metric-family and diagnostic paths",
-            "Open the matching technical board. Configure OOTB IDs on 31 after import.",
+            "Open the matching technical board. Configure OOTB IDs on 34 after import.",
             [
-                ("Collectors", "Collector Diagnostics", "JVM, tasks, method mix, collector alerts", "07"),
-                ("Content", "LogicModule and Content", "Inventory and 90-day noise", "08"),
-                ("Adoption", "Adoption and Optimization", "Noise and coverage improvement", "09"),
-                ("Directory", "Technology Dashboard Directory", "Network / Server / Storage / Cloud / Capacity", "31"),
-                ("Ops", "Active Alerts", "Rules, integrations, live triage", "03"),
-                ("Ops", "Resource Health", "Map, NOC, dead/minimal", "02"),
+                ("Collectors", "Collector Diagnostics", "JVM, tasks, method mix, collector alerts", "31"),
+                ("Content", "LogicModule and Content", "Inventory and 90-day noise", "32"),
+                ("Adoption", "Adoption and Optimization", "Noise and coverage improvement", "33"),
+                ("Directory", "Technology Dashboard Directory", "Network / Server / Storage / Cloud / Capacity", "34"),
+                ("Ops", "Active Alerts", "Rules, integrations, live triage", "21"),
+                ("Ops", "Resource Health", "Map, NOC, dead/minimal", "22"),
             ],
-            row=28,
-            sizey=5,
+            row=29,
+            sizey=4,
         ),
         footer_links(
             [
-                ("Collector Diagnostics", "07"),
-                ("Technology Directory", "31"),
+                ("Collector Diagnostics", "31"),
+                ("Technology Directory", "34"),
                 ("Operational Command Center", "20"),
                 ("Executive Command Center", "10"),
             ],
-            row=33,
+            row=34,
         ),
     ]
     return make_dashboard(
@@ -1375,9 +1386,9 @@ def build_30() -> dict:
     )
 
 
-def build_07() -> dict:
+def build_31() -> dict:
     widgets = [
-        global_nav_widget("07", row=1, sizey=5),
+        global_nav_widget("31", row=1, sizey=5),
         guide_widget(
             "Collector Diagnostics — Read First",
             "Collector Diagnostics",
@@ -1394,66 +1405,66 @@ def build_07() -> dict:
                 ("Collector alerts", "Exceptions"),
             ],
             [
-                ("Resource Health", "02"),
-                ("Active Alerts", "03"),
+                ("Resource Health", "22"),
+                ("Active Alerts", "21"),
                 ("Technical Investigation", "30"),
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Instance counts by collection method", row=11),
-        place(take("collector", "Selenium Instance Count"), 12, 1, 2, 2),
-        place(take("collector", "Batchscript Instance Count"), 12, 3, 2, 2),
-        place(take("collector", "DNS Instance Count"), 12, 5, 2, 2),
-        place(take("collector", "JMX Instance Count"), 12, 7, 2, 2),
-        place(take("collector", "Ping Instance Count"), 12, 9, 2, 2),
-        place(take("collector", "Script Instance Count"), 12, 11, 2, 2),
-        place(take("collector", "SNMP Instance Count"), 14, 1, 2, 2),
-        place(take("collector", "Webpage Instance Count"), 14, 3, 2, 2),
-        place(take("collector", "WMI Instance Count"), 14, 5, 2, 2),
-        place(take("collector", "Data Collection Instance Counts"), 14, 7, 3, 2),
-        place(take("collector", "Total Data Collecting Instance Count"), 14, 10, 3, 2, name="Total Data Collecting Instances"),
-        section_banner("Real-time collector stats", row=16),
-        place(take("collector", "Collector JVM Performance (Real-time)"), 17, 1, 6, 4, name="Collector JVM Performance"),
-        place(take("collector", "Collector Alert History"), 17, 7, 6, 4, name="Collector Alert History"),
-        place(take("collector", "Top Collectors by Heap Utilization (Trend)"), 21, 1, 6, 4, name="Top Collectors by Heap Utilization"),
-        place(take("collector", "Top Collectors by CPU Utilization (Trend)"), 21, 7, 6, 4, name="Top Collectors by CPU Utilization"),
-        section_banner("Collection and Active Discovery tasks", row=25),
-        place(take("collector", "Top 10 Collection Tasks by Slowest Successful Execution"), 26, 1, 4, 4, name="Slowest Successful Collection Tasks"),
-        place(take("collector", "Active DiscoveryTop 10 Tasks by Failure Rate"), 26, 5, 4, 4, name="Active Discovery Tasks by Failure Rate"),
-        place(take("collector", "Top Collection Tasks (Real-time)"), 26, 9, 4, 4),
-        place(take("collector", "Top Active Discovery Tasks (Real-time)"), 30, 1, 6, 4),
-        place(take("collector", "Collector Data Collecting Tasks-Total"), 30, 7, 6, 4, name="Data Collecting Tasks Total"),
-        place(take("collector", "Collector Data Collecting Tasks-Unavailable Thread Scheduling"), 34, 1, 6, 4),
-        place(take("collector", "Total Instance Counts by Collector"), 34, 7, 6, 4),
-        section_banner("Individual collector methods", row=38),
-        place(take("collector", "Collector Data Collecting Tasks-script"), 39, 1, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-batchscript"), 39, 5, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-WMI"), 39, 9, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-SNMP"), 42, 1, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-Ping"), 42, 5, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-JMX"), 42, 9, 4, 3),
+        place(take("collector", "Selenium Instance Count"), 13, 1, 2, 2),
+        place(take("collector", "Batchscript Instance Count"), 13, 3, 2, 2),
+        place(take("collector", "DNS Instance Count"), 13, 5, 2, 2),
+        place(take("collector", "JMX Instance Count"), 13, 7, 2, 2),
+        place(take("collector", "Ping Instance Count"), 13, 9, 2, 2),
+        place(take("collector", "Script Instance Count"), 13, 11, 2, 2),
+        place(take("collector", "SNMP Instance Count"), 15, 1, 2, 2),
+        place(take("collector", "Webpage Instance Count"), 15, 3, 2, 2),
+        place(take("collector", "WMI Instance Count"), 15, 5, 2, 2),
+        place(take("collector", "Data Collection Instance Counts"), 15, 7, 3, 2),
+        place(take("collector", "Total Data Collecting Instance Count"), 15, 10, 3, 2, name="Total Data Collecting Instances"),
+        section_banner("Real-time collector stats", row=17),
+        place(take("collector", "Collector JVM Performance (Real-time)"), 19, 1, 6, 4, name="Collector JVM Performance"),
+        place(take("collector", "Collector Alert History"), 19, 7, 6, 4, name="Collector Alert History"),
+        place(take("collector", "Top Collectors by Heap Utilization (Trend)"), 23, 1, 6, 4, name="Top Collectors by Heap Utilization"),
+        place(take("collector", "Top Collectors by CPU Utilization (Trend)"), 23, 7, 6, 4, name="Top Collectors by CPU Utilization"),
+        section_banner("Collection and Active Discovery tasks", row=27),
+        place(take("collector", "Top 10 Collection Tasks by Slowest Successful Execution"), 29, 1, 4, 4, name="Slowest Successful Collection Tasks"),
+        place(take("collector", "Active DiscoveryTop 10 Tasks by Failure Rate"), 29, 5, 4, 4, name="Active Discovery Tasks by Failure Rate"),
+        place(take("collector", "Top Collection Tasks (Real-time)"), 29, 9, 4, 4),
+        place(take("collector", "Top Active Discovery Tasks (Real-time)"), 33, 1, 6, 4),
+        place(take("collector", "Collector Data Collecting Tasks-Total"), 33, 7, 6, 4, name="Data Collecting Tasks Total"),
+        place(take("collector", "Collector Data Collecting Tasks-Unavailable Thread Scheduling"), 37, 1, 6, 4),
+        place(take("collector", "Total Instance Counts by Collector"), 37, 7, 6, 4),
+        section_banner("Individual collector methods", row=41),
+        place(take("collector", "Collector Data Collecting Tasks-script"), 43, 1, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-batchscript"), 43, 5, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-WMI"), 43, 9, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-SNMP"), 46, 1, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-Ping"), 46, 5, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-JMX"), 46, 9, 4, 3),
         footer_links(
             [
                 ("Technical Resource Investigation", "30"),
-                ("Resource Health", "02"),
-                ("Active Alerts", "03"),
+                ("Resource Health", "22"),
+                ("Active Alerts", "21"),
                 ("Home", "00"),
             ],
-            row=45,
+            row=49,
         ),
     ]
     return make_dashboard(
-        "07 - Collector Diagnostics",
+        "31 - Collector Diagnostics",
         "Technical collector diagnostics (single canonical dashboard; duplicate removed).",
         COLLECTOR_TOKENS,
         widgets,
     )
 
 
-def build_08() -> dict:
+def build_32() -> dict:
     widgets = [
-        global_nav_widget("08", row=1, sizey=5),
+        global_nav_widget("32", row=1, sizey=5),
         guide_widget(
             "LogicModule and Content — Read First",
             "LogicModule and Content",
@@ -1469,49 +1480,49 @@ def build_08() -> dict:
                 ("Instance count table", "Footprint"),
             ],
             [
-                ("Active Alerts", "03"),
-                ("Adoption", "09"),
-                ("Coverage", "04"),
+                ("Active Alerts", "21"),
+                ("Adoption", "33"),
+                ("Coverage", "24"),
                 ("Investigation", "30"),
             ],
             row=6,
             sizey=5,
         ),
         section_banner("LogicModule inventory", row=11),
-        place(take("modules", "DataSources"), 12, 1, 3, 2),
-        place(take("modules", "EventSources"), 12, 4, 3, 2),
-        place(take("modules", "ConfigSources"), 12, 7, 3, 2),
-        place(take("modules", "PropertySources"), 12, 10, 3, 2),
-        place(take("modules", "LogSources"), 14, 1, 3, 2),
-        place(take("modules", "TopologySources"), 14, 4, 3, 2),
-        place(take("modules", "SNMP SYSOID Maps"), 14, 7, 3, 2),
-        place(take("modules", "AppliesTo Functions"), 14, 10, 3, 2),
-        section_banner("Noisy modules and instance footprint", row=16),
-        place(take("alerts", "Datasource Alerts in last 90 days"), 17, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
-        place(take("alerts", "EventSource Alerts in last 90 days"), 17, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
-        place(take("alerts", "ConfigSource Alerts in last 90 days"), 21, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
-        place(take("alerts", "LogSource Alerts in last 90 days"), 21, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
-        place(take("alerts", "Top Datasources by Instance Count"), 25, 1, 12, 4, name="Top Datasources by Instance Count"),
+        place(take("modules", "DataSources"), 13, 1, 3, 2),
+        place(take("modules", "EventSources"), 13, 4, 3, 2),
+        place(take("modules", "ConfigSources"), 13, 7, 3, 2),
+        place(take("modules", "PropertySources"), 13, 10, 3, 2),
+        place(take("modules", "LogSources"), 15, 1, 3, 2),
+        place(take("modules", "TopologySources"), 15, 4, 3, 2),
+        place(take("modules", "SNMP SYSOID Maps"), 15, 7, 3, 2),
+        place(take("modules", "AppliesTo Functions"), 15, 10, 3, 2),
+        section_banner("Noisy modules and instance footprint", row=17),
+        place(take("alerts", "Datasource Alerts in last 90 days"), 19, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
+        place(take("alerts", "EventSource Alerts in last 90 days"), 19, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
+        place(take("alerts", "ConfigSource Alerts in last 90 days"), 23, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
+        place(take("alerts", "LogSource Alerts in last 90 days"), 23, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
+        place(take("alerts", "Top Datasources by Instance Count"), 27, 1, 12, 4, name="Top Datasources by Instance Count"),
         footer_links(
             [
-                ("Active Alerts", "03"),
-                ("Adoption", "09"),
+                ("Active Alerts", "21"),
+                ("Adoption", "33"),
                 ("Technical Investigation", "30"),
             ],
-            row=29,
+            row=31,
         ),
     ]
     return make_dashboard(
-        "08 - LogicModule and Content",
+        "32 - LogicModule and Content",
         "Technical content inventory and noisy LogicModules.",
         MODULE_TOKENS,
         widgets,
     )
 
 
-def build_09() -> dict:
+def build_33() -> dict:
     widgets = [
-        global_nav_widget("09", row=1, sizey=5),
+        global_nav_widget("33", row=1, sizey=5),
         guide_widget(
             "Adoption and Optimization — Read First",
             "Adoption and Optimization",
@@ -1529,58 +1540,58 @@ def build_09() -> dict:
                 ("Integration failures", "Routing health"),
             ],
             [
-                ("Platform Value", "01 — close the loop"),
-                ("Active Alerts", "03"),
-                ("Access", "06"),
-                ("Coverage", "04"),
+                ("Platform Value", "11 — close the loop"),
+                ("Active Alerts", "21"),
+                ("Access", "25"),
+                ("Coverage", "24"),
             ],
             row=6,
             sizey=5,
         ),
         section_banner("Alert noise and improvement signals", row=11),
-        place(take("alerts", "Alert Counts over time"), 12, 1, 6, 4, name="Alert Count Trend"),
-        place(take("alerts", "Top Datasources by Alerts"), 12, 7, 6, 4, name="Top Noisy Datasources"),
-        section_banner("Idle access summary", row=16),
-        place(take("users", "Users not logged in last 90 days"), 17, 1, 3, 2, name="Idle Users (90 Days)"),
-        place(take("users", "API Token not used in last 90 days"), 17, 4, 3, 2, name="Idle API Tokens (90 Days)"),
-        place(take("users", "API Only Users not logged in last 90 days"), 17, 7, 3, 2, name="Idle API-Only Users (90 Days)"),
-        place(take("users", "Empty User Groups"), 17, 10, 3, 2, name="Empty User Groups"),
-        section_banner("Coverage gaps and integration health", row=19),
-        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 20, 1, 6, 4, name="Unmonitored Devices Trend"),
-        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 20, 7, 6, 4, name="Minimal Monitoring Trend"),
-        place(take("alerts", "Number of Integrations with Non 200 Response"), 24, 1, 6, 4, name="Integration Non-200 Trend"),
-        place(take("alerts", "Top Dead Resources Over Time"), 24, 7, 6, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Alert Counts over time"), 13, 1, 6, 4, name="Alert Count Trend"),
+        place(take("alerts", "Top Datasources by Alerts"), 13, 7, 6, 4, name="Top Noisy Datasources"),
+        section_banner("Idle access summary", row=17),
+        place(take("users", "Users not logged in last 90 days"), 19, 1, 3, 2, name="Idle Users (90 Days)"),
+        place(take("users", "API Token not used in last 90 days"), 19, 4, 3, 2, name="Idle API Tokens (90 Days)"),
+        place(take("users", "API Only Users not logged in last 90 days"), 19, 7, 3, 2, name="Idle API-Only Users (90 Days)"),
+        place(take("users", "Empty User Groups"), 19, 10, 3, 2, name="Empty User Groups"),
+        section_banner("Coverage gaps and integration health", row=21),
+        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 23, 1, 6, 4, name="Unmonitored Devices Trend"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 23, 7, 6, 4, name="Minimal Monitoring Trend"),
+        place(take("alerts", "Number of Integrations with Non 200 Response"), 27, 1, 6, 4, name="Integration Non-200 Trend"),
+        place(take("alerts", "Top Dead Resources Over Time"), 27, 7, 6, 4, name="Dead Resources Trend"),
         text_widget(
             "LM Logs Adoption Note",
             """<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;">
 <div style="font-size:20px;font-weight:700;color:#f9fafb;">LM Logs (optional)</div>
 <div style="font-size:13px;color:#9ca3af;margin-top:4px;">Raw log streams are intentionally excluded. LogSources inventory and alert tables appear on Modules / Alerts as health signals. Add a dedicated Logs strip only after LM Logs licensing is confirmed.</div>
 </div>""",
-            row=28,
+            row=31,
             sizey=2,
         ),
         footer_links(
             [
-                ("Platform Value Overview", "01"),
-                ("Active Alerts", "03"),
-                ("Access and Administration", "06"),
-                ("Coverage", "04"),
+                ("Platform Value Overview", "11"),
+                ("Active Alerts", "21"),
+                ("Access and Administration", "25"),
+                ("Coverage", "24"),
             ],
-            row=30,
+            row=33,
         ),
     ]
     return make_dashboard(
-        "09 - Adoption and Optimization",
+        "33 - Adoption and Optimization",
         "Technical / value view: noise, idle access, coverage gaps, and integration health.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
-def build_31() -> dict:
+def build_34() -> dict:
     """NEW — Technology Dashboard Directory (OOTB hubs, no empty metric boards)."""
     widgets = [
-        global_nav_widget("31", row=1, sizey=5),
+        global_nav_widget("34", row=1, sizey=5),
         guide_widget(
             "Technology Directory — Read First",
             "Technology Dashboard Directory",
@@ -1598,13 +1609,13 @@ def build_31() -> dict:
             ],
             [
                 ("Technical Investigation", "30"),
-                ("Collector Diagnostics", "07"),
-                ("Capacity Risk Exec", "13"),
+                ("Collector Diagnostics", "31"),
+                ("Capacity Risk Exec", "14"),
             ],
             row=6,
             sizey=5,
         ),
-        tech_directory_panel(row=11, sizey=6),
+        tech_directory_panel(row=11, sizey=4),
         dcc_nav_guide(
             "Domain Guidance",
             "How to choose a technology board",
@@ -1620,15 +1631,15 @@ def build_31() -> dict:
         footer_links(
             [
                 ("Technical Resource Investigation", "30"),
-                ("Collector Diagnostics", "07"),
-                ("Capacity and Risk Overview", "13"),
+                ("Collector Diagnostics", "31"),
+                ("Capacity and Risk Overview", "14"),
                 ("Home", "00"),
             ],
             row=21,
         ),
     ]
     return make_dashboard(
-        "31 - Technology Dashboard Directory",
+        "34 - Technology Dashboard Directory",
         "Technical directory of OOTB technology dashboards (placeholders). No empty metric shells.",
         PORTAL_TOKENS,
         widgets,
@@ -1639,21 +1650,21 @@ def build_31() -> dict:
 DASHBOARD_SPECS = [
     ("00_Home_Introductory_redesign_v2.json", EXEC, build_00, "home"),
     ("10_Executive_Command_Center_redesign_v2.json", EXEC, build_10, "executive"),
-    ("01_Platform_Value_Overview_redesign_v2.json", EXEC, build_01, "executive"),
-    ("11_Environment_Health_Executive_redesign_v2.json", EXEC, build_11, "executive"),
-    ("12_Availability_and_Service_Health_redesign_v2.json", EXEC, build_12, "executive"),
-    ("13_Capacity_and_Risk_Overview_redesign_v2.json", EXEC, build_13, "executive"),
+    ("11_Platform_Value_Overview_redesign_v2.json", EXEC, build_11, "executive"),
+    ("12_Environment_Health_Executive_redesign_v2.json", EXEC, build_12, "executive"),
+    ("13_Availability_and_Service_Health_redesign_v2.json", EXEC, build_13, "executive"),
+    ("14_Capacity_and_Risk_Overview_redesign_v2.json", EXEC, build_14, "executive"),
     ("20_Operational_Command_Center_redesign_v2.json", OPS, build_20, "operational"),
-    ("03_Active_Alerts_redesign_v2.json", OPS, build_03, "operational"),
-    ("02_Resource_Health_redesign_v2.json", OPS, build_02, "operational"),
-    ("05_Websites_and_Services_redesign_v2.json", OPS, build_05, "operational"),
-    ("04_Coverage_Capacity_Licenses_redesign_v2.json", OPS, build_04, "operational"),
-    ("06_Access_and_Administration_redesign_v2.json", OPS, build_06, "operational"),
+    ("21_Active_Alerts_redesign_v2.json", OPS, build_21, "operational"),
+    ("22_Resource_Health_redesign_v2.json", OPS, build_22, "operational"),
+    ("23_Websites_and_Services_redesign_v2.json", OPS, build_23, "operational"),
+    ("24_Coverage_Capacity_Licenses_redesign_v2.json", OPS, build_24, "operational"),
+    ("25_Access_and_Administration_redesign_v2.json", OPS, build_25, "operational"),
     ("30_Technical_Resource_Investigation_redesign_v2.json", TECH, build_30, "technical"),
-    ("07_Collector_Diagnostics_redesign_v2.json", TECH, build_07, "technical"),
-    ("08_LogicModule_and_Content_redesign_v2.json", TECH, build_08, "technical"),
-    ("09_Adoption_and_Optimization_redesign_v2.json", TECH, build_09, "technical"),
-    ("31_Technology_Dashboard_Directory_redesign_v2.json", TECH, build_31, "technical"),
+    ("31_Collector_Diagnostics_redesign_v2.json", TECH, build_31, "technical"),
+    ("32_LogicModule_and_Content_redesign_v2.json", TECH, build_32, "technical"),
+    ("33_Adoption_and_Optimization_redesign_v2.json", TECH, build_33, "technical"),
+    ("34_Technology_Dashboard_Directory_redesign_v2.json", TECH, build_34, "technical"),
 ]
 
 

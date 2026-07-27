@@ -70,5 +70,5 @@ When a true row inventory is needed (dashboard directory, risk list with links),
 |--------|------|
 | `dcc_intro_guide()` | Exec intro card grid |
 | `dcc_nav_guide()` | 4-col nav cards |
-| `dcc_inventory_table()` | Adapted row inventory with links |
+| `dcc_inventory_table()` | Horizontal card inventory in rows of 4 with links |
 | `scope_pills()` | Severity/scope pill row |

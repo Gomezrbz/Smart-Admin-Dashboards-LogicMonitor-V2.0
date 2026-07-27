@@ -17,7 +17,7 @@
       "value": "*.logicmonitor.com"
     }
   ],
-  "name": "13 - Capacity and Risk Overview",
+  "name": "14 - Capacity and Risk Overview",
   "description": "Executive capacity and coverage risk: licenses, gaps, and OOTB capacity links.",
   "overwriteGroupFields": false,
   "widgetsConfigVersion": 2,
@@ -42,7 +42,7 @@
         "type": "text",
         "timescale": "day",
         "version": 2,
-        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:16px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:18px;font-weight:700;color:#ffffff;margin-bottom:6px;\">SmartAdmin Connected Experience \u2014 Navigation</div>\n<div style=\"font-size:13px;color:#a5b4fc;margin-bottom:12px;\">Home \u00b7 Executive \u00b7 Operational \u00b7 Technical. After import, replace {{PORTAL_BASE}} and {{DASHBOARD_ID_NN}}. Metrics work before links are wired.</div>\n<div style=\"height:1px;background:#1f2a44;margin:12px 0;\"></div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:12px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#a7f3d0;font-size:11px;font-weight:700;\">Home</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_00}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Home</a><div style=\"font-size:10px;color:#9ca3af;\">00 - Home / Introductory</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#93c5fd;font-size:11px;font-weight:700;\">Executive</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_10}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Exec CC</a><div style=\"font-size:10px;color:#9ca3af;\">10 - Executive Command Center</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_01}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Platform Value</a><div style=\"font-size:10px;color:#9ca3af;\">01 - Platform Value Overview</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_11}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Env Health Exec</a><div style=\"font-size:10px;color:#9ca3af;\">11 - Environment Health Executive</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_12}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Availability</a><div style=\"font-size:10px;color:#9ca3af;\">12 - Availability and Service Health</div></div><div style=\"background:rgba(14,165,233,.25);border:1px solid #38bdf8;border-radius:8px;padding:6px 8px;margin:4px 0;\"><span style=\"font-size:9px;font-weight:800;color:#7dd3fc;margin-right:4px;\">CURRENT</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_13}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Capacity Risk</a><div style=\"font-size:10px;color:#9ca3af;\">13 - Capacity and Risk Overview</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#fdba74;font-size:11px;font-weight:700;\">Operational</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_20}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Ops CC</a><div style=\"font-size:10px;color:#9ca3af;\">20 - Operational Command Center</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_03}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Active Alerts</a><div style=\"font-size:10px;color:#9ca3af;\">03 - Active Alerts</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_02}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Resource Health</a><div style=\"font-size:10px;color:#9ca3af;\">02 - Resource Health</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_05}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Websites</a><div style=\"font-size:10px;color:#9ca3af;\">05 - Websites and Services</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_04}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Coverage</a><div style=\"font-size:10px;color:#9ca3af;\">04 - Coverage, Capacity &amp; Licenses</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_06}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Access</a><div style=\"font-size:10px;color:#9ca3af;\">06 - Access and Administration</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#fca5a5;font-size:11px;font-weight:700;\">Technical</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_30}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Investigation</a><div style=\"font-size:10px;color:#9ca3af;\">30 - Technical Resource Investigation</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_07}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Collectors</a><div style=\"font-size:10px;color:#9ca3af;\">07 - Collector Diagnostics</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_08}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Modules</a><div style=\"font-size:10px;color:#9ca3af;\">08 - LogicModule and Content</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_09}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Adoption</a><div style=\"font-size:10px;color:#9ca3af;\">09 - Adoption and Optimization</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_31}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Tech Directory</a><div style=\"font-size:10px;color:#9ca3af;\">31 - Technology Dashboard Directory</div></div></td></tr></table>\n</div>"
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:16px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:18px;font-weight:700;color:#ffffff;margin-bottom:6px;\">SmartAdmin Connected Experience \u2014 Navigation</div>\n<div style=\"font-size:13px;color:#a5b4fc;margin-bottom:12px;\">Home \u00b7 Executive \u00b7 Operational \u00b7 Technical. After import, replace {{PORTAL_BASE}} and {{DASHBOARD_ID_NN}}. Metrics work before links are wired.</div>\n<div style=\"height:1px;background:#1f2a44;margin:12px 0;\"></div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:12px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#a7f3d0;font-size:11px;font-weight:700;\">Home</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_00}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Home</a><div style=\"font-size:10px;color:#9ca3af;\">00 - Home / Introductory</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#93c5fd;font-size:11px;font-weight:700;\">Executive</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_10}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Exec CC</a><div style=\"font-size:10px;color:#9ca3af;\">10 - Executive Command Center</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_11}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Platform Value</a><div style=\"font-size:10px;color:#9ca3af;\">11 - Platform Value Overview</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_12}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Env Health Exec</a><div style=\"font-size:10px;color:#9ca3af;\">12 - Environment Health Executive</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_13}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Availability</a><div style=\"font-size:10px;color:#9ca3af;\">13 - Availability and Service Health</div></div><div style=\"background:rgba(14,165,233,.25);border:1px solid #38bdf8;border-radius:8px;padding:6px 8px;margin:4px 0;\"><span style=\"font-size:9px;font-weight:800;color:#7dd3fc;margin-right:4px;\">CURRENT</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_14}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Capacity Risk</a><div style=\"font-size:10px;color:#9ca3af;\">14 - Capacity and Risk Overview</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#fdba74;font-size:11px;font-weight:700;\">Operational</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_20}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Ops CC</a><div style=\"font-size:10px;color:#9ca3af;\">20 - Operational Command Center</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_21}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Active Alerts</a><div style=\"font-size:10px;color:#9ca3af;\">21 - Active Alerts</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_22}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Resource Health</a><div style=\"font-size:10px;color:#9ca3af;\">22 - Resource Health</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_23}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Websites</a><div style=\"font-size:10px;color:#9ca3af;\">23 - Websites and Services</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_24}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Coverage</a><div style=\"font-size:10px;color:#9ca3af;\">24 - Coverage, Capacity &amp; Licenses</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_25}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Access</a><div style=\"font-size:10px;color:#9ca3af;\">25 - Access and Administration</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#fca5a5;font-size:11px;font-weight:700;\">Technical</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_30}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Investigation</a><div style=\"font-size:10px;color:#9ca3af;\">30 - Technical Resource Investigation</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_31}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Collectors</a><div style=\"font-size:10px;color:#9ca3af;\">31 - Collector Diagnostics</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_32}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Modules</a><div style=\"font-size:10px;color:#9ca3af;\">32 - LogicModule and Content</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_33}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Adoption</a><div style=\"font-size:10px;color:#9ca3af;\">33 - Adoption and Optimization</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_34}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Tech Directory</a><div style=\"font-size:10px;color:#9ca3af;\">34 - Technology Dashboard Directory</div></div></td></tr></table>\n</div>"
       }
     },
     {
@@ -63,7 +63,7 @@
         "type": "text",
         "timescale": "day",
         "version": 2,
-        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"margin-bottom:16px;\">\n<div style=\"font-size:20px;font-weight:700;color:#f9fafb;\">Capacity and Risk Overview</div>\n<div style=\"font-size:13px;color:#9ca3af;margin-top:4px;\">Executive capacity, license, and coverage-risk signals. Host utilization deep-dives via OOTB Capacity.</div>\n</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:16px;\"><tr>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:33%;\">\n<div style=\"font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;\">Questions this dashboard answers</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;\"><li style=\"margin:5px 0;\">Is license pressure rising?</li><li style=\"margin:5px 0;\">Are unmonitored or minimal resources creating risk?</li><li style=\"margin:5px 0;\">Where should capacity investigation continue?</li></ul>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:34%;\">\n<div style=\"font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;\">Recommended review flow</div>\n<ol style=\"margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;\"><li style=\"margin:5px 0;\"><strong>License strip</strong> \u2014 Cloud and local</li><li style=\"margin:5px 0;\"><strong>Coverage gaps</strong> \u2014 Unmonitored / minimal</li><li style=\"margin:5px 0;\"><strong>OOTB capacity</strong> \u2014 Infra utilization</li></ol>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:33%;\">\n<div style=\"font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;\">Where to go next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;\"><li style=\"margin:5px 0;\">Ops Coverage detail \u2192 04</li><li style=\"margin:5px 0;\">Technology Directory \u2192 31</li><li style=\"margin:5px 0;\">Platform Value \u2192 01</li></ul>\n<div style=\"margin-top:14px;font-size:12px;color:#9ca3af;\">Tip: Empty or zero values may mean healthy state or missing tokens/LogicModules \u2014 confirm before concluding.</div>\n</td>\n</tr></table>\n</div>"
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"margin-bottom:16px;\">\n<div style=\"font-size:20px;font-weight:700;color:#f9fafb;\">Capacity and Risk Overview</div>\n<div style=\"font-size:13px;color:#9ca3af;margin-top:4px;\">Executive capacity, license, and coverage-risk signals. Host utilization deep-dives via OOTB Capacity.</div>\n</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:16px;\"><tr>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:33%;\">\n<div style=\"font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;\">Questions this dashboard answers</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;\"><li style=\"margin:5px 0;\">Is license pressure rising?</li><li style=\"margin:5px 0;\">Are unmonitored or minimal resources creating risk?</li><li style=\"margin:5px 0;\">Where should capacity investigation continue?</li></ul>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:34%;\">\n<div style=\"font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;\">Recommended review flow</div>\n<ol style=\"margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;\"><li style=\"margin:5px 0;\"><strong>License strip</strong> \u2014 Cloud and local</li><li style=\"margin:5px 0;\"><strong>Coverage gaps</strong> \u2014 Unmonitored / minimal</li><li style=\"margin:5px 0;\"><strong>OOTB capacity</strong> \u2014 Infra utilization</li></ol>\n</td>\n<td style=\"vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:33%;\">\n<div style=\"font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;\">Where to go next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;\"><li style=\"margin:5px 0;\">Ops Coverage detail \u2192 24</li><li style=\"margin:5px 0;\">Technology Directory \u2192 34</li><li style=\"margin:5px 0;\">Platform Value \u2192 11</li></ul>\n<div style=\"margin-top:14px;font-size:12px;color:#9ca3af;\">Tip: Empty or zero values may mean healthy state or missing tokens/LogicModules \u2014 confirm before concluding.</div>\n</td>\n</tr></table>\n</div>"
       }
     },
     {
@@ -92,7 +92,7 @@
         "col": 1,
         "sizex": 12,
         "row": 12,
-        "sizey": 1
+        "sizey": 2
       },
       "config": {
         "displaySettings": {},
@@ -105,12 +105,12 @@
         "type": "text",
         "timescale": "day",
         "version": 2,
-        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border:1px solid #1f2a44;border-left:4px solid #38bdf8;padding:10px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;color:#f9fafb;\">License and footprint risk</div>\n</div>"
+        "content": "<p>\n<style type=\"text/css\">\n.html-wpsites {\nheight: 72px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 32px; color: #ffffff; font-weight: bold; text-align: center;\n}\n</style>\n</p>\n<div class=\"html-wpsites\">License and footprint risk</div>\n<p>&nbsp;</p>"
       }
     },
     {
       "position": {
-        "row": 13,
+        "row": 14,
         "col": 1,
         "sizex": 3,
         "sizey": 2
@@ -222,7 +222,7 @@
     },
     {
       "position": {
-        "row": 13,
+        "row": 14,
         "col": 4,
         "sizex": 3,
         "sizey": 2
@@ -264,7 +264,7 @@
     },
     {
       "position": {
-        "row": 13,
+        "row": 14,
         "col": 7,
         "sizex": 3,
         "sizey": 2
@@ -365,7 +365,7 @@
     },
     {
       "position": {
-        "row": 13,
+        "row": 14,
         "col": 10,
         "sizex": 3,
         "sizey": 2
@@ -472,7 +472,7 @@
     },
     {
       "position": {
-        "row": 15,
+        "row": 16,
         "col": 1,
         "sizex": 3,
         "sizey": 2
@@ -601,7 +601,7 @@
     },
     {
       "position": {
-        "row": 15,
+        "row": 16,
         "col": 4,
         "sizex": 3,
         "sizey": 2
@@ -698,7 +698,7 @@
     },
     {
       "position": {
-        "row": 15,
+        "row": 16,
         "col": 7,
         "sizex": 3,
         "sizey": 2
@@ -795,7 +795,7 @@
     },
     {
       "position": {
-        "row": 15,
+        "row": 16,
         "col": 10,
         "sizex": 3,
         "sizey": 2
@@ -839,8 +839,8 @@
       "position": {
         "col": 1,
         "sizex": 12,
-        "row": 17,
-        "sizey": 1
+        "row": 18,
+        "sizey": 2
       },
       "config": {
         "displaySettings": {},
@@ -853,12 +853,12 @@
         "type": "text",
         "timescale": "day",
         "version": 2,
-        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border:1px solid #1f2a44;border-left:4px solid #38bdf8;padding:10px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;color:#f9fafb;\">Coverage risk trends</div>\n</div>"
+        "content": "<p>\n<style type=\"text/css\">\n.html-wpsites {\nheight: 72px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 32px; color: #ffffff; font-weight: bold; text-align: center;\n}\n</style>\n</p>\n<div class=\"html-wpsites\">Coverage risk trends</div>\n<p>&nbsp;</p>"
       }
     },
     {
       "position": {
-        "row": 18,
+        "row": 20,
         "col": 1,
         "sizex": 6,
         "sizey": 4
@@ -916,7 +916,7 @@
     },
     {
       "position": {
-        "row": 18,
+        "row": 20,
         "col": 7,
         "sizex": 6,
         "sizey": 4
@@ -976,8 +976,8 @@
       "position": {
         "col": 1,
         "sizex": 12,
-        "row": 22,
-        "sizey": 5
+        "row": 24,
+        "sizey": 4
       },
       "config": {
         "displaySettings": {},
@@ -990,14 +990,14 @@
         "type": "text",
         "timescale": "day",
         "version": 2,
-        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#111827 0%,#172554 100%);color:#ffffff;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:20px;font-weight:700;margin-bottom:4px;\">Technology dashboards (OOTB)</div>\n<div style=\"font-size:13px;color:#dbeafe;margin-bottom:12px;\">Import from LogicMonitor Dashboards / github.com/logicmonitor/dashboards, then wire IDs. Not bundled in this portal-admin pack.</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:10px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Capacity</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CAPACITY_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Capacity Management</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Host / storage utilization trends</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Cloud</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CLOUD_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Cloud \u2014 AWS / Azure / GCP</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Cloud account and service health</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Network</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_NETWORK_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Network Performance</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Device and path performance</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Server</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_SERVER_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Linux / Microsoft Server</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">OS performance and capacity</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Storage</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_STORAGE_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Storage</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Array and datastore health</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Virt</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_VIRT_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Virtualization</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Hypervisor and VM health</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Alerting</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_ALERTING_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Alerting (OOTB)</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Complementary alert packs</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Websites</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_WEBSITES_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Websites (OOTB)</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Deep website diagnostics</div></td></tr></table>\n</div>"
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#111827 0%,#172554 100%);color:#ffffff;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:20px;font-weight:700;margin-bottom:4px;\">Technology dashboards (OOTB)</div>\n<div style=\"font-size:13px;color:#dbeafe;margin-bottom:12px;\">Import from LogicMonitor Dashboards / github.com/logicmonitor/dashboards, then wire IDs. Not bundled in this portal-admin pack.</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:10px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Capacity</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CAPACITY_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Capacity Management</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Host / storage utilization trends</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Cloud</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CLOUD_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Cloud \u2014 AWS / Azure / GCP</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Cloud account and service health</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Network</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_NETWORK_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Network Performance</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Device and path performance</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Server</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_SERVER_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Linux / Microsoft Server</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">OS performance and capacity</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Storage</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_STORAGE_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Storage</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Array and datastore health</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Virt</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_VIRT_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Virtualization</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Hypervisor and VM health</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Alerting</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_ALERTING_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Alerting (OOTB)</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Complementary alert packs</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;width:25%;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-bottom:8px;\">Websites</span><div style=\"margin-top:8px;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_WEBSITES_ID}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Websites (OOTB)</a></div><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Deep website diagnostics</div></td></tr></table>\n</div>"
       }
     },
     {
       "position": {
         "col": 1,
         "sizex": 12,
-        "row": 27,
+        "row": 29,
         "sizey": 2
       },
       "config": {

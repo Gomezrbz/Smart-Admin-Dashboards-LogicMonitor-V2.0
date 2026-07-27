@@ -54,7 +54,7 @@
 | Applications | 9 | L3 |
 
 **Common OOTB tokens:** `##defaultResourceGroup##`, `##defaultResourceName##`, `##defaultWebsiteGroup##`, plus product-specific tokens.  
-**Disposition:** Do **not** clone the full pack. Document as **31 Technology Dashboard Directory** targets with `{{OOTB_*_ID}}` placeholders. Prefer importing OOTB packages separately, then wiring links post-import.
+**Disposition:** Do **not** clone the full pack. Document as **34 Technology Dashboard Directory** targets with `{{OOTB_*_ID}}` placeholders. Prefer importing OOTB packages separately, then wiring links post-import.
 
 **Public repo notes (from README):**
 - 216+ individual JSON files in the public catalog (includes cloud service dashboards beyond the grouped export).

@@ -26,7 +26,7 @@
 
 **Major breaks (Home / Command Centers):** Introductive pattern — large centered white label on transparent background (`font-size:62px; font-weight:bold; height:112px`). Use sparingly.
 
-**Dense dashboards:** Compact section bar — nav-shell colors with left accent `#38bdf8`, title `15–20px` / `700`.
+**Dense dashboards:** `html-wpsites` section title — transparent background, centered white bold label (`font-size:32px; height:72px`). Use `section_banner()` (default `sizey=2`).
 
 ## Package banner (neutralized)
 
@@ -45,6 +45,6 @@ Replace Harvard red marquee with gradient shell matching Introductive educationa
 |--------|------|
 | `intro_panel()` | Educational shell + title/subtitle + inner columns |
 | `guide_widget()` | Introductive panel with 3 question/flow/next columns |
-| `section_banner()` | Compact section header |
+| `section_banner()` | 32px / 72px centered `html-wpsites` section header |
 | `section_banner_major()` | 62px Introductive section header |
 | `global_nav_widget()` | Introductive nav shell + DCC-style link cards |
