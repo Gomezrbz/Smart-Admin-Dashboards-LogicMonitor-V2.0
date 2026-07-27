@@ -1,0 +1,1127 @@
+{
+  "santabaRelease": 242,
+  "defaultDashboardFilters": {
+    "defaultDashboardFilterDetails": []
+  },
+  "widgetTokens": [
+    {
+      "name": "defaultResource",
+      "value": "*.logicmonitor.com"
+    },
+    {
+      "name": "defaultResourceGroup",
+      "value": "*"
+    }
+  ],
+  "name": "30 - Technical Resource Investigation",
+  "description": "Technical investigation hub: checklist, scoped signals, and paths to collectors/modules/OOTB tech boards.",
+  "overwriteGroupFields": false,
+  "widgetsConfigVersion": 2,
+  "type": "dashboard",
+  "version": 2,
+  "widgets": [
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 1,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Suite Navigation Menu",
+        "description": "Global navigation across Executive, Operational, and Technical groups.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:16px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:18px;font-weight:700;color:#ffffff;margin-bottom:6px;\">SmartAdmin Connected Experience \u2014 Navigation</div>\n<div style=\"font-size:13px;color:#a5b4fc;margin-bottom:12px;\">Home \u00b7 Executive \u00b7 Operational \u00b7 Technical. After import, replace {{PORTAL_BASE}} and {{DASHBOARD_ID_NN}}. Metrics work before links are wired.</div>\n<div style=\"height:1px;background:#1f2a44;margin:12px 0;\"></div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:12px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#a7f3d0;font-size:11px;font-weight:700;\">Home</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_00}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Home</a><div style=\"font-size:10px;color:#9ca3af;\">00 - Home / Introductory</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#93c5fd;font-size:11px;font-weight:700;\">Executive</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_10}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Exec CC</a><div style=\"font-size:10px;color:#9ca3af;\">10 - Executive Command Center</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_01}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Platform Value</a><div style=\"font-size:10px;color:#9ca3af;\">01 - Platform Value Overview</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_11}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Env Health Exec</a><div style=\"font-size:10px;color:#9ca3af;\">11 - Environment Health Executive</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_12}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Availability</a><div style=\"font-size:10px;color:#9ca3af;\">12 - Availability and Service Health</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_13}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Capacity Risk</a><div style=\"font-size:10px;color:#9ca3af;\">13 - Capacity and Risk Overview</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#fdba74;font-size:11px;font-weight:700;\">Operational</span><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_20}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Ops CC</a><div style=\"font-size:10px;color:#9ca3af;\">20 - Operational Command Center</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_03}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Active Alerts</a><div style=\"font-size:10px;color:#9ca3af;\">03 - Active Alerts</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_02}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Resource Health</a><div style=\"font-size:10px;color:#9ca3af;\">02 - Resource Health</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_05}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Websites</a><div style=\"font-size:10px;color:#9ca3af;\">05 - Websites and Services</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_04}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Coverage</a><div style=\"font-size:10px;color:#9ca3af;\">04 - Coverage, Capacity &amp; Licenses</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_06}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Access</a><div style=\"font-size:10px;color:#9ca3af;\">06 - Access and Administration</div></div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);border-radius:12px;padding:13px;width:25%;\"><span style=\"display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#fca5a5;font-size:11px;font-weight:700;\">Technical</span><div style=\"background:rgba(14,165,233,.25);border:1px solid #38bdf8;border-radius:8px;padding:6px 8px;margin:4px 0;\"><span style=\"font-size:9px;font-weight:800;color:#7dd3fc;margin-right:4px;\">CURRENT</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_30}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Investigation</a><div style=\"font-size:10px;color:#9ca3af;\">30 - Technical Resource Investigation</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_07}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Collectors</a><div style=\"font-size:10px;color:#9ca3af;\">07 - Collector Diagnostics</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_08}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Modules</a><div style=\"font-size:10px;color:#9ca3af;\">08 - LogicModule and Content</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_09}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Adoption</a><div style=\"font-size:10px;color:#9ca3af;\">09 - Adoption and Optimization</div></div><div style=\"padding:4px 0;margin:3px 0;\"><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_31}}\" style=\"color:#38bdf8;text-decoration:none;font-weight:700;\">Tech Directory</a><div style=\"font-size:10px;color:#9ca3af;\">31 - Technology Dashboard Directory</div></div></td></tr></table>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 6,
+        "sizey": 6
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Technical Resource Investigation \u2014 Read First",
+        "description": "DCC-style executive guide.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#111827 45%,#1e3a8a 100%);color:#ffffff;border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.32);width:100%;box-sizing:border-box;\">\n<div style=\"font-size:28px;font-weight:750;color:#ffffff;margin-bottom:6px;\">Technical Resource Investigation</div>\n<div style=\"font-size:13px;color:#dbeafe;margin-bottom:16px;max-width:960px;\">Start here for root-cause investigation. Confirm scope, isolate metric family, then open collector or OOTB technology boards.</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:14px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;min-height:150px;width:16%;\"><div style=\"display:inline-block;width:auto;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">SCOPE</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Confirm tokens</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">defaultResourceGroup / ResourceName must match the incident scope.</div><span style=\"display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:12px;font-weight:700;\">Tokens</span></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;min-height:150px;width:16%;\"><div style=\"display:inline-block;width:auto;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">TIME</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">When did it start?</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">Compare alert trend and dead-resource trend windows.</div><span style=\"display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:12px;font-weight:700;\">Trends</span></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;min-height:150px;width:16%;\"><div style=\"display:inline-block;width:auto;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">WHO</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Which resources?</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">Use alert lists and idle/dead tables.</div><span style=\"display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:12px;font-weight:700;\">Exceptions</span></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;min-height:150px;width:16%;\"><div style=\"display:inline-block;width:auto;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">PIPE</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Collector involved?</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">JVM, tasks, method mix on Collector Diagnostics.</div><span style=\"display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:12px;font-weight:700;\">Collectors</span></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;min-height:150px;width:16%;\"><div style=\"display:inline-block;width:auto;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">CONTENT</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Noisy modules?</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">LogicModule 90-day alert tables.</div><span style=\"display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:12px;font-weight:700;\">Modules</span></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;min-height:150px;width:16%;\"><div style=\"display:inline-block;width:auto;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">TECH</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Domain board</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">Network / Server / Storage / Cloud via directory.</div><span style=\"display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:12px;font-weight:700;\">Directory</span></td></tr></table>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 12,
+        "sizey": 1
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Investigation signals",
+        "description": "Section: Investigation signals",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border:1px solid #1f2a44;border-left:4px solid #38bdf8;padding:10px 14px;border-radius:8px;\">\n<div style=\"font-size:15px;font-weight:700;color:#f9fafb;\">Investigation signals</div>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 1,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": "LogicMonitor_Portal_Alerts-Critical Alerts",
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "name": "totalAlerts",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "totalAlerts",
+              "useCommaSeparators": false,
+              "bottomLabel": "Criticals",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": [
+                {
+                  "level": 2,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 3,
+                  "threshold": 0,
+                  "relation": ">"
+                },
+                {
+                  "level": 4,
+                  "threshold": 0,
+                  "relation": ">"
+                }
+              ],
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Critical Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 4,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "AWSDeadResources+ AzureDeadResources+ GCPDeadResources +KubernetesDeadResources+ LMServiceDeadResources+ StandardDeadResources",
+              "name": "DeadResources"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-AWS Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "AWSDeadResources",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-Azure Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "AzureDeadResources",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-GCP Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "GCPDeadResources",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-Kubernetes Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "KubernetesDeadResources",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-LM Services",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "LMServiceDeadResources",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": "LogicMonitor_Portal_Resources-Standard Resources",
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "name": "StandardDeadResources",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "DeadResources",
+              "useCommaSeparators": false,
+              "bottomLabel": "Dead Resources",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Dead Resources",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 7,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "Linux_totalDownCollectors + Windows_totalDownCollectors",
+              "name": "TotolDownCollectors"
+            }
+          ],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "downCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Linux Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Linux_totalDownCollectors",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            },
+            {
+              "dataPointName": "downCollectors",
+              "instanceName": "LogicMonitor_Portal_Collectors-Windows Collectors",
+              "dataSourceFullName": "LogicMonitor Collectors (LogicMonitor_Portal_Collectors)",
+              "name": "Windows_totalDownCollectors",
+              "aggregateFunction": "MAX",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResource##"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "TotolDownCollectors",
+              "useCommaSeparators": false,
+              "bottomLabel": "Total",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Down Collectors",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 13,
+        "col": 10,
+        "sizex": 3,
+        "sizey": 2
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [
+            {
+              "name": "Minimal Monitoring",
+              "appliesTo": "join(system.groups,\"\") =~ \"Minimal Monitoring\""
+            }
+          ],
+          "dataPoints": [],
+          "bigNumberItems": [
+            {
+              "dataPointName": "Minimal Monitoring",
+              "useCommaSeparators": false,
+              "bottomLabel": "Minimal Monitoring Resources",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null,
+              "actions": []
+            }
+          ]
+        },
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Minimally Monitored",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 15,
+        "col": 1,
+        "sizex": 8,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {
+          "isShowAll": false,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": false,
+              "columnLabel": "Severity",
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Began",
+              "columnKey": "alert-began"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Resource/Website",
+              "columnKey": "alert-device"
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "columnKey": "alert-datasource"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "columnKey": "alert-datasource-instance"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnKey": "alert-datapoint"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Value",
+              "columnKey": "alert-value"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Notes",
+              "columnKey": "alert-notes"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Acknowledged By",
+              "columnKey": "alert-acked-by"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "columnKey": "alert-group"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged On",
+              "columnKey": "alert-acked-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared On",
+              "columnKey": "alert-cleared-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "In SDT",
+              "columnKey": "alert-in-sdt"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Rule",
+              "columnKey": "alert-rule-name"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Escalation Chain",
+              "columnKey": "alert-escalation-chain"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnKey": "alert-datasource-instance-description"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnKey": "alert-full-path"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Routing State",
+              "columnKey": "alert-routing-state"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependency Role",
+              "columnKey": "alert-dependency-role"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Static Threshold",
+              "columnKey": "alert-static-threshold"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Dynamic Threshold",
+              "columnKey": "alert-dynamic-threshold"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependent Alerts",
+              "columnKey": "alert-dependent-alerts"
+            }
+          ],
+          "playSound": {
+            "criticalAlertAudioFileName": "",
+            "errorAlertAudioFileName": "",
+            "warningAlertAudioFileName": "",
+            "shouldPlay": false
+          },
+          "fontsize": "normal-font",
+          "sort": "-startEpoch"
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Scoped Resource Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "",
+          "anomaly": "",
+          "dataPoint": "",
+          "rule": "",
+          "acked": "all",
+          "dependencyRoutingState": "",
+          "isEscalation": "all",
+          "dependencyRole": "",
+          "host": "",
+          "isHistoricalSdt": "all",
+          "keyword": "",
+          "dataSource": "",
+          "cleared": "no",
+          "group": ""
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 15,
+        "col": 9,
+        "sizex": 4,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {
+          "isShowAll": false,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Severity",
+              "isVisibleByDefault": true,
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Began",
+              "columnKey": "alert-began"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Resource/Website",
+              "columnKey": "alert-device"
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "columnKey": "alert-datasource"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "columnKey": "alert-datasource-instance"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnKey": "alert-datapoint"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Value",
+              "columnKey": "alert-value"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Static Threshold",
+              "columnKey": "alert-static-threshold"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Dynamic Threshold",
+              "columnKey": "alert-dynamic-threshold"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "columnKey": "alert-group"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notes",
+              "columnKey": "alert-notes"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged By",
+              "columnKey": "alert-acked-by"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged On",
+              "columnKey": "alert-acked-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared On",
+              "columnKey": "alert-cleared-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "In SDT",
+              "columnKey": "alert-in-sdt"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Rule",
+              "columnKey": "alert-rule-name"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Escalation Chain",
+              "columnKey": "alert-escalation-chain"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnKey": "alert-datasource-instance-description"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnKey": "alert-full-path"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Routing State",
+              "columnKey": "alert-routing-state"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependency Role",
+              "columnKey": "alert-dependency-role"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependent Alerts",
+              "columnKey": "alert-dependent-alerts"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Grouping Criteria",
+              "columnKey": "alert-grouping-criteria"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Log Metadata",
+              "columnKey": "alert-log-metadata"
+            }
+          ],
+          "playSound": {},
+          "fontsize": "normal-font",
+          "sort": "-startEpoch"
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collector Alerts",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "HostStatus",
+          "anomaly": "",
+          "dataPoint": "",
+          "rule": "",
+          "acked": "all",
+          "dependencyRoutingState": "",
+          "isEscalation": "all",
+          "dependencyRole": "",
+          "host": "",
+          "isHistoricalSdt": "all",
+          "keyword": "",
+          "dataSource": "",
+          "cleared": "all",
+          "group": "Devices%20by%20Type%2FCollectors*"
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 20,
+        "col": 1,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Alert Count Trend",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": "NaN",
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Critical Alerts"
+              },
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "totalCriticalAlerts",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TotalCriticalAlerts",
+              "aggregateFunction": "MAX",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Error Alerts"
+              },
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "totalErrorAlerts",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TotalErrorAlerts",
+              "aggregateFunction": "MAX",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "totalAlerts",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Warning Alerts"
+              },
+              "dataSourceFullName": "LogicMonitor Alerts (LogicMonitor_Portal_Alerts)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "totalWaringAlerts",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "TotalWaringAlerts",
+              "aggregateFunction": "MAX",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "Count",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "1day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 20,
+        "col": 7,
+        "sizex": 6,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Dead Resources Trend",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [
+            {
+              "rpn": "AWSdeadResources",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "AWSDeadResource"
+            },
+            {
+              "rpn": "AzuredeadResources",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "AzureDeadResource"
+            },
+            {
+              "rpn": "GCPdeadResources",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "GCPDeadResource"
+            },
+            {
+              "rpn": "KubernetesdeadResources",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "KubernetesDeadResource"
+            },
+            {
+              "rpn": "LMServicesdeadResources",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "LMServiceInsightDeadResource"
+            },
+            {
+              "rpn": "StandarddeadResources",
+              "display": {
+                "color": "Auto",
+                "legend": "##INSTANCE##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "StandardDeadResource"
+            }
+          ],
+          "minValue": "NaN",
+          "topX": 25,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "deadResources",
+              "instanceName": {
+                "isGlob": false,
+                "value": "AWS Resources"
+              },
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": null,
+                "legend": null,
+                "type": "line",
+                "option": "none"
+              },
+              "name": "AWSdeadResources",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Azure Resources"
+              },
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": null,
+                "legend": null,
+                "type": "line",
+                "option": "none"
+              },
+              "name": "AzuredeadResources",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": {
+                "isGlob": false,
+                "value": "GCP Resources"
+              },
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": null,
+                "legend": null,
+                "type": "line",
+                "option": "none"
+              },
+              "name": "GCPdeadResources",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Kubernetes Resources"
+              },
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": null,
+                "legend": null,
+                "type": "line",
+                "option": "none"
+              },
+              "name": "KubernetesdeadResources",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": {
+                "isGlob": false,
+                "value": "LM Services"
+              },
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": null,
+                "legend": null,
+                "type": "line",
+                "option": "none"
+              },
+              "name": "LMServicesdeadResources",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "deadResources",
+              "instanceName": {
+                "isGlob": false,
+                "value": "Standard Resources"
+              },
+              "dataSourceFullName": "LogicMonitor Resources (LogicMonitor_Portal_Resources)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": null,
+                "legend": null,
+                "type": "line",
+                "option": "none"
+              },
+              "name": "StandarddeadResources",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResource##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "Count",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "3month",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "row": 24,
+        "col": 1,
+        "sizex": 12,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "pageSize": "25"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "idleInterval",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "idleInterval - Seconds",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##_##INSTANCE##",
+            "deviceDisplayName": "*",
+            "groupFullPath": "*"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "Host Status (HostStatus)",
+        "sortOrder": "descending",
+        "name": "Idle Interval Risk Resources",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 28,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Investigation Paths",
+        "description": "Metric-family and diagnostic paths",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#111827 0%,#172554 100%);color:#ffffff;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;\">\n<div style=\"font-size:20px;font-weight:700;margin-bottom:4px;\">Metric-family and diagnostic paths</div>\n<div style=\"font-size:13px;color:#dbeafe;margin-bottom:12px;\">Open the matching technical board. Configure OOTB IDs on 31 after import.</div>\n<table style=\"width:100%;border-collapse:separate;border-spacing:10px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Collectors</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_07}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Collector Diagnostics</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">JVM, tasks, method mix, collector alerts</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Content</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_08}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">LogicModule and Content</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Inventory and 90-day noise</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Adoption</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_09}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Adoption and Optimization</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Noise and coverage improvement</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Directory</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_31}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Technology Dashboard Directory</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Network / Server / Storage / Cloud / Capacity</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Ops</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_03}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Active Alerts</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Rules, integrations, live triage</div></td></tr><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:12px;padding:12px 14px;\"><span style=\"display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;\">Ops</span><a href=\"{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_02}}\" style=\"color:#93c5fd;text-decoration:none;font-weight:700;\">Resource Health</a><div style=\"font-size:12px;color:#9ca3af;margin-top:6px;\">Map, NOC, dead/minimal</div></td></tr></table>\n</div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 33,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Where Next",
+        "description": "Contextual drill-down suggestions.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:14px;padding:14px;\">\n<div style=\"font-size:14px;font-weight:700;color:#ffffff;margin-bottom:8px;\">Where next</div>\n<ul style=\"margin:0;padding-left:18px;font-size:12px;\"><li style=\"margin:4px 0;\"><strong>Collector Diagnostics</strong> \u2014 07</li><li style=\"margin:4px 0;\"><strong>Technology Directory</strong> \u2014 31</li><li style=\"margin:4px 0;\"><strong>Operational Command Center</strong> \u2014 20</li><li style=\"margin:4px 0;\"><strong>Executive Command Center</strong> \u2014 10</li></ul>\n</div>"
+      }
+    }
+  ]
+}

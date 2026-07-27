@@ -1,157 +1,154 @@
 # Dashboard Redesign Proposal
 
-**Package:** SmartAdmin Connected Experience redesign v2  
-**Status:** Implementation package under `dashboard-redesign/`  
-**Baseline:** Fresh rebuild from Basement SmartAdmin + Introductive + Design Template patterns; New Dashboards / public LM repo for navigation and Level-3 targets. Client Experience suite at repo root is reference only.
+**Package:** SmartAdmin Connected Experience redesign v2 (expanded)  
+**Status:** Implementation under `dashboard-redesign/`  
+**Baseline:** SmartAdmin + Introductive + DCC design chrome; OOTB / public LM repo for technology directory targets. Client Experience suite at repo root is reference only.
 
 ---
 
 ## 1. Executive summary
 
-This package turns the SmartAdmin portal-administration dashboards into a **connected client experience**: Home → Platform Value → operational drill-downs → technical investigation. It preserves the SmartAdmin dark-blue visual language, reuses working portal widgets, removes the duplicate Collector Health dashboard, and adds consistent HTML navigation without unsupported core JavaScript.
+This package delivers a **connected client experience** with three named dashboard groups (**Executive**, **Operational**, **Technical**), a Home lobby, and composed command-center / investigation dashboards beyond SmartAdmin-only sources. Titles follow the Introductive Dashboard educational-panel system. Summary and navigation tables follow DCC Executive Command Center card chrome (with a documented table adaptation for inventories). Original source JSON is unchanged.
 
 ---
 
-## 2. Hierarchy and levels
+## 2. Current-state assessment
 
-### Level 1 — Executive and client value
+| Source | Role |
+|--------|------|
+| `Basement/SmartAdmin Dashboards.json` | Portal-admin metrics (primary widget library) |
+| `Basement/Introductive_Dashboard.json` | Title/header visual system + home KPIs |
+| `Basement/DCC_-_PSC_…Command_Center (1).json` | Exec layout + card/table chrome (**not** PSC metrics) |
+| `New Dashboards/LogicMonitor Dashboards.json` | OOTB technology link targets |
+| Root Client Experience JSON | Superseded reference |
 
-| # | Dashboard | Answers |
-|---|-----------|---------|
-| 00 | Home / Introductory | What is in this package? Where do I start by role? |
-| 01 | Platform Value Overview | Are we healthy? What coverage/value exists? Where next? |
-
-### Level 2 — Operational overview
-
-| # | Dashboard | Answers |
-|---|-----------|---------|
-| 02 | Environment Health | Where is risk concentrated (map/NOC/dead/minimal/collectors/websites)? |
-| 03 | Alert Overview | Which alerts need action? Rules, escalations, integrations, noise? |
-| 04 | Coverage, Capacity & Licenses | Discovery gaps, license mix, group hygiene; links to OOTB capacity |
-| 05 | Websites and Services | Website/group health and website-scoped token |
-| 06 | Access and Administration | Users, roles, tokens, idle access |
-
-### Level 3 — Technical investigation
-
-| # | Dashboard | Answers |
-|---|-----------|---------|
-| 07 | Collector Health | Collector JVM, tasks, method mix, collector alerts |
-| 08 | LogicModule and Content | Inventory + noisy modules (90 days) |
-| 09 | Adoption and Optimization | Improvement story: noise, idle access, coverage, integrations |
-
-**Level-3 technology links (not bundled):** Capacity Management, Cloud (AWS/Azure/GCP), Network, Linux/Windows, Storage, Virtualization, Alerting, Websites — import from OOTB / public repo, then configure placeholders.
+Gaps addressed vs prior v2: Introductive title fidelity, DCC table/card fidelity, named Exec/Ops/Tech subgroups, command centers, capacity/availability exec views, investigation hub, technology directory.
 
 ---
 
-## 3. Naming conventions
+## 3. Design references
 
-| Element | Convention | Example |
-|---------|------------|---------|
-| Dashboard (in group) | `NN - <Topic>` | `01 - Platform Value Overview` |
-| Export file | `NN_<Topic>_redesign_v2.json` | `01_Platform_Value_Overview_redesign_v2.json` |
-| Group export | `SmartAdmin_Connected_Experience_redesign_v2.json` | — |
-| Widget titles | Question / outcome language | `Critical Alerts Requiring Attention` |
-| Section banners | Short verb phrase | `Review active exceptions` |
+| Concern | Reference | Document |
+|---------|-----------|----------|
+| Titles / headers / nav shells | Introductive | `design-system/title-style.md` |
+| Summary / nav / inventory tables | DCC | `design-system/table-style.md` |
+| Spacing, density, severity, tokens | Combined | `design-system/dashboard-design-standards.md` |
 
----
-
-## 4. Tokens and filters
-
-| Token | Default | Dashboards | Widgets that respond |
-|-------|---------|------------|----------------------|
-| `defaultResourceGroup` | `*` | All | Portal resource/alert/collector scoped widgets |
-| `defaultResource` | `*.logicmonitor.com` | Portal metric dashboards | Portal datasource bigNumbers / graphs |
-| `defaultResourceName` | `*.logicmonitor.com` or `*` | Modules / collectors | Resource-name scoped widgets |
-| `defaultWebsiteGroup` | `*` | 05 (and website widgets) | Website group metrics when applicable |
-| `accountname` | `{{ACCOUNT_NAME}}` | 04 (licenses), summary on 01 | LicenseCounts bigNumbers |
-
-**Not added:** Arbitrary property filters (customer, location, severity as dashboard filters) unless the underlying widget config already supports them. Severity is handled inside alert widgets.
-
-**Time ranges (standards):**
-
-| Family | Timescale |
-|--------|-----------|
-| Status scorecards | `day` |
-| Alert trends | `7days` / `1day` (preserve source) |
-| Coverage drift | `3month` (preserve source) |
-| Collector graphs | `1day` / `2days` (preserve source) |
+Harvard red marquee branding is neutralized; typography and shell structure are retained.
 
 ---
 
-## 5. Design standards
+## 4. Dashboard-group architecture
 
-### Header (every dashboard)
+```
+SmartAdmin Connected Experience (dashboardgroup)
+├── dashboards: [00 Home / Introductory]
+└── subGroups:
+    ├── Executive → 10, 01, 11, 12, 13
+    ├── Operational → 20, 03, 02, 05, 04, 06
+    └── Technical → 30, 07, 08, 09, 31
+```
 
-1. Compact global nav strip (current section highlighted)
-2. Dashboard title + short purpose (guide or header text)
-3. Scope/token reminder when relevant
-
-### Layout order
-
-Navigation → Critical status → KPIs → Trends → Detail tables → Diagnostics / Where next
-
-### Severity colors
-
-Use only for Critical / Error / Warning (and equivalent risk thresholds). Do not use severity colors for decorative section chrome.
-
-### Empty states (guide language)
-
-| Condition | Guidance |
-|-----------|----------|
-| Healthy zero (0 critical) | Expected; still review Warning trend and dead resources |
-| No matching resources | Check `defaultResourceGroup` / `defaultResource` |
-| Missing LogicModule | Install/apply required portal/collector modules |
-| Wrong license token | Set `accountname` after import |
-| Permissions | Confirm view rights on portal resources |
-
-### Significant visual changes
-
-| Change | Reason |
-|--------|--------|
-| Neutral Connected branding (no Harvard red) | Portable multi-client package |
-| Shared compact menu | Orientation without consuming a full viewport |
-| One metric owner per family | Less cognitive duplication |
-| Question-driven titles | Client-facing clarity |
+LM exports use nested structure, not portable `groupId` fields. Post-import: verify subgroup names; record portal-assigned IDs locally.
 
 ---
 
-## 6. Navigation model
+## 5. Executive dashboards
 
-See [`../navigation/navigation-design.md`](../navigation/navigation-design.md).
+| ID | Purpose |
+|----|---------|
+| 10 Executive Command Center | DCC flow: guide → KPI → map → exceptions → trends |
+| 01 Platform Value Overview | Health, coverage, licenses, value |
+| 11 Environment Health Executive | Exec-density risk concentration |
+| 12 Availability and Service Health | Websites/services + severity |
+| 13 Capacity and Risk Overview | Licenses, coverage gaps, OOTB capacity links |
 
-**Committed approach:** Global HTML menu + Home nav cards + contextual footers. Static HTML/CSS only in core pack.
-
----
-
-## 7. Gap analysis (architecture response)
-
-| Gap | Response |
-|-----|----------|
-| Missing Home | Dashboard 00 |
-| Missing split Env vs Alerts | 02 + 03 |
-| Missing website token | `defaultWebsiteGroup` on 05 |
-| Missing capacity metrics in SmartAdmin | OOTB L3 links on 04/00 |
-| Duplicate collectors | Single 07 |
-| Hardcoded proservices | `{{ACCOUNT_NAME}}` |
-| JS dynamic nav | Optional docs only |
+Audience: leadership, CS leads. Avoid deep collector method tables.
 
 ---
 
-## 8. Implementation phases (completed in this package)
+## 6. Operational dashboards
+
+| ID | Purpose |
+|----|---------|
+| 20 Operational Command Center | Daily triage hub |
+| 03 Active Alerts | Severity, rules, integrations, noise |
+| 02 Resource Health | Map/NOC, dead/minimal, idle |
+| 05 Websites and Services | Website/group hygiene |
+| 04 Coverage, Capacity & Licenses | Discovery, licenses, groups |
+| 06 Access and Administration | Users, roles, tokens |
+
+Audience: NOC, portal admins, ops.
+
+---
+
+## 7. Technical dashboards
+
+| ID | Purpose |
+|----|---------|
+| 30 Technical Resource Investigation | Investigation checklist + paths |
+| 07 Collector Diagnostics | JVM, tasks, method mix |
+| 08 LogicModule and Content | Inventory + 90-day noise |
+| 09 Adoption and Optimization | Improvement signals |
+| 31 Technology Dashboard Directory | OOTB Network/Server/Storage/Cloud/Capacity links |
+
+No empty Network/Server/Storage/Cloud metric dashboards.
+
+---
+
+## 8. Introductive / Home redesign
+
+Home is the package lobby: group explanations, role starts, environment summary, filter instructions, technology directory, links to command centers.
+
+---
+
+## 9. Navigation proposal
+
+Four-column Introductive nav shell with DCC card cells for Home / Executive / Operational / Technical. Contextual footers and DCC drill-path guides on command centers. Placeholders remain readable pre-configuration.
+
+---
+
+## 10. Tokens and filters
+
+| Token | Default | Used on |
+|-------|---------|---------|
+| `defaultResourceGroup` | `*` | Most |
+| `defaultResource` | `*.logicmonitor.com` | Portal metrics |
+| `defaultResourceName` | `*` / portal host | Collectors, modules |
+| `defaultWebsiteGroup` | `*` | 05, 12 |
+| `accountname` | `{{ACCOUNT_NAME}}` | 04, 13, summaries |
+
+Severity stays inside alert widgets. No unsupported property filters.
+
+---
+
+## 11. Implementation phases (completed)
 
 1. Discovery / inventory  
-2. Architecture docs  
-3. Prototype 00–03  
-4. Full 04–09 + group export  
-5. Validation + dependencies  
+2. Design system (Introductive + DCC)  
+3. Architecture (Exec / Ops / Tech + new boards)  
+4. Prototype command centers + Home  
+5. Full package + nested group export  
+6. Validation + documentation  
 
 ---
 
-## 9. Portal post-import checklist
+## 12. Dependencies and limitations
 
-1. Import `SmartAdmin_Connected_Experience_redesign_v2.json`.
-2. Set `accountname` to the portal license account property value.
-3. Optionally scope `defaultResourceGroup` / `defaultWebsiteGroup`.
-4. Replace `{{PORTAL_BASE}}` and `{{DASHBOARD_ID_*}}` placeholders in HTML nav with real portal URLs/IDs.
-5. Import desired OOTB tech dashboards; wire Level-3 links.
-6. Portal-validate optional Dynamic Dashboard List / FilterWidget if adopted later.
+See `validation/dependencies.md`. PSC-specific FortiGate/region metrics are **not** copied. OOTB tech boards require separate import. HTML rendering and link IDs require portal testing.
+
+---
+
+## 13. Validation approach
+
+`tools/validate_redesign_v2.py`: JSON parse, overlaps, scripts, proservices, subgroup names, placeholders, datasource scrape. Results in `validation/validation-results.md`.
+
+---
+
+## 14. Final recommendations
+
+1. Import group JSON; wire placeholders.  
+2. Import OOTB packs before enabling directory links.  
+3. Set `accountname` per client.  
+4. Use Home → Exec CC → Ops CC → Tech Investigation as the primary demo journey.  
+5. Keep originals in `Basement/` as the rebuild source of truth.

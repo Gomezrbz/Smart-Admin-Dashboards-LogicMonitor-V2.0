@@ -1,56 +1,62 @@
-# Dependencies — SmartAdmin Connected Experience redesign v2
+# Dependencies and Portal Configuration
 
-## Required LogicModules / datasources
+## LogicModules / datasources (portal-admin pack)
 
-These families are referenced by reused SmartAdmin widgets. Keep LogicModules current before import.
+Common dependencies reused from SmartAdmin / Introductive widgets:
 
-| Family | Examples | Used by dashboards |
-|--------|----------|--------------------|
-| Portal Alerts | `LogicMonitor_Portal_Alerts` | 00, 01, 02, 03, 09 |
-| Alert routing | `LogicMonitor_Portal_AlertRules`, `LogicMonitor_Portal_Escalationchains`, Integrations | 03, 09 |
-| Resources | `LogicMonitor_Portal_Resources`, MinimalMonitoring, UnmonitoredDevice, Netscans | 01, 02, 03, 04, 09 |
-| Websites / groups | `LogicMonitor_Portal_Websites`, device/website groups | 02, 04, 05 |
-| Collectors | `LogicMonitor_Portal_Collectors`, `LogicMonitor_Collector_JVMStatus`, `DataCollectingTasks`, `ActiveDiscoveryTasks` | 00, 01, 02, 07 |
-| Users / access | `LogicMonitor_Portal_Users`, `Users_NotLogin`, `UserGroups`, `APITokens`, `Roles` | 00, 01, 06, 09 |
-| Licenses | `LogicMonitor_Portal_LicenseCounts` | 01, 04 |
-| LogicModules inventory | `LogicMonitor_Portal_LogicModuleStatus`, LogicModule alert-over-90-days | 01, 03, 08 |
-| Host idle | `HostStatus` (idle interval table) | 02 |
+- Portal Alerts / Resources / Collectors scorecards (`LogicMonitor_*` portal datasources)
+- `HostStatus` / dead-resource metrics
+- `DataCollectingTasks`, `ActiveDiscoveryTasks`, collector JVM metrics
+- LicenseCounts (`accountname` token)
+- Users / Roles / APITokens / Users_NotLogin
+- DeviceGroups / Websites / WebsitesGroups
+- LogicModuleStatus inventory
+- Netscans / UnmonitoredDevice / MinimalMonitoring trends
 
-## Dynamic groups
+Exact widget→datasource bindings are preserved from source clones. Confirm modules are applied in the target portal.
 
-No SmartAdmin widgets in this pack hard-require `Devices by Type/...` dynamic groups.  
-**OOTB Level-3 technology dashboards** (linked, not bundled) often do — see [logicmonitor/dashboards README](https://github.com/logicmonitor/dashboards).
+## Tokens requiring client configuration
 
-## Dashboard tokens
+| Token / placeholder | Required for | Action |
+|---------------------|--------------|--------|
+| `accountname` / `{{ACCOUNT_NAME}}` | License widgets on 04, 13, summaries | Set to client account name |
+| `defaultResourceGroup` | Most resource/alert scopes | Often `*`; tighten per client |
+| `defaultResource` | Portal host metrics | Typically `*.logicmonitor.com` |
+| `defaultWebsiteGroup` | 05, 12 | Set if website scoping needed |
+| `{{PORTAL_BASE}}` | All HTML nav links | e.g. `https://company.logicmonitor.com` |
+| `{{DASHBOARD_ID_NN}}` | Suite navigation | Fill after import |
+| `{{OOTB_*_ID}}` | Technology directory | Fill after OOTB import |
 
-| Token | Required | Notes |
-|-------|----------|-------|
-| `defaultResourceGroup` | Recommended | Default `*` |
-| `defaultResource` / `defaultResourceName` | Recommended | Portal metrics use `*.logicmonitor.com` |
-| `defaultWebsiteGroup` | Recommended on 05 | Default `*` |
-| `accountname` | **Required for license widgets** | Replace `{{ACCOUNT_NAME}}` with portal account property |
+## Dashboard groups
 
-## Portal-specific configuration
+Parent: **SmartAdmin Connected Experience**  
+Subgroups: **Executive**, **Operational**, **Technical**  
+Home dashboard is on the parent `dashboards` array.
 
-| Step | Detail |
-|------|--------|
-| 1 | Import `dashboards/SmartAdmin_Connected_Experience_redesign_v2.json` |
-| 2 | Set `accountname` token |
-| 3 | Optionally scope resource/website groups |
-| 4 | Replace `{{PORTAL_BASE}}` and `{{DASHBOARD_ID_00}}`…`{{DASHBOARD_ID_09}}` in HTML nav widgets |
-| 5 | Import desired OOTB packs; wire Technology Drill-Down Links |
-| 6 | Portal-validate optional Dynamic Dashboard List / FilterWidget if adopted |
+Portal-assigned subgroup IDs are **not portable**. Record them after import for any automation; do not embed foreign IDs in this package.
 
-## Explicitly not required for core pack
+## External packages
 
-- LM Logs live query widgets
-- JavaScript Dynamic Dashboard List
-- FilterWidget v7
-- Better Map Widget CDN
-- Client-specific FortiGate / PSC metrics from Design Template
+| Package | Purpose |
+|---------|---------|
+| OOTB LogicMonitor Dashboards / [logicmonitor/dashboards](https://github.com/logicmonitor/dashboards) | Network, Server, Storage, Virtualization, Cloud, Capacity, Alerting, Websites |
+| LM Logs (optional) | Not required for core pack |
 
 ## Known limitations
 
-- Navigation hrefs are placeholders until dashboard IDs are known post-import.
-- Host/app capacity metrics are not in SmartAdmin portal datasources; use OOTB Capacity/Cloud/Network.
-- Alert widget log metadata columns (if present in source) still require LM Logs for full investigation — dashboards surface the signal only.
+- DCC uses CSS Grid cards; inventory links use an approved HTML table adaptation (documented in `design-system/table-style.md`).
+- PSC FortiGate / regional metrics are intentionally omitted.
+- HTML text-widget rendering can vary by LM UI version — portal test required.
+- Navigation URLs do not work until placeholders are replaced; metrics still function.
+- No core JavaScript widgets.
+
+## Portal testing checklist
+
+- [ ] Group import succeeds with three subgroups  
+- [ ] Home opens as lobby  
+- [ ] Introductive title panels and DCC cards render  
+- [ ] No widget overlap in UI  
+- [ ] Tokens scoped correctly  
+- [ ] License widgets resolve after `accountname` set  
+- [ ] Nav links resolve after ID fill  
+- [ ] OOTB directory links resolve after OOTB import  

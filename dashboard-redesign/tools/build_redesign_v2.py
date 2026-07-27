@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
 """Build SmartAdmin Connected Experience redesign v2 dashboard package.
 
-Fresh rebuild from Basement SmartAdmin + Introductive exports.
-Writes only under dashboard-redesign/. Does not modify source JSON files.
+Expands beyond SmartAdmin sources with Introductive + DCC-composed command
+centers and technical hubs. Writes only under dashboard-redesign/.
+Does not modify source JSON files.
 """
 
 from __future__ import annotations
 
 import copy
 import json
-import re
+import shutil
 from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PKG = ROOT / "dashboard-redesign"
 OUT_DIR = PKG / "dashboards"
-L1 = OUT_DIR / "level-1-executive"
-L2 = OUT_DIR / "level-2-operational"
-L3 = OUT_DIR / "level-3-technical"
+EXEC = OUT_DIR / "executive"
+OPS = OUT_DIR / "operational"
+TECH = OUT_DIR / "technical"
 
 SA = json.loads((ROOT / "Basement" / "SmartAdmin Dashboards.json").read_text(encoding="utf-8"))
 INTRO = json.loads((ROOT / "Basement" / "Introductive_Dashboard.json").read_text(encoding="utf-8"))
@@ -43,17 +44,25 @@ W = {
     "intro": index_widgets(INTRO),
 }
 
+# id, short label, full name, group key
 NAV_ITEMS = [
-    ("00", "Home", "00 - Home / Introductory"),
-    ("01", "Platform Value", "01 - Platform Value Overview"),
-    ("02", "Environment", "02 - Environment Health"),
-    ("03", "Alerts", "03 - Alert Overview"),
-    ("04", "Coverage", "04 - Coverage, Capacity & Licenses"),
-    ("05", "Websites", "05 - Websites and Services"),
-    ("06", "Admin", "06 - Access and Administration"),
-    ("07", "Collectors", "07 - Collector Health"),
-    ("08", "Modules", "08 - LogicModule and Content"),
-    ("09", "Adoption", "09 - Adoption and Optimization"),
+    ("00", "Home", "00 - Home / Introductory", "home"),
+    ("10", "Exec CC", "10 - Executive Command Center", "executive"),
+    ("01", "Platform Value", "01 - Platform Value Overview", "executive"),
+    ("11", "Env Health Exec", "11 - Environment Health Executive", "executive"),
+    ("12", "Availability", "12 - Availability and Service Health", "executive"),
+    ("13", "Capacity Risk", "13 - Capacity and Risk Overview", "executive"),
+    ("20", "Ops CC", "20 - Operational Command Center", "operational"),
+    ("03", "Active Alerts", "03 - Active Alerts", "operational"),
+    ("02", "Resource Health", "02 - Resource Health", "operational"),
+    ("05", "Websites", "05 - Websites and Services", "operational"),
+    ("04", "Coverage", "04 - Coverage, Capacity & Licenses", "operational"),
+    ("06", "Access", "06 - Access and Administration", "operational"),
+    ("30", "Investigation", "30 - Technical Resource Investigation", "technical"),
+    ("07", "Collectors", "07 - Collector Diagnostics", "technical"),
+    ("08", "Modules", "08 - LogicModule and Content", "technical"),
+    ("09", "Adoption", "09 - Adoption and Optimization", "technical"),
+    ("31", "Tech Directory", "31 - Technology Dashboard Directory", "technical"),
 ]
 
 PORTAL_TOKENS = [
@@ -113,14 +122,21 @@ def place(
         w["config"]["name"] = name
     if description is not None:
         w["config"]["description"] = description
-    # Replace hardcoded proservices in license widgets
     cfg_s = json.dumps(w["config"])
     if "proservices" in cfg_s:
         w["config"] = json.loads(cfg_s.replace("proservices", "##accountname##"))
     return w
 
 
-def text_widget(name: str, content: str, row: int, col: int = 1, sizex: int = 12, sizey: int = 3, description: str = "") -> dict:
+def text_widget(
+    name: str,
+    content: str,
+    row: int,
+    col: int = 1,
+    sizex: int = 12,
+    sizey: int = 3,
+    description: str = "",
+) -> dict:
     return {
         "position": {"col": col, "sizex": sizex, "row": row, "sizey": sizey},
         "config": {
@@ -139,34 +155,78 @@ def text_widget(name: str, content: str, row: int, col: int = 1, sizex: int = 12
     }
 
 
-def global_nav_widget(current_id: str, row: int = 1, sizey: int = 2) -> dict:
-    cells = []
-    for nid, label, full in NAV_ITEMS:
-        is_cur = nid == current_id
-        bg = "#0ea5e9" if is_cur else "#020617"
-        border = "#38bdf8" if is_cur else "#1f2937"
-        color = "#0b1220" if is_cur else "#e5e7eb"
-        badge = '<div style="font-size:10px;font-weight:700;letter-spacing:0.04em;margin-bottom:4px;">CURRENT</div>' if is_cur else ""
-        href = f"{{{{PORTAL_BASE}}}}/uiv4/dashboard/{{{{DASHBOARD_ID_{nid}}}}}"
-        cells.append(
-            f'<td style="vertical-align:top;background:{bg};border:1px solid {border};border-radius:10px;padding:8px 10px;">'
-            f'{badge}<a href="{href}" style="color:{color};text-decoration:none;font-size:12px;font-weight:700;">{escape(label)}</a>'
-            f'<div style="font-size:10px;color:#94a3b8;margin-top:4px;">{escape(full)}</div></td>'
+def href(nid: str) -> str:
+    return f"{{{{PORTAL_BASE}}}}/uiv4/dashboard/{{{{DASHBOARD_ID_{nid}}}}}"
+
+
+def link(nid: str, label: str, color: str = "#38bdf8") -> str:
+    return f'<a href="{href(nid)}" style="color:{color};text-decoration:none;font-weight:700;">{escape(label)}</a>'
+
+
+# ---------------------------------------------------------------------------
+# Design-system HTML helpers (Introductive titles + DCC cards/tables)
+# ---------------------------------------------------------------------------
+
+
+def global_nav_widget(current_id: str, row: int = 1, sizey: int = 4) -> dict:
+    """Introductive nav shell with DCC-style group cards."""
+    groups = [
+        (
+            "Home",
+            "#a7f3d0",
+            [i for i in NAV_ITEMS if i[3] == "home"],
+        ),
+        (
+            "Executive",
+            "#93c5fd",
+            [i for i in NAV_ITEMS if i[3] == "executive"],
+        ),
+        (
+            "Operational",
+            "#fdba74",
+            [i for i in NAV_ITEMS if i[3] == "operational"],
+        ),
+        (
+            "Technical",
+            "#fca5a5",
+            [i for i in NAV_ITEMS if i[3] == "technical"],
+        ),
+    ]
+    cards = []
+    for gname, accent, items in groups:
+        rows = []
+        for nid, label, full, _ in items:
+            cur = nid == current_id
+            style = (
+                "background:rgba(14,165,233,.25);border:1px solid #38bdf8;border-radius:8px;padding:6px 8px;margin:4px 0;"
+                if cur
+                else "padding:4px 0;margin:3px 0;"
+            )
+            badge = '<span style="font-size:9px;font-weight:800;color:#7dd3fc;margin-right:4px;">CURRENT</span>' if cur else ""
+            rows.append(
+                f'<div style="{style}">{badge}{link(nid, label)}'
+                f'<div style="font-size:10px;color:#9ca3af;">{escape(full)}</div></div>'
+            )
+        cards.append(
+            f'<td style="vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);'
+            f'border-radius:12px;padding:13px;width:25%;">'
+            f'<span style="display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;'
+            f'background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:{accent};'
+            f'font-size:11px;font-weight:700;">{escape(gname)}</span>'
+            f'{"".join(rows)}</td>'
         )
-    # two rows of 5
-    row1 = "".join(cells[:5])
-    row2 = "".join(cells[5:])
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;width:100%;box-sizing:border-box;">
-<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#f8fafc;">SmartAdmin Connected Experience — Navigation</div>
-<table style="width:100%;border-collapse:separate;border-spacing:6px;"><tr>{row1}</tr><tr>{row2}</tr></table>
-<div style="font-size:11px;color:#94a3b8;margin-top:6px;">After import, replace {{{{PORTAL_BASE}}}} and {{{{DASHBOARD_ID_NN}}}} placeholders. Metrics work even before links are configured.</div>
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:16px;padding:18px;width:100%;box-sizing:border-box;">
+<div style="font-size:18px;font-weight:700;color:#ffffff;margin-bottom:6px;">SmartAdmin Connected Experience — Navigation</div>
+<div style="font-size:13px;color:#a5b4fc;margin-bottom:12px;">Home · Executive · Operational · Technical. After import, replace {{{{PORTAL_BASE}}}} and {{{{DASHBOARD_ID_NN}}}}. Metrics work before links are wired.</div>
+<div style="height:1px;background:#1f2a44;margin:12px 0;"></div>
+<table style="width:100%;border-collapse:separate;border-spacing:12px;"><tr>{"".join(cards)}</tr></table>
 </div>"""
     return text_widget(
         "Suite Navigation Menu",
         content,
         row=row,
         sizey=sizey,
-        description="Global navigation across the Connected Experience suite.",
+        description="Global navigation across Executive, Operational, and Technical groups.",
     )
 
 
@@ -176,37 +236,41 @@ def guide_widget(
     subtitle: str,
     questions: list[str],
     flow_steps: list[tuple[str, str]],
-    next_steps: list[str],
+    next_steps: list,
     row: int,
     sizey: int = 5,
 ) -> dict:
+    """Introductive educational panel (20px title, inner #020617 cards)."""
     q_html = "".join(f'<li style="margin:5px 0;">{escape(q)}</li>' for q in questions)
     flow_html = "".join(
         f'<li style="margin:5px 0;"><strong>{escape(s[0])}</strong> — {escape(s[1])}</li>'
         for s in flow_steps
     )
+
     def _as_text(n) -> str:
         if isinstance(n, (tuple, list)):
             return " — ".join(str(x) for x in n)
         return str(n)
 
     next_html = "".join(f'<li style="margin:5px 0;">{escape(_as_text(n))}</li>' for n in next_steps)
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:16px;width:100%;box-sizing:border-box;">
-<div style="font-size:18px;font-weight:700;color:#f9fafb;margin-bottom:4px;">{escape(title)}</div>
-<div style="font-size:13px;color:#9ca3af;margin-bottom:12px;">{escape(subtitle)}</div>
-<table style="width:100%;border-collapse:separate;border-spacing:10px;"><tr>
-<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;">
-<div style="font-size:13px;font-weight:700;margin-bottom:8px;">Questions this dashboard answers</div>
-<ul style="margin:0;padding-left:18px;font-size:12px;">{q_html}</ul>
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;">
+<div style="margin-bottom:16px;">
+<div style="font-size:20px;font-weight:700;color:#f9fafb;">{escape(title)}</div>
+<div style="font-size:13px;color:#9ca3af;margin-top:4px;">{escape(subtitle)}</div>
+</div>
+<table style="width:100%;border-collapse:separate;border-spacing:16px;"><tr>
+<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:33%;">
+<div style="font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;">Questions this dashboard answers</div>
+<ul style="margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;">{q_html}</ul>
 </td>
-<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:34%;">
-<div style="font-size:13px;font-weight:700;margin-bottom:8px;">Recommended review flow</div>
-<ol style="margin:0;padding-left:18px;font-size:12px;">{flow_html}</ol>
+<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:34%;">
+<div style="font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;">Recommended review flow</div>
+<ol style="margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;">{flow_html}</ol>
 </td>
-<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:33%;">
-<div style="font-size:13px;font-weight:700;margin-bottom:8px;">Where to go next</div>
-<ul style="margin:0;padding-left:18px;font-size:12px;">{next_html}</ul>
-<div style="margin-top:10px;font-size:11px;color:#94a3b8;">Empty / zero: confirm tokens and LogicModules. Healthy zero critical alerts still warrants Warning and dead-resource checks.</div>
+<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:33%;">
+<div style="font-size:15px;font-weight:700;margin-bottom:10px;color:#f9fafb;">Where to go next</div>
+<ul style="margin:0;padding-left:18px;font-size:12px;color:#e5e7eb;">{next_html}</ul>
+<div style="margin-top:14px;font-size:12px;color:#9ca3af;">Tip: Empty or zero values may mean healthy state or missing tokens/LogicModules — confirm before concluding.</div>
 </td>
 </tr></table>
 </div>"""
@@ -214,10 +278,137 @@ def guide_widget(
 
 
 def section_banner(title: str, row: int, sizey: int = 1) -> dict:
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border-left:4px solid #38bdf8;padding:8px 14px;border-radius:8px;">
-<div style="font-size:15px;font-weight:700;">{escape(title)}</div>
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#f8fafc;border:1px solid #1f2a44;border-left:4px solid #38bdf8;padding:10px 14px;border-radius:8px;">
+<div style="font-size:15px;font-weight:700;color:#f9fafb;">{escape(title)}</div>
 </div>"""
     return text_widget(title, content, row=row, sizey=sizey, description=f"Section: {title}")
+
+
+def section_banner_major(title: str, row: int, sizey: int = 2) -> dict:
+    content = f"""<p><style type="text/css">
+.html-wpsites {{ height:112px; background-color:rgba(0,0,0,0); font-family:Arial; font-size:62px; color:#ffffff; font-weight:bold; text-align:center; }}
+</style></p>
+<div class="html-wpsites">{escape(title)}</div>
+<p>&nbsp;</p>"""
+    return text_widget(title, content, row=row, sizey=sizey, description=f"Major section: {title}")
+
+
+def scope_pills(items: list[tuple[str, str]], row: int, sizey: int = 1) -> dict:
+    """DCC scope pills. items: (label, css_class_role)."""
+    colors = {
+        "health": ("rgba(22,163,74,.92)", "#ecfdf5"),
+        "alerts": ("rgba(239,68,68,.92)", "#fff7ed"),
+        "region": ("rgba(59,130,246,.9)", "#eff6ff"),
+        "capacity": ("rgba(250,204,21,.9)", "#422006"),
+        "sites": ("rgba(14,165,233,.9)", "#082f49"),
+        "sessions": ("rgba(168,85,247,.88)", "#faf5ff"),
+    }
+    pills = []
+    for label, role in items:
+        bg, fg = colors.get(role, colors["region"])
+        pills.append(
+            f'<span style="display:inline-block;border-radius:999px;padding:6px 10px;margin:4px 6px 4px 0;'
+            f'font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,.18);background:{bg};color:{fg};">'
+            f"{escape(label)}</span>"
+        )
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;padding:4px 0;">{"".join(pills)}</div>"""
+    return text_widget("Scope Indicators", content, row=row, sizey=sizey, description="Severity/scope pills.")
+
+
+def dcc_intro_guide(
+    name: str,
+    h1: str,
+    subtitle: str,
+    cards: list[tuple[str, str, str, str]],
+    row: int,
+    sizey: int = 6,
+) -> dict:
+    """DCC executive intro card grid. cards: (icon, title, body, action)."""
+    card_html = []
+    for icon, title, body, action in cards:
+        card_html.append(
+            f'<td style="vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);'
+            f'border-radius:14px;padding:16px;min-height:150px;width:{100 // max(len(cards), 1)}%;">'
+            f'<div style="display:inline-block;width:auto;padding:6px 10px;border-radius:11px;'
+            f'background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);'
+            f'font-size:11px;font-weight:800;color:#dbeafe;">{escape(icon)}</div>'
+            f'<div style="font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;">{escape(title)}</div>'
+            f'<div style="font-size:13px;line-height:1.48;color:#cbd5e1;">{body}</div>'
+            f'<span style="display:inline-block;margin-top:12px;padding:7px 11px;border-radius:999px;'
+            f'background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);'
+            f'color:#bfdbfe;font-size:12px;font-weight:700;">{escape(action)}</span></td>'
+        )
+    # wrap in rows of 4
+    rows = []
+    for i in range(0, len(card_html), 4):
+        chunk = card_html[i : i + 4]
+        rows.append(f"<tr>{''.join(chunk)}</tr>")
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#111827 45%,#1e3a8a 100%);color:#ffffff;border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.32);width:100%;box-sizing:border-box;">
+<div style="font-size:28px;font-weight:750;color:#ffffff;margin-bottom:6px;">{escape(h1)}</div>
+<div style="font-size:13px;color:#dbeafe;margin-bottom:16px;max-width:960px;">{escape(subtitle)}</div>
+<table style="width:100%;border-collapse:separate;border-spacing:14px;">{"".join(rows)}</table>
+</div>"""
+    return text_widget(name, content, row=row, sizey=sizey, description="DCC-style executive guide.")
+
+
+def dcc_nav_guide(
+    name: str,
+    title: str,
+    columns: list[tuple[str, str, list[str]]],
+    row: int,
+    sizey: int = 4,
+) -> dict:
+    """DCC 4-col nav guide. columns: (pill, heading, bullets)."""
+    cells = []
+    for pill, heading, bullets in columns:
+        lis = "".join(f"<li>{escape(b)}</li>" for b in bullets)
+        cells.append(
+            f'<td style="vertical-align:top;background:rgba(15,23,42,.72);border:1px solid rgba(191,219,254,.20);'
+            f'border-radius:12px;padding:13px;min-height:110px;width:25%;">'
+            f'<span style="display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;'
+            f'background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);'
+            f'color:#bfdbfe;font-size:11px;font-weight:700;">{escape(pill)}</span>'
+            f'<div style="font-size:14px;font-weight:700;color:#ffffff;margin-bottom:8px;">{escape(heading)}</div>'
+            f'<ul style="margin:0;padding-left:16px;color:#cbd5e1;font-size:12px;line-height:1.55;">{lis}</ul></td>'
+        )
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#111827 0%,#172554 100%);color:#ffffff;border-radius:14px;padding:18px 20px;width:100%;box-sizing:border-box;">
+<div style="font-size:20px;font-weight:700;margin-bottom:12px;">{escape(title)}</div>
+<table style="width:100%;border-collapse:separate;border-spacing:12px;"><tr>{"".join(cells)}</tr></table>
+</div>"""
+    return text_widget(name, content, row=row, sizey=sizey, description="DCC-style navigation guide.")
+
+
+def dcc_inventory_table(
+    name: str,
+    title: str,
+    subtitle: str,
+    rows: list[tuple[str, str, str, str]],
+    row: int,
+    sizey: int = 4,
+) -> dict:
+    """Adapted DCC card cells as inventory rows: (status_pill, title, description, link_label_or_id)."""
+    trs = []
+    for status, rtitle, desc, link_id in rows:
+        if link_id.startswith("http") or link_id.startswith("{{"):
+            a = f'<a href="{link_id}" style="color:#93c5fd;text-decoration:none;font-weight:700;">{escape(rtitle)}</a>'
+        elif link_id:
+            a = link(link_id, rtitle, "#93c5fd")
+        else:
+            a = f'<span style="color:#ffffff;font-weight:700;">{escape(rtitle)}</span>'
+        trs.append(
+            f'<tr><td style="vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);'
+            f'border-radius:12px;padding:12px 14px;">'
+            f'<span style="display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.18);'
+            f'border:1px solid rgba(191,219,254,.24);color:#bfdbfe;font-size:11px;font-weight:700;margin-right:10px;">'
+            f"{escape(status)}</span>"
+            f'{a}<div style="font-size:12px;color:#9ca3af;margin-top:6px;">{escape(desc)}</div></td></tr>'
+        )
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#111827 0%,#172554 100%);color:#ffffff;border-radius:14px;padding:18px;width:100%;box-sizing:border-box;">
+<div style="font-size:20px;font-weight:700;margin-bottom:4px;">{escape(title)}</div>
+<div style="font-size:13px;color:#dbeafe;margin-bottom:12px;">{escape(subtitle)}</div>
+<table style="width:100%;border-collapse:separate;border-spacing:10px;">{"".join(trs)}</table>
+</div>"""
+    return text_widget(name, content, row=row, sizey=sizey, description=title)
 
 
 def footer_links(items: list[tuple[str, str]], row: int, sizey: int = 2) -> dict:
@@ -225,45 +416,35 @@ def footer_links(items: list[tuple[str, str]], row: int, sizey: int = 2) -> dict
         f'<li style="margin:4px 0;"><strong>{escape(label)}</strong> — {escape(dest)}</li>'
         for label, dest in items
     )
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;">
-<div style="font-size:14px;font-weight:700;margin-bottom:6px;">Where next</div>
+    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:14px;padding:14px;">
+<div style="font-size:14px;font-weight:700;color:#ffffff;margin-bottom:8px;">Where next</div>
 <ul style="margin:0;padding-left:18px;font-size:12px;">{lis}</ul>
 </div>"""
     return text_widget("Where Next", content, row=row, sizey=sizey, description="Contextual drill-down suggestions.")
 
 
-def tech_links_panel(row: int, sizey: int = 3) -> dict:
-    cats = [
-        ("Capacity Management", "Host / storage utilization trends"),
-        ("Cloud — AWS / Azure / GCP", "Cloud account and service health"),
-        ("Network", "Device and path performance"),
-        ("Linux / Microsoft", "OS performance and capacity"),
-        ("Storage / Virtualization", "Datastore and hypervisor health"),
-        ("Alerting / Websites", "OOTB alert and website packs"),
+def tech_directory_panel(row: int, sizey: int = 5) -> dict:
+    rows = [
+        ("Capacity", "Capacity Management", "Host / storage utilization trends", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CAPACITY_ID}}"),
+        ("Cloud", "Cloud — AWS / Azure / GCP", "Cloud account and service health", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_CLOUD_ID}}"),
+        ("Network", "Network Performance", "Device and path performance", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_NETWORK_ID}}"),
+        ("Server", "Linux / Microsoft Server", "OS performance and capacity", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_SERVER_ID}}"),
+        ("Storage", "Storage", "Array and datastore health", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_STORAGE_ID}}"),
+        ("Virt", "Virtualization", "Hypervisor and VM health", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_VIRT_ID}}"),
+        ("Alerting", "Alerting (OOTB)", "Complementary alert packs", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_ALERTING_ID}}"),
+        ("Websites", "Websites (OOTB)", "Deep website diagnostics", "{{PORTAL_BASE}}/uiv4/dashboard/{{OOTB_WEBSITES_ID}}"),
     ]
-    cards = "".join(
-        f'<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:10px;padding:10px;width:16%;">'
-        f'<div style="font-weight:700;font-size:12px;color:#38bdf8;">{escape(t)}</div>'
-        f'<div style="font-size:11px;color:#94a3b8;margin-top:4px;">{escape(d)}</div>'
-        f'<div style="font-size:10px;color:#64748b;margin-top:6px;">Link: {{{{PORTAL_BASE}}}}/… (configure after OOTB import)</div></td>'
-        for t, d in cats
-    )
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;">
-<div style="font-size:14px;font-weight:700;margin-bottom:8px;">Level-3 technology dashboards (OOTB)</div>
-<div style="font-size:12px;color:#94a3b8;margin-bottom:10px;">Import from LogicMonitor Dashboards / github.com/logicmonitor/dashboards, then wire URLs. Not bundled in this portal-admin pack.</div>
-<table style="width:100%;border-collapse:separate;border-spacing:8px;"><tr>{cards}</tr></table>
-</div>"""
-    return text_widget(
-        "Technology Drill-Down Links",
-        content,
+    return dcc_inventory_table(
+        "Technology Drill-Down Directory",
+        "Technology dashboards (OOTB)",
+        "Import from LogicMonitor Dashboards / github.com/logicmonitor/dashboards, then wire IDs. Not bundled in this portal-admin pack.",
+        rows,
         row=row,
         sizey=sizey,
-        description="Placeholders for OOTB Level-3 technology dashboards.",
     )
 
 
 def make_dashboard(name: str, description: str, tokens: list, widgets: list) -> dict:
-    # Ensure no overlapping positions by simple validation later; clear None positions already fixed via place()
     return {
         "santabaRelease": 242,
         "defaultDashboardFilters": {"defaultDashboardFilterDetails": []},
@@ -285,91 +466,219 @@ def make_dashboard(name: str, description: str, tokens: list, widgets: list) -> 
 
 def build_00() -> dict:
     cards = [
-        ("Executive health", "Leadership", "01 - Platform Value Overview", "Are we healthy? What value is the platform providing?"),
-        ("Triage alerts", "NOC / Ops", "03 - Alert Overview", "Which alerts require action now?"),
-        ("Environment risk", "Ops", "02 - Environment Health", "Where is risk concentrated?"),
-        ("Coverage & licenses", "Admins / FinOps", "04 - Coverage, Capacity & Licenses", "Are there blind spots or license pressure?"),
-        ("Access hygiene", "Security", "06 - Access and Administration", "Idle users, tokens, empty roles?"),
-        ("Collector pipeline", "Platform engineers", "07 - Collector Health", "Is monitoring data still flowing?"),
+        ("10", "Executive", "Leaders", "Is the environment healthy? What needs attention?"),
+        ("20", "Operational", "NOC / Ops", "Which alerts and resources need action now?"),
+        ("30", "Technical", "Engineers", "Which metric or collector explains the issue?"),
+        ("01", "Platform Value", "CS / Exec", "What operational value is the platform providing?"),
+        ("03", "Active Alerts", "Triage", "Severity, noise, routing health."),
+        ("31", "Tech Directory", "Deep dive", "Network, server, storage, cloud OOTB boards."),
     ]
     card_html = "".join(
-        f'<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:12px;width:16%;">'
+        f'<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:16%;">'
         f'<div style="font-size:11px;color:#38bdf8;font-weight:700;">{escape(role)}</div>'
-        f'<div style="font-size:14px;font-weight:700;margin:6px 0;">{escape(title)}</div>'
-        f'<div style="font-size:11px;color:#94a3b8;">{escape(desc)}</div>'
-        f'<div style="font-size:11px;margin-top:8px;color:#e5e7eb;">Open <strong>{escape(dest)}</strong></div></td>'
-        for title, role, dest, desc in cards
+        f'<div style="font-size:15px;font-weight:700;color:#f9fafb;margin:6px 0;">{link(nid, title)}</div>'
+        f'<div style="font-size:12px;color:#9ca3af;">{escape(desc)}</div></td>'
+        for nid, title, role, desc in cards
     )
-    welcome = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#e5e7eb;border-radius:14px;padding:18px;">
-<div style="font-size:22px;font-weight:700;color:#f8fafc;">SmartAdmin Connected Experience</div>
-<div style="font-size:13px;color:#cbd5e1;margin-top:6px;max-width:900px;">Portal administration and platform-value dashboards for client reviews. Start from this Home page, then drill into operational and technical views. Use dashboard tokens to reuse the package across environments.</div>
+    welcome = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#111827 45%,#1e3a8a 100%);color:#ffffff;border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.32);">
+<div style="font-size:28px;font-weight:750;color:#ffffff;">SmartAdmin Connected Experience</div>
+<div style="font-size:13px;color:#dbeafe;margin-top:8px;max-width:960px;">Central lobby for Executive, Operational, and Technical dashboard groups. Start by role, review environment health, then drill into command centers. Use tokens to reuse this package across clients.</div>
 </div>"""
-    how = """<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:14px;">
-<div style="font-size:14px;font-weight:700;margin-bottom:8px;">How filters and time ranges work</div>
-<ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.5;">
-<li><strong>defaultResourceGroup</strong> — scopes resource/alert widgets (default <code>*</code>).</li>
-<li><strong>defaultResource</strong> — typically <code>*.logicmonitor.com</code> for portal metrics.</li>
-<li><strong>defaultWebsiteGroup</strong> — used on Websites dashboard.</li>
-<li><strong>accountname</strong> — set after import for license widgets (replace <code>{{ACCOUNT_NAME}}</code>).</li>
-<li>Each widget keeps its own timescale (day, 7days, 3month, etc.).</li>
-</ul>
-</div>"""
-    learn = """<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:14px;">
-<div style="font-size:14px;font-weight:700;margin-bottom:8px;">Learn &amp; support</div>
+    groups_lobby = dcc_nav_guide(
+        "Dashboard Groups Lobby",
+        "Three dashboard groups",
+        [
+            (
+                "Executive",
+                "Leadership visibility",
+                [
+                    "Command Center health snapshot",
+                    "Platform value and coverage",
+                    "Capacity and service risk",
+                    "Links to Operational detail",
+                ],
+            ),
+            (
+                "Operational",
+                "Daily monitoring",
+                [
+                    "Active alert triage",
+                    "Resource and website health",
+                    "Coverage and licenses",
+                    "Access administration",
+                ],
+            ),
+            (
+                "Technical",
+                "Investigation",
+                [
+                    "Resource investigation hub",
+                    "Collector diagnostics",
+                    "LogicModule noise",
+                    "OOTB technology directory",
+                ],
+            ),
+            (
+                "How to use",
+                "Filters and time",
+                [
+                    "Set defaultResourceGroup",
+                    "Set accountname for licenses",
+                    "Widget timescales are preserved",
+                    "Wire dashboard IDs after import",
+                ],
+            ),
+        ],
+        row=9,
+        sizey=5,
+    )
+    how = """<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;">
+<div style="font-size:20px;font-weight:700;color:#f9fafb;margin-bottom:4px;">Filters and time ranges</div>
+<div style="font-size:13px;color:#9ca3af;margin-bottom:12px;">Configure tokens once; widgets that support them will scope automatically.</div>
+<table style="width:100%;border-collapse:separate;border-spacing:10px;"><tr>
+<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:50%;">
+<div style="font-size:15px;font-weight:700;color:#f9fafb;margin-bottom:8px;">Global tokens</div>
 <ul style="margin:0;padding-left:18px;font-size:12px;">
-<li>LogicMonitor Support documentation (configure portal doc links after import).</li>
-<li>OOTB technology dashboards: Capacity, Cloud, Network — see Technology Drill-Down Links.</li>
-<li>Users / roles training: see <strong>06 Access and Administration</strong> (corrected content — not collector training).</li>
+<li><strong>defaultResourceGroup</strong> — default <code>*</code></li>
+<li><strong>defaultResource</strong> — typically <code>*.logicmonitor.com</code></li>
+<li><strong>defaultWebsiteGroup</strong> — Websites dashboards</li>
+<li><strong>accountname</strong> — replace <code>{{ACCOUNT_NAME}}</code></li>
 </ul>
+</td>
+<td style="vertical-align:top;background:#020617;border:1px solid #1f2937;border-radius:12px;padding:14px;width:50%;">
+<div style="font-size:15px;font-weight:700;color:#f9fafb;margin-bottom:8px;">Time ranges</div>
+<ul style="margin:0;padding-left:18px;font-size:12px;">
+<li>Status scorecards — <code>day</code></li>
+<li>Alert trends — <code>7days</code> / <code>1day</code></li>
+<li>Coverage drift — <code>3month</code></li>
+<li>Collector graphs — preserve source timescales</li>
+</ul>
+</td>
+</tr></table>
 </div>"""
     widgets = [
-        global_nav_widget("00", row=1, sizey=3),
-        text_widget("Welcome", welcome, row=4, sizey=3, description="Platform value statement and package orientation."),
+        global_nav_widget("00", row=1, sizey=5),
+        text_widget("Welcome", welcome, row=6, sizey=3, description="Package lobby banner."),
+        groups_lobby,
         text_widget(
             "Role-Based Starting Points",
-            f'<div style="font-family:Arial,Helvetica,sans-serif;"><table style="width:100%;border-collapse:separate;border-spacing:8px;"><tr>{card_html}</tr></table></div>',
-            row=7,
+            f'<div style="font-family:Arial,Helvetica,sans-serif;"><table style="width:100%;border-collapse:separate;border-spacing:12px;"><tr>{card_html}</tr></table></div>',
+            row=14,
             sizey=4,
             description="Role-based navigation cards.",
         ),
-        section_banner("Environment summary — alerts and collectors", row=11),
-        place(take("intro", "Critical Alerts"), 12, 1, 2, 2, name="Critical Alerts Requiring Attention"),
-        place(take("intro", "Error Alerts"), 12, 3, 2, 2, name="Error Alerts"),
-        place(take("intro", "Warning Alerts"), 12, 5, 2, 2, name="Warning Alerts"),
-        place(take("intro", "Total Number of Alerts"), 12, 7, 3, 2, name="Total Active Alerts"),
-        place(take("intro", "Dead Resources"), 12, 10, 3, 2, name="Resources Requiring Attention (Dead)"),
-        place(take("intro", "Alive Collectors"), 14, 1, 3, 2, name="Alive Collectors"),
-        place(take("intro", "Active Users"), 14, 4, 3, 2, name="Active Users"),
-        place(take("overview", "Total Number of Dead Resources"), 14, 7, 3, 2, name="Dead Resources (Portal)"),
-        place(take("overview", "Local Resource Licenses"), 14, 10, 3, 2, name="Local License Footprint"),
-        text_widget("Filters and Time Ranges", how, row=16, sizey=3, col=1, sizex=6),
-        text_widget("Learn and Support", learn, row=16, sizey=3, col=7, sizex=6),
-        tech_links_panel(row=19, sizey=3),
+        section_banner_major("Environment Summary", row=18),
+        place(take("intro", "Critical Alerts"), 20, 1, 2, 2, name="Critical Alerts Requiring Attention"),
+        place(take("intro", "Error Alerts"), 20, 3, 2, 2, name="Error Alerts"),
+        place(take("intro", "Warning Alerts"), 20, 5, 2, 2, name="Warning Alerts"),
+        place(take("intro", "Total Number of Alerts"), 20, 7, 3, 2, name="Total Active Alerts"),
+        place(take("intro", "Dead Resources"), 20, 10, 3, 2, name="Resources Requiring Attention (Dead)"),
+        place(take("intro", "Alive Collectors"), 22, 1, 3, 2, name="Alive Collectors"),
+        place(take("intro", "Active Users"), 22, 4, 3, 2, name="Active Users"),
+        place(take("overview", "Total Number of Dead Resources"), 22, 7, 3, 2, name="Dead Resources (Portal)"),
+        place(take("overview", "Local Resource Licenses"), 22, 10, 3, 2, name="Local License Footprint"),
+        text_widget("Filters and Time Ranges", how, row=24, sizey=5, col=1, sizex=12),
+        tech_directory_panel(row=29, sizey=5),
         footer_links(
             [
-                ("Platform Value", "01 — executive KPIs"),
-                ("Alert Overview", "03 — triage"),
-                ("Environment Health", "02 — map/NOC/dead"),
-                ("Adoption", "09 — improvement story"),
+                ("Executive Command Center", "10 — leadership snapshot"),
+                ("Operational Command Center", "20 — triage hub"),
+                ("Technical Resource Investigation", "30 — root cause"),
+                ("Platform Value", "01 — coverage and value"),
             ],
-            row=22,
+            row=34,
         ),
     ]
     return make_dashboard(
         "00 - Home / Introductory",
-        "Primary entry point for SmartAdmin Connected Experience. Role-based starts, environment summary, and suite navigation.",
+        "Primary entry point: group lobby, role starts, environment summary, and suite navigation.",
         HOME_TOKENS,
+        widgets,
+    )
+
+
+def build_10() -> dict:
+    """NEW — Executive Command Center (DCC flow, portable metrics)."""
+    widgets = [
+        global_nav_widget("10", row=1, sizey=5),
+        dcc_intro_guide(
+            "Executive Command Center — Read First",
+            "Executive Command Center",
+            "Concise leadership view of platform health, risks, and where to drill. Portable tokens — not PSC-specific metrics.",
+            [
+                ("START", "Scan alert posture", "Review Critical / Error / Warning KPIs before drilling.", "Severity strip"),
+                ("MAP", "Locate concentration", "Use geographic and type NOC views for blast radius.", "Map + NOC"),
+                ("EXC", "Exceptions", "Open live resource and collector alerts when elevated.", "Alert list"),
+                ("CAP", "Coverage risk", "Check dead/minimal resources and license pressure.", "Coverage KPIs"),
+                ("COL", "Collectors", "Confirm the monitoring pipeline is alive.", "Alive vs down"),
+                ("NEXT", "Drill with intent", "Move to Operational or Technical only when signaled.", "Ops / Tech links"),
+            ],
+            row=6,
+            sizey=6,
+        ),
+        scope_pills(
+            [
+                ("Health", "health"),
+                ("Alerts", "alerts"),
+                ("Coverage", "capacity"),
+                ("Collectors", "region"),
+                ("Services", "sites"),
+            ],
+            row=12,
+        ),
+        section_banner("Critical status", row=13),
+        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 14, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 14, 4, 3, 2, name="Error Alerts"),
+        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 14, 7, 3, 2, name="Warning Alerts"),
+        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 14, 10, 3, 2, name="Total Alerts"),
+        place(take("overview", "Total Number of Alive Collectors"), 16, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 16, 4, 3, 2, name="Down Collectors"),
+        place(take("overview", "Total Number of Dead Resources"), 16, 7, 3, 2, name="Dead Resources"),
+        place(take("overview", "Total Number of Dead Websites"), 16, 10, 3, 2, name="Dead Websites"),
+        section_banner("Situation awareness", row=18),
+        place(take("overview", "Alert Status by Resource Location"), 19, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 19, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("overview", "All Resource Alerts"), 24, 1, 8, 5, name="Executive Exceptions"),
+        place(take("overview", "Current Collector Alerts"), 24, 9, 4, 5, name="Collector Exceptions"),
+        place(take("overview", "Alert Counts over time"), 29, 1, 6, 4, name="Alert Count Trend"),
+        place(take("overview", "Top Dead Resources Over Time"), 29, 7, 6, 4, name="Dead Resources Trend"),
+        dcc_nav_guide(
+            "Team Navigation and Drill-Down",
+            "Where leaders go next",
+            [
+                ("Executive", "Stay high-level", ["Platform Value (01)", "Env Health Exec (11)", "Availability (12)", "Capacity Risk (13)"]),
+                ("Operations", "Triage detail", ["Ops Command Center (20)", "Active Alerts (03)", "Resource Health (02)"]),
+                ("Technical", "Investigate", ["Resource Investigation (30)", "Collector Diagnostics (07)"]),
+                ("Decision", "Escalate when", ["Critical rising", "Collectors down", "Dead websites", "License pressure"]),
+            ],
+            row=33,
+            sizey=4,
+        ),
+        footer_links(
+            [
+                ("Platform Value Overview", "01"),
+                ("Operational Command Center", "20"),
+                ("Active Alerts", "03"),
+                ("Collector Diagnostics", "07"),
+            ],
+            row=37,
+        ),
+    ]
+    return make_dashboard(
+        "10 - Executive Command Center",
+        "Executive command center: DCC-style flow with portable SmartAdmin/Introductive health metrics.",
+        PORTAL_TOKENS,
         widgets,
     )
 
 
 def build_01() -> dict:
     widgets = [
-        global_nav_widget("01", row=1, sizey=3),
+        global_nav_widget("01", row=1, sizey=5),
         guide_widget(
             "Platform Value Overview — Read First",
             "Platform Value Overview",
-            "Executive landing page. Confirm health, coverage, and where to drill.",
+            "Executive landing page for health, coverage, and platform value.",
             [
                 "Are we healthy right now (alert posture)?",
                 "Are collectors alive?",
@@ -383,47 +692,295 @@ def build_01() -> dict:
                 ("Drill only when signaled", "Alerts, Coverage, Collectors"),
             ],
             [
-                "Elevated alerts → 03 Alert Overview",
-                "Dead/minimal resources → 02 Environment Health",
-                "License pressure → 04 Coverage",
-                "Down collectors → 07 Collector Health",
+                "Elevated alerts → 03 Active Alerts",
+                "Dead/minimal → 02 Resource Health / 11 Exec",
+                "License pressure → 13 / 04",
+                "Down collectors → 07 Collector Diagnostics",
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Critical status — alert posture", row=9),
-        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 10, 1, 3, 2, name="Critical Alerts Requiring Attention"),
-        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 10, 4, 3, 2, name="Error Alerts"),
-        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 10, 7, 3, 2, name="Warning Alerts"),
-        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 10, 10, 3, 2, name="Total Alerts (Ack and Unack)"),
-        section_banner("Platform coverage and collector health", row=12),
-        place(take("overview", "Total Number of Alive Collectors"), 13, 1, 3, 2, name="Alive Collectors"),
-        place(take("overview", "Total Number of Down Collectors"), 13, 4, 3, 2, name="Down Collectors"),
-        place(take("alerts", "Total Number of Resources"), 13, 7, 3, 2, name="Monitored Resources"),
-        place(take("alerts", "Total Number of Cloud Resources"), 13, 10, 3, 2, name="Cloud Resources"),
-        place(take("overview", "Local Resource Licenses"), 15, 1, 3, 2, name="Local Resource Licenses"),
-        place(take("overview", "Cloud Resource Licences"), 15, 4, 3, 2, name="Cloud Resource Licenses"),
-        place(take("overview", "LogSources"), 15, 7, 3, 2, name="LogSources Installed"),
-        place(take("overview", "Active Users"), 15, 10, 3, 2, name="Active Users"),
-        section_banner("Situation awareness", row=17),
-        place(take("overview", "Alert Status by Resource Location"), 18, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 18, 7, 6, 5, name="Alert Status by Resource Types"),
-        place(take("overview", "Alert Counts over time"), 23, 1, 6, 4, name="Alert Count Trend"),
-        place(take("overview", "Top Dead Resources Over Time"), 23, 7, 6, 4, name="Dead Resources Trend"),
+        section_banner("Critical status — alert posture", row=11),
+        place(take("overview", "Total Ack'd and Unack'd Critical Alerts"), 12, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("overview", "Total Ack'd and Unack'd Error Alerts"), 12, 4, 3, 2, name="Error Alerts"),
+        place(take("overview", "Total Ack'd and Unack'd Warning Alerts"), 12, 7, 3, 2, name="Warning Alerts"),
+        place(take("overview", "Total Number of Ack'd and Unack'd Alerts"), 12, 10, 3, 2, name="Total Alerts (Ack and Unack)"),
+        section_banner("Platform coverage and collector health", row=14),
+        place(take("overview", "Total Number of Alive Collectors"), 15, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 15, 4, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of Resources"), 15, 7, 3, 2, name="Monitored Resources"),
+        place(take("alerts", "Total Number of Cloud Resources"), 15, 10, 3, 2, name="Cloud Resources"),
+        place(take("overview", "Local Resource Licenses"), 17, 1, 3, 2, name="Local Resource Licenses"),
+        place(take("overview", "Cloud Resource Licences"), 17, 4, 3, 2, name="Cloud Resource Licenses"),
+        place(take("overview", "LogSources"), 17, 7, 3, 2, name="LogSources Installed"),
+        place(take("overview", "Active Users"), 17, 10, 3, 2, name="Active Users"),
+        section_banner("Situation awareness", row=19),
+        place(take("overview", "Alert Status by Resource Location"), 20, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 20, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("overview", "Alert Counts over time"), 25, 1, 6, 4, name="Alert Count Trend"),
+        place(take("overview", "Top Dead Resources Over Time"), 25, 7, 6, 4, name="Dead Resources Trend"),
         footer_links(
             [
-                ("Environment Health", "02"),
-                ("Alert Overview", "03"),
-                ("Coverage & Licenses", "04"),
-                ("Collector Health", "07"),
-                ("Adoption", "09"),
+                ("Executive Command Center", "10"),
+                ("Resource Health", "02"),
+                ("Active Alerts", "03"),
+                ("Capacity and Risk", "13"),
+                ("Collector Diagnostics", "07"),
+            ],
+            row=29,
+        ),
+    ]
+    return make_dashboard(
+        "01 - Platform Value Overview",
+        "Executive view: alert posture, collectors, footprint, licenses, map/NOC, and navigation.",
+        PORTAL_TOKENS,
+        widgets,
+    )
+
+
+def build_11() -> dict:
+    """NEW — Environment Health Executive (exec-density)."""
+    widgets = [
+        global_nav_widget("11", row=1, sizey=5),
+        guide_widget(
+            "Environment Health Executive — Read First",
+            "Environment Health Executive Overview",
+            "Leadership-density view of where risk is concentrated — without deep operational tables.",
+            [
+                "Where is risk concentrated geographically or by type?",
+                "Are dead or minimally monitored resources rising?",
+                "Are collectors and websites signaling trouble?",
+            ],
+            [
+                ("Map + NOC", "Concentration"),
+                ("Dead / minimal / websites", "Blind spots"),
+                ("Collector pulse", "Trust in data"),
+                ("Drill to Ops", "Resource Health / Alerts"),
+            ],
+            [
+                "Operational Resource Health → 02",
+                "Active Alerts → 03",
+                "Collector Diagnostics → 07",
+                "Websites → 05 / 12",
+            ],
+            row=6,
+            sizey=5,
+        ),
+        scope_pills([("Health", "health"), ("Alerts", "alerts"), ("Capacity", "capacity"), ("Services", "sites")], row=11),
+        section_banner("Executive risk indicators", row=12),
+        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 13, 4, 3, 2, name="Dead Resources"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 13, 7, 3, 2, name="Minimally Monitored Resources"),
+        place(take("overview", "Total Number of Dead Websites"), 13, 10, 3, 2, name="Dead Websites"),
+        place(take("overview", "Total Number of Alive Collectors"), 15, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 15, 4, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of SDT Resource"), 15, 7, 3, 2, name="Resources in SDT"),
+        place(take("alerts", "Total Number of Resources"), 15, 10, 3, 2, name="Monitored Resources"),
+        section_banner("Situation visuals", row=17),
+        place(take("overview", "Alert Status by Resource Location"), 18, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 18, 7, 6, 5, name="Alert Status by Resource Types"),
+        place(take("alerts", "Top Dead Resources Over Time"), 23, 1, 6, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 23, 7, 6, 4, name="Minimal Monitoring Trend"),
+        footer_links(
+            [
+                ("Executive Command Center", "10"),
+                ("Resource Health (Operational)", "02"),
+                ("Active Alerts", "03"),
+                ("Collector Diagnostics", "07"),
             ],
             row=27,
         ),
     ]
     return make_dashboard(
-        "01 - Platform Value Overview",
-        "Level-1 executive view: alert posture, collectors, footprint, licenses, map/NOC, and navigation.",
+        "11 - Environment Health Executive",
+        "Executive environment health: map/NOC, dead/minimal/website/collector signals without deep ops tables.",
+        PORTAL_TOKENS,
+        widgets,
+    )
+
+
+def build_12() -> dict:
+    """NEW — Availability and Service Health."""
+    widgets = [
+        global_nav_widget("12", row=1, sizey=5),
+        guide_widget(
+            "Availability and Service Health — Read First",
+            "Availability and Service Health",
+            "Executive view of website/service availability and related alert severity.",
+            [
+                "Are websites available?",
+                "Are empty website groups creating blind spots?",
+                "Is alert severity elevated for services?",
+            ],
+            [
+                ("Website KPIs", "Counts and dead"),
+                ("Alert severity", "Service impact signal"),
+                ("Ops websites", "Deep hygiene on 05"),
+            ],
+            [
+                "Websites and Services → 05",
+                "Active Alerts → 03",
+                "OOTB Websites → 31 directory",
+            ],
+            row=6,
+            sizey=5,
+        ),
+        section_banner("Service availability", row=11),
+        place(take("groups", "Total Number of Websites"), 12, 1, 3, 2, name="Websites Monitored"),
+        place(take("groups", "Total Number of Dead Website"), 12, 4, 3, 2, name="Dead Websites"),
+        place(take("groups", "Total Number of Website Groups"), 12, 7, 3, 2, name="Website Groups"),
+        place(take("groups", "Total Number of Empty Website Groups"), 12, 10, 3, 2, name="Empty Website Groups"),
+        section_banner("Related alert posture", row=14),
+        place(take("intro", "Critical Alerts"), 15, 1, 3, 2, name="Critical Alerts"),
+        place(take("intro", "Error Alerts"), 15, 4, 3, 2, name="Error Alerts"),
+        place(take("intro", "Warning Alerts"), 15, 7, 3, 2, name="Warning Alerts"),
+        place(take("intro", "Total Number of Alerts"), 15, 10, 3, 2, name="Total Active Alerts"),
+        place(take("intro", "Alert Count over time"), 17, 1, 12, 4, name="Alert Count Trend"),
+        dcc_inventory_table(
+            "Service Drill-Down Links",
+            "Related operational and technical views",
+            "Configure IDs after import.",
+            [
+                ("Ops", "Websites and Services", "Group and website hygiene detail", "05"),
+                ("Ops", "Active Alerts", "Live exceptions and noise", "03"),
+                ("Tech", "Technology Directory", "OOTB website diagnostics", "31"),
+                ("Exec", "Executive Command Center", "Return to leadership hub", "10"),
+            ],
+            row=21,
+            sizey=4,
+        ),
+        footer_links(
+            [
+                ("Websites and Services", "05"),
+                ("Executive Command Center", "10"),
+                ("Operational Command Center", "20"),
+            ],
+            row=25,
+        ),
+    ]
+    return make_dashboard(
+        "12 - Availability and Service Health",
+        "Executive availability: websites/services KPIs plus alert severity and drill-downs.",
+        WEBSITE_TOKENS,
+        widgets,
+    )
+
+
+def build_13() -> dict:
+    """NEW — Capacity and Risk Overview."""
+    widgets = [
+        global_nav_widget("13", row=1, sizey=5),
+        guide_widget(
+            "Capacity and Risk Overview — Read First",
+            "Capacity and Risk Overview",
+            "Executive capacity, license, and coverage-risk signals. Host utilization deep-dives via OOTB Capacity.",
+            [
+                "Is license pressure rising?",
+                "Are unmonitored or minimal resources creating risk?",
+                "Where should capacity investigation continue?",
+            ],
+            [
+                ("License strip", "Cloud and local"),
+                ("Coverage gaps", "Unmonitored / minimal"),
+                ("OOTB capacity", "Infra utilization"),
+            ],
+            [
+                "Ops Coverage detail → 04",
+                "Technology Directory → 31",
+                "Platform Value → 01",
+            ],
+            row=6,
+            sizey=5,
+        ),
+        scope_pills([("Capacity", "capacity"), ("Coverage", "region"), ("Risk", "alerts")], row=11),
+        section_banner("License and footprint risk", row=12),
+        place(take("licenses", "IaaS - Total"), 13, 1, 3, 2, name="IaaS Licenses Total"),
+        place(take("licenses", "PaaS - Total"), 13, 4, 3, 2, name="PaaS Licenses Total"),
+        place(take("licenses", "Non-Compute - Total"), 13, 7, 3, 2, name="Non-Compute Licenses Total"),
+        place(take("licenses", "Local Licenses"), 13, 10, 3, 2, name="Local Licenses"),
+        place(take("licenses", "Local Licenses Percents"), 15, 1, 3, 2, name="Local License Percent Used"),
+        place(take("alerts", "Total Number of Resources"), 15, 4, 3, 2, name="Monitored Resources"),
+        place(take("alerts", "Total Number of Dead Resources"), 15, 7, 3, 2, name="Dead Resources"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 15, 10, 3, 2, name="Minimally Monitored"),
+        section_banner("Coverage risk trends", row=17),
+        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 18, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 18, 7, 6, 4, name="Minimal Monitoring Trend"),
+        tech_directory_panel(row=22, sizey=5),
+        footer_links(
+            [
+                ("Coverage, Capacity & Licenses", "04 — operational detail"),
+                ("Technology Directory", "31 — OOTB capacity"),
+                ("Executive Command Center", "10"),
+            ],
+            row=27,
+        ),
+    ]
+    return make_dashboard(
+        "13 - Capacity and Risk Overview",
+        "Executive capacity and coverage risk: licenses, gaps, and OOTB capacity links.",
+        LICENSE_TOKENS,
+        widgets,
+    )
+
+
+def build_20() -> dict:
+    """NEW — Operational Command Center."""
+    widgets = [
+        global_nav_widget("20", row=1, sizey=5),
+        dcc_intro_guide(
+            "Operational Command Center — Read First",
+            "Operational Command Center",
+            "Daily triage hub: prioritize alerts, unhealthy resources, collector pulse, then drill.",
+            [
+                ("ALERT", "Triage severity", "Start with Critical and Error counts, then live lists.", "Active Alerts"),
+                ("RES", "Resource health", "Dead, minimal, SDT, and map concentration.", "Resource Health"),
+                ("COL", "Collector pulse", "Confirm collection before trusting gaps.", "Alive / down"),
+                ("WEB", "Services", "Dead websites and empty groups.", "Websites"),
+                ("NEXT", "Investigate", "Open Technical Investigation when root cause needed.", "Tech hub"),
+                ("BACK", "Exec summary", "Return leaders to Command Center when stabilized.", "Exec CC"),
+            ],
+            row=6,
+            sizey=6,
+        ),
+        section_banner("Triage strip", row=12),
+        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("alerts", "Total Number of Error Alerts"), 13, 4, 3, 2, name="Error Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 13, 7, 3, 2, name="Dead Resources"),
+        place(take("overview", "Total Number of Down Collectors"), 13, 10, 3, 2, name="Down Collectors"),
+        place(take("overview", "Total Number of Dead Websites"), 15, 1, 3, 2, name="Dead Websites"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 15, 4, 3, 2, name="Minimally Monitored"),
+        place(take("alerts", "Total Number of SDT Resource"), 15, 7, 3, 2, name="Resources in SDT"),
+        place(take("overview", "Total Number of Alive Collectors"), 15, 10, 3, 2, name="Alive Collectors"),
+        section_banner("Live exceptions and concentration", row=17),
+        place(take("overview", "All Resource Alerts"), 18, 1, 8, 5, name="Active Resource Alerts"),
+        place(take("overview", "Current Collector Alerts"), 18, 9, 4, 5, name="Collector Alerts"),
+        place(take("overview", "Alert Status by Resource Location"), 23, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 23, 7, 6, 5, name="Alert Status by Resource Types"),
+        dcc_nav_guide(
+            "Operational Drill Paths",
+            "Next operational and technical steps",
+            [
+                ("Alerts", "Active Alerts (03)", ["Severity KPIs", "Rules / integrations", "Module noise"]),
+                ("Resources", "Resource Health (02)", ["Dead / minimal trends", "Idle interval", "Collector signals"]),
+                ("Services", "Websites (05)", ["Dead websites", "Empty groups", "Website token"]),
+                ("Technical", "Investigation (30)", ["Metric families", "Collector diagnostics", "OOTB directory"]),
+            ],
+            row=28,
+            sizey=4,
+        ),
+        footer_links(
+            [
+                ("Active Alerts", "03"),
+                ("Resource Health", "02"),
+                ("Technical Resource Investigation", "30"),
+                ("Executive Command Center", "10"),
+            ],
+            row=32,
+        ),
+    ]
+    return make_dashboard(
+        "20 - Operational Command Center",
+        "Operational triage hub: alerts, resource health, collector pulse, and drill paths.",
         PORTAL_TOKENS,
         widgets,
     )
@@ -431,10 +988,10 @@ def build_01() -> dict:
 
 def build_02() -> dict:
     widgets = [
-        global_nav_widget("02", row=1, sizey=3),
+        global_nav_widget("02", row=1, sizey=5),
         guide_widget(
-            "Environment Health — Read First",
-            "Environment Health",
+            "Resource Health — Read First",
+            "Resource Health",
             "Operational view of where risk is concentrated across resources, collectors, and websites.",
             [
                 "Where are alerts concentrated geographically or by type?",
@@ -453,40 +1010,41 @@ def build_02() -> dict:
                 "Collector diagnostics → 07",
                 "Website detail → 05",
                 "Coverage / discovery → 04",
+                "Technical investigation → 30",
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Critical status", row=9),
-        place(take("alerts", "Total Number of Critical Alerts"), 10, 1, 3, 2, name="Critical Alerts"),
-        place(take("alerts", "Total Number of Dead Resources"), 10, 4, 3, 2, name="Dead Resources"),
-        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 10, 7, 3, 2, name="Minimally Monitored Resources"),
-        place(take("overview", "Total Number of Dead Websites"), 10, 10, 3, 2, name="Dead Websites"),
-        place(take("overview", "Total Number of Alive Collectors"), 12, 1, 3, 2, name="Alive Collectors"),
-        place(take("overview", "Total Number of Down Collectors"), 12, 4, 3, 2, name="Down Collectors"),
-        place(take("alerts", "Total Number of SDT Resource"), 12, 7, 3, 2, name="Resources in SDT"),
-        place(take("alerts", "Total Number of Netflow Resource"), 12, 10, 3, 2, name="Netflow Resources"),
-        section_banner("Situation visuals", row=14),
-        place(take("overview", "Alert Status by Resource Location"), 15, 1, 6, 5, name="Alert Status by Resource Location"),
-        place(take("overview", "Alert Status by Resource Types"), 15, 7, 6, 5, name="Alert Status by Resource Types"),
-        section_banner("Trends and collector signals", row=20),
-        place(take("alerts", "Top Dead Resources Over Time"), 21, 1, 4, 4, name="Dead Resources Trend"),
-        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 21, 5, 4, 4, name="Minimal Monitoring Trend"),
-        place(take("overview", "Current Collector Alerts"), 21, 9, 4, 4, name="Current Collector Alerts"),
-        place(take("alerts", "Idle Interval"), 25, 1, 12, 4, name="Resources with Idle Interval Risk"),
+        section_banner("Critical status", row=11),
+        place(take("alerts", "Total Number of Critical Alerts"), 12, 1, 3, 2, name="Critical Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 12, 4, 3, 2, name="Dead Resources"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 12, 7, 3, 2, name="Minimally Monitored Resources"),
+        place(take("overview", "Total Number of Dead Websites"), 12, 10, 3, 2, name="Dead Websites"),
+        place(take("overview", "Total Number of Alive Collectors"), 14, 1, 3, 2, name="Alive Collectors"),
+        place(take("overview", "Total Number of Down Collectors"), 14, 4, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of SDT Resource"), 14, 7, 3, 2, name="Resources in SDT"),
+        place(take("alerts", "Total Number of Netflow Resource"), 14, 10, 3, 2, name="Netflow Resources"),
+        section_banner("Situation visuals", row=16),
+        place(take("overview", "Alert Status by Resource Location"), 17, 1, 6, 5, name="Alert Status by Resource Location"),
+        place(take("overview", "Alert Status by Resource Types"), 17, 7, 6, 5, name="Alert Status by Resource Types"),
+        section_banner("Trends and collector signals", row=22),
+        place(take("alerts", "Top Dead Resources Over Time"), 23, 1, 4, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 23, 5, 4, 4, name="Minimal Monitoring Trend"),
+        place(take("overview", "Current Collector Alerts"), 23, 9, 4, 4, name="Current Collector Alerts"),
+        place(take("alerts", "Idle Interval"), 27, 1, 12, 4, name="Resources with Idle Interval Risk"),
         footer_links(
             [
-                ("Alert Overview", "03"),
-                ("Collector Health", "07"),
-                ("Websites and Services", "05"),
-                ("Coverage", "04"),
+                ("Operational Command Center", "20"),
+                ("Active Alerts", "03"),
+                ("Collector Diagnostics", "07"),
+                ("Technical Investigation", "30"),
             ],
-            row=29,
+            row=31,
         ),
     ]
     return make_dashboard(
-        "02 - Environment Health",
-        "Level-2 operational view: map/NOC, dead/minimal resources, collector and website health signals.",
+        "02 - Resource Health",
+        "Operational resource health: map/NOC, dead/minimal resources, collector and website signals.",
         PORTAL_TOKENS,
         widgets,
     )
@@ -494,10 +1052,10 @@ def build_02() -> dict:
 
 def build_03() -> dict:
     widgets = [
-        global_nav_widget("03", row=1, sizey=3),
+        global_nav_widget("03", row=1, sizey=5),
         guide_widget(
-            "Alert Overview — Read First",
-            "Alert Overview",
+            "Active Alerts — Read First",
+            "Active Alerts",
             "Operational cockpit for severity, trends, rules, integrations, and LogicModule noise.",
             [
                 "What is alerting by severity?",
@@ -516,44 +1074,45 @@ def build_03() -> dict:
                 "Collector-caused gaps → 07",
                 "Noisy modules deep dive → 08",
                 "Spatial concentration → 02",
+                "Technical investigation → 30",
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Severity and volume", row=9),
-        place(take("alerts", "Total Number of Critical Alerts"), 10, 1, 3, 2, name="Critical Alerts Requiring Attention"),
-        place(take("alerts", "Total Number of Error Alerts"), 10, 4, 3, 2, name="Error Alerts"),
-        place(take("alerts", "Total Number of Warning Alerts"), 10, 7, 3, 2, name="Warning Alerts"),
-        place(take("alerts", "Total Number of Alerts"), 10, 10, 3, 2, name="Total Alerts"),
-        place(take("alerts", "Alert Counts over time"), 12, 1, 6, 4, name="Alert Count Trend"),
-        place(take("alerts", "Top Datasources by Alerts"), 12, 7, 6, 4, name="Top Datasources by Alert Volume"),
-        section_banner("Live exceptions", row=16),
-        place(take("overview", "All Resource Alerts"), 17, 1, 8, 5, name="All Resource Alerts"),
-        place(take("overview", "Current Collector Alerts"), 17, 9, 4, 5, name="Current Collector Alerts"),
-        section_banner("Routing and integrations", row=22),
-        place(take("alerts", "Alert Rules"), 23, 1, 4, 4, name="Alert Rules in Use"),
-        place(take("alerts", "Escalation Chains inUse by Alert Rules"), 23, 5, 4, 4, name="Escalation Chains in Use"),
-        place(take("alerts", "Total Number of Escalation Chains"), 23, 9, 3, 2, name="Escalation Chain Count"),
-        place(take("alerts", "Total Number of Portal Integration"), 25, 9, 3, 2, name="Portal Integrations"),
-        place(take("alerts", "Number of Integrations with Non 200 Response"), 27, 1, 6, 4, name="Integrations with Non-200 Responses"),
-        section_banner("LogicModule alert noise (90 days)", row=31),
-        place(take("alerts", "Datasource Alerts in last 90 days"), 32, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
-        place(take("alerts", "EventSource Alerts in last 90 days"), 32, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
-        place(take("alerts", "ConfigSource Alerts in last 90 days"), 36, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
-        place(take("alerts", "LogSource Alerts in last 90 days"), 36, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
+        section_banner("Severity and volume", row=11),
+        place(take("alerts", "Total Number of Critical Alerts"), 12, 1, 3, 2, name="Critical Alerts Requiring Attention"),
+        place(take("alerts", "Total Number of Error Alerts"), 12, 4, 3, 2, name="Error Alerts"),
+        place(take("alerts", "Total Number of Warning Alerts"), 12, 7, 3, 2, name="Warning Alerts"),
+        place(take("alerts", "Total Number of Alerts"), 12, 10, 3, 2, name="Total Alerts"),
+        place(take("alerts", "Alert Counts over time"), 14, 1, 6, 4, name="Alert Count Trend"),
+        place(take("alerts", "Top Datasources by Alerts"), 14, 7, 6, 4, name="Top Datasources by Alert Volume"),
+        section_banner("Live exceptions", row=18),
+        place(take("overview", "All Resource Alerts"), 19, 1, 8, 5, name="All Resource Alerts"),
+        place(take("overview", "Current Collector Alerts"), 19, 9, 4, 5, name="Current Collector Alerts"),
+        section_banner("Routing and integrations", row=24),
+        place(take("alerts", "Alert Rules"), 25, 1, 4, 4, name="Alert Rules in Use"),
+        place(take("alerts", "Escalation Chains inUse by Alert Rules"), 25, 5, 4, 4, name="Escalation Chains in Use"),
+        place(take("alerts", "Total Number of Escalation Chains"), 25, 9, 3, 2, name="Escalation Chain Count"),
+        place(take("alerts", "Total Number of Portal Integration"), 27, 9, 3, 2, name="Portal Integrations"),
+        place(take("alerts", "Number of Integrations with Non 200 Response"), 29, 1, 6, 4, name="Integrations with Non-200 Responses"),
+        section_banner("LogicModule alert noise (90 days)", row=33),
+        place(take("alerts", "Datasource Alerts in last 90 days"), 34, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
+        place(take("alerts", "EventSource Alerts in last 90 days"), 34, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
+        place(take("alerts", "ConfigSource Alerts in last 90 days"), 38, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
+        place(take("alerts", "LogSource Alerts in last 90 days"), 38, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
         footer_links(
             [
-                ("Environment Health", "02"),
-                ("Collector Health", "07"),
+                ("Operational Command Center", "20"),
+                ("Resource Health", "02"),
+                ("Collector Diagnostics", "07"),
                 ("LogicModule and Content", "08"),
-                ("Adoption", "09"),
             ],
-            row=40,
+            row=42,
         ),
     ]
     return make_dashboard(
-        "03 - Alert Overview",
-        "Level-2 alert cockpit: severity, trends, live alerts, rules, escalations, integrations, and module noise.",
+        "03 - Active Alerts",
+        "Operational alert cockpit: severity, trends, live alerts, rules, escalations, integrations, and module noise.",
         PORTAL_TOKENS,
         widgets,
     )
@@ -561,11 +1120,11 @@ def build_03() -> dict:
 
 def build_04() -> dict:
     widgets = [
-        global_nav_widget("04", row=1, sizey=3),
+        global_nav_widget("04", row=1, sizey=5),
         guide_widget(
             "Coverage Capacity Licenses — Read First",
             "Coverage, Capacity & Licenses",
-            "Discovery coverage, license consumption, and group hygiene. Host capacity lives in OOTB Level-3 links.",
+            "Discovery coverage, license consumption, and group hygiene. Host capacity lives in OOTB links.",
             [
                 "Are we discovering devices?",
                 "Unmonitored or minimal gaps?",
@@ -580,55 +1139,56 @@ def build_04() -> dict:
                 ("OOTB capacity links", "Infra utilization"),
             ],
             [
+                "Executive Capacity Risk → 13",
                 "Modules → 08",
                 "Websites → 05",
-                "Platform Value → 01",
+                "Technology Directory → 31",
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("License consumption", row=9),
-        place(take("licenses", "IaaS - Total"), 10, 1, 3, 2, name="IaaS Licenses Total"),
-        place(take("licenses", "PaaS - Total"), 10, 4, 3, 2, name="PaaS Licenses Total"),
-        place(take("licenses", "Non-Compute - Total"), 10, 7, 3, 2, name="Non-Compute Licenses Total"),
-        place(take("licenses", "Local Licenses"), 10, 10, 3, 2, name="Local Licenses"),
-        place(take("licenses", "AWS - IaaS"), 12, 1, 2, 2),
-        place(take("licenses", "AWS - PaaS"), 12, 3, 2, 2),
-        place(take("licenses", "AWS - Non-Compute"), 12, 5, 2, 2),
-        place(take("licenses", "Azure - IaaS"), 12, 7, 2, 2),
-        place(take("licenses", "Azure - PaaS"), 12, 9, 2, 2),
-        place(take("licenses", "Azure - Non-Compute"), 12, 11, 2, 2),
-        place(take("licenses", "GCP - IaaS"), 14, 1, 2, 2),
-        place(take("licenses", "GCP - PaaS"), 14, 3, 2, 2),
-        place(take("licenses", "GCP - Non-Compute"), 14, 5, 2, 2),
-        place(take("licenses", "Local Licenses Percents"), 14, 7, 3, 2, name="Local License Percent Used"),
-        section_banner("Discovery and coverage gaps", row=16),
-        place(take("alerts", "Total Number of Netscans"), 17, 1, 3, 2, name="Netscans Total"),
-        place(take("alerts", "Total Number of Netscans - EC2"), 17, 4, 3, 2),
-        place(take("alerts", "Total Number of Netscans - Script"), 17, 7, 3, 2),
-        place(take("alerts", "Total Number of Netscans - Scheduled"), 17, 10, 3, 2),
-        place(take("alerts", "Netscans"), 19, 1, 12, 4, name="Netscan Inventory"),
-        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 23, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
-        place(take("alerts", "Number of Netscan Devices Added Per Day Over 90 Days"), 23, 7, 6, 4, name="Netscan Devices Added Per Day"),
-        section_banner("Group hygiene", row=27),
-        place(take("groups", "Total Number of Device Groups"), 28, 1, 3, 2),
-        place(take("groups", "Total Number of Empty Static Groups"), 28, 4, 3, 2, name="Empty Static Device Groups"),
-        place(take("groups", "Total Number of Website Groups"), 28, 7, 3, 2),
-        place(take("groups", "Total Number of Empty Website Groups"), 28, 10, 3, 2, name="Empty Website Groups"),
-        tech_links_panel(row=30, sizey=3),
+        section_banner("License consumption", row=11),
+        place(take("licenses", "IaaS - Total"), 12, 1, 3, 2, name="IaaS Licenses Total"),
+        place(take("licenses", "PaaS - Total"), 12, 4, 3, 2, name="PaaS Licenses Total"),
+        place(take("licenses", "Non-Compute - Total"), 12, 7, 3, 2, name="Non-Compute Licenses Total"),
+        place(take("licenses", "Local Licenses"), 12, 10, 3, 2, name="Local Licenses"),
+        place(take("licenses", "AWS - IaaS"), 14, 1, 2, 2),
+        place(take("licenses", "AWS - PaaS"), 14, 3, 2, 2),
+        place(take("licenses", "AWS - Non-Compute"), 14, 5, 2, 2),
+        place(take("licenses", "Azure - IaaS"), 14, 7, 2, 2),
+        place(take("licenses", "Azure - PaaS"), 14, 9, 2, 2),
+        place(take("licenses", "Azure - Non-Compute"), 14, 11, 2, 2),
+        place(take("licenses", "GCP - IaaS"), 16, 1, 2, 2),
+        place(take("licenses", "GCP - PaaS"), 16, 3, 2, 2),
+        place(take("licenses", "GCP - Non-Compute"), 16, 5, 2, 2),
+        place(take("licenses", "Local Licenses Percents"), 16, 7, 3, 2, name="Local License Percent Used"),
+        section_banner("Discovery and coverage gaps", row=18),
+        place(take("alerts", "Total Number of Netscans"), 19, 1, 3, 2, name="Netscans Total"),
+        place(take("alerts", "Total Number of Netscans - EC2"), 19, 4, 3, 2),
+        place(take("alerts", "Total Number of Netscans - Script"), 19, 7, 3, 2),
+        place(take("alerts", "Total Number of Netscans - Scheduled"), 19, 10, 3, 2),
+        place(take("alerts", "Netscans"), 21, 1, 12, 4, name="Netscan Inventory"),
+        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 25, 1, 6, 4, name="Unmonitored Devices Trend (90 Days)"),
+        place(take("alerts", "Number of Netscan Devices Added Per Day Over 90 Days"), 25, 7, 6, 4, name="Netscan Devices Added Per Day"),
+        section_banner("Group hygiene", row=29),
+        place(take("groups", "Total Number of Device Groups"), 30, 1, 3, 2),
+        place(take("groups", "Total Number of Empty Static Groups"), 30, 4, 3, 2, name="Empty Static Device Groups"),
+        place(take("groups", "Total Number of Website Groups"), 30, 7, 3, 2),
+        place(take("groups", "Total Number of Empty Website Groups"), 30, 10, 3, 2, name="Empty Website Groups"),
+        tech_directory_panel(row=32, sizey=5),
         footer_links(
             [
+                ("Capacity and Risk Overview", "13"),
                 ("LogicModule and Content", "08"),
                 ("Websites and Services", "05"),
-                ("Platform Value", "01"),
                 ("Adoption", "09"),
             ],
-            row=33,
+            row=37,
         ),
     ]
     return make_dashboard(
         "04 - Coverage, Capacity & Licenses",
-        "Level-2 coverage: licenses, netscans, unmonitored trends, group hygiene, and OOTB capacity links.",
+        "Operational coverage: licenses, netscans, unmonitored trends, group hygiene, and OOTB capacity links.",
         LICENSE_TOKENS,
         widgets,
     )
@@ -636,11 +1196,11 @@ def build_04() -> dict:
 
 def build_05() -> dict:
     widgets = [
-        global_nav_widget("05", row=1, sizey=3),
+        global_nav_widget("05", row=1, sizey=5),
         guide_widget(
             "Websites and Services — Read First",
             "Websites and Services",
-            "Website and group hygiene for service checks. Deep website performance is via OOTB Website dashboards.",
+            "Website and group hygiene for service checks. Deep website performance via OOTB Website dashboards.",
             [
                 "How many websites and website groups exist?",
                 "Are there dead websites or empty groups?",
@@ -652,46 +1212,46 @@ def build_05() -> dict:
                 ("OOTB Website links", "Performance deep dive"),
             ],
             [
-                ("Environment Health", "02"),
+                ("Availability Exec", "12"),
+                ("Resource Health", "02"),
                 ("Coverage", "04"),
-                ("OOTB Websites pack", "configure after import"),
+                ("OOTB Websites", "31"),
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Website health", row=9),
-        place(take("groups", "Total Number of Websites"), 10, 1, 3, 2, name="Websites Monitored"),
-        place(take("groups", "Total Number of Dead Website"), 10, 4, 3, 2, name="Dead Websites"),
-        place(take("groups", "Total Number of Website Groups"), 10, 7, 3, 2, name="Website Groups"),
-        place(take("groups", "Total Number of Empty Website Groups"), 10, 10, 3, 2, name="Empty Website Groups"),
-        section_banner("Device group structure", row=12),
-        place(take("groups", "Total Number of Device Groups"), 13, 1, 3, 2),
-        place(take("groups", "Total Number of Static Device Groups"), 13, 4, 3, 2),
-        place(take("groups", "Total Number of Dynamic Device Groups"), 13, 7, 3, 2),
-        place(take("groups", "Total Number of Empty Static Groups"), 13, 10, 3, 2, name="Empty Static Device Groups"),
-        section_banner("Token reminder", row=15),
+        section_banner("Website health", row=11),
+        place(take("groups", "Total Number of Websites"), 12, 1, 3, 2, name="Websites Monitored"),
+        place(take("groups", "Total Number of Dead Website"), 12, 4, 3, 2, name="Dead Websites"),
+        place(take("groups", "Total Number of Website Groups"), 12, 7, 3, 2, name="Website Groups"),
+        place(take("groups", "Total Number of Empty Website Groups"), 12, 10, 3, 2, name="Empty Website Groups"),
+        section_banner("Device group structure", row=14),
+        place(take("groups", "Total Number of Device Groups"), 15, 1, 3, 2),
+        place(take("groups", "Total Number of Static Device Groups"), 15, 4, 3, 2),
+        place(take("groups", "Total Number of Dynamic Device Groups"), 15, 7, 3, 2),
+        place(take("groups", "Total Number of Empty Static Groups"), 15, 10, 3, 2, name="Empty Static Device Groups"),
         text_widget(
             "Website Token Scope",
-            """<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;">
-<div style="font-size:13px;font-weight:700;margin-bottom:6px;">defaultWebsiteGroup</div>
-<div style="font-size:12px;color:#94a3b8;">Set <code>##defaultWebsiteGroup##</code> to scope website views when OOTB website dashboards are linked. Default is <code>*</code>.</div>
+            """<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;">
+<div style="font-size:20px;font-weight:700;color:#f9fafb;">defaultWebsiteGroup</div>
+<div style="font-size:13px;color:#9ca3af;margin-top:4px;">Set <code>##defaultWebsiteGroup##</code> to scope website views when OOTB website dashboards are linked. Default is <code>*</code>.</div>
 </div>""",
-            row=16,
+            row=17,
             sizey=2,
         ),
-        tech_links_panel(row=18, sizey=3),
+        tech_directory_panel(row=19, sizey=5),
         footer_links(
             [
-                ("Environment Health", "02"),
-                ("Coverage", "04"),
-                ("Alert Overview", "03"),
+                ("Availability and Service Health", "12"),
+                ("Resource Health", "02"),
+                ("Active Alerts", "03"),
             ],
-            row=21,
+            row=24,
         ),
     ]
     return make_dashboard(
         "05 - Websites and Services",
-        "Level-2 websites and group hygiene with defaultWebsiteGroup token for reusable scoping.",
+        "Operational websites and group hygiene with defaultWebsiteGroup token.",
         WEBSITE_TOKENS,
         widgets,
     )
@@ -699,7 +1259,7 @@ def build_05() -> dict:
 
 def build_06() -> dict:
     widgets = [
-        global_nav_widget("06", row=1, sizey=3),
+        global_nav_widget("06", row=1, sizey=5),
         guide_widget(
             "Access and Administration — Read First",
             "Access and Administration",
@@ -718,49 +1278,110 @@ def build_06() -> dict:
                 ("Adoption", "09 — idle access trends"),
                 ("Home", "00"),
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Users and access", row=9),
-        place(take("users", "Users"), 10, 1, 3, 2, name="Total Users"),
-        place(take("users", "Users with Active Status"), 10, 4, 3, 2, name="Active Users"),
-        place(take("users", "API Access Users"), 10, 7, 3, 2, name="Users with API Access"),
-        place(take("users", "API Only users"), 10, 10, 3, 2, name="API-Only Users"),
-        section_banner("Roles and groups", row=12),
-        place(take("users", "User Roles"), 13, 1, 3, 2),
-        place(take("users", "Roles with no assigned Users"), 13, 4, 3, 2, name="Roles with No Assigned Users"),
-        place(take("users", "User Groups"), 13, 7, 3, 2),
-        place(take("users", "Empty User Groups"), 13, 10, 3, 2, name="Empty User Groups"),
-        section_banner("Tokens and idle access (90 days)", row=15),
-        place(take("users", "API Tokens"), 16, 1, 3, 2),
-        place(take("users", "API Token not used in last 90 days"), 16, 4, 3, 2, name="Idle API Tokens (90 Days)"),
-        place(take("users", "Users not logged in last 90 days"), 16, 7, 3, 2, name="Idle Users (90 Days)"),
-        place(take("users", "API Only Users not logged in last 90 days"), 16, 10, 3, 2, name="Idle API-Only Users (90 Days)"),
+        section_banner("Users and access", row=11),
+        place(take("users", "Users"), 12, 1, 3, 2, name="Total Users"),
+        place(take("users", "Users with Active Status"), 12, 4, 3, 2, name="Active Users"),
+        place(take("users", "API Access Users"), 12, 7, 3, 2, name="Users with API Access"),
+        place(take("users", "API Only users"), 12, 10, 3, 2, name="API-Only Users"),
+        section_banner("Roles and groups", row=14),
+        place(take("users", "User Roles"), 15, 1, 3, 2),
+        place(take("users", "Roles with no assigned Users"), 15, 4, 3, 2, name="Roles with No Assigned Users"),
+        place(take("users", "User Groups"), 15, 7, 3, 2),
+        place(take("users", "Empty User Groups"), 15, 10, 3, 2, name="Empty User Groups"),
+        section_banner("Tokens and idle access (90 days)", row=17),
+        place(take("users", "API Tokens"), 18, 1, 3, 2),
+        place(take("users", "API Token not used in last 90 days"), 18, 4, 3, 2, name="Idle API Tokens (90 Days)"),
+        place(take("users", "Users not logged in last 90 days"), 18, 7, 3, 2, name="Idle Users (90 Days)"),
+        place(take("users", "API Only Users not logged in last 90 days"), 18, 10, 3, 2, name="Idle API-Only Users (90 Days)"),
         footer_links(
             [
                 ("Adoption and Optimization", "09"),
                 ("Home", "00"),
                 ("Platform Value", "01"),
             ],
-            row=18,
+            row=20,
         ),
     ]
     return make_dashboard(
         "06 - Access and Administration",
-        "Level-2 access governance: users, roles, groups, API tokens, and idle access.",
+        "Operational access governance: users, roles, groups, API tokens, and idle access.",
+        PORTAL_TOKENS,
+        widgets,
+    )
+
+
+def build_30() -> dict:
+    """NEW — Technical Resource Investigation hub."""
+    widgets = [
+        global_nav_widget("30", row=1, sizey=5),
+        dcc_intro_guide(
+            "Technical Resource Investigation — Read First",
+            "Technical Resource Investigation",
+            "Start here for root-cause investigation. Confirm scope, isolate metric family, then open collector or OOTB technology boards.",
+            [
+                ("SCOPE", "Confirm tokens", "defaultResourceGroup / ResourceName must match the incident scope.", "Tokens"),
+                ("TIME", "When did it start?", "Compare alert trend and dead-resource trend windows.", "Trends"),
+                ("WHO", "Which resources?", "Use alert lists and idle/dead tables.", "Exceptions"),
+                ("PIPE", "Collector involved?", "JVM, tasks, method mix on Collector Diagnostics.", "Collectors"),
+                ("CONTENT", "Noisy modules?", "LogicModule 90-day alert tables.", "Modules"),
+                ("TECH", "Domain board", "Network / Server / Storage / Cloud via directory.", "Directory"),
+            ],
+            row=6,
+            sizey=6,
+        ),
+        section_banner("Investigation signals", row=12),
+        place(take("alerts", "Total Number of Critical Alerts"), 13, 1, 3, 2, name="Critical Alerts"),
+        place(take("alerts", "Total Number of Dead Resources"), 13, 4, 3, 2, name="Dead Resources"),
+        place(take("overview", "Total Number of Down Collectors"), 13, 7, 3, 2, name="Down Collectors"),
+        place(take("alerts", "Total Number of Minimal Monitoring Resource"), 13, 10, 3, 2, name="Minimally Monitored"),
+        place(take("overview", "All Resource Alerts"), 15, 1, 8, 5, name="Scoped Resource Alerts"),
+        place(take("overview", "Current Collector Alerts"), 15, 9, 4, 5, name="Collector Alerts"),
+        place(take("alerts", "Alert Counts over time"), 20, 1, 6, 4, name="Alert Count Trend"),
+        place(take("alerts", "Top Dead Resources Over Time"), 20, 7, 6, 4, name="Dead Resources Trend"),
+        place(take("alerts", "Idle Interval"), 24, 1, 12, 4, name="Idle Interval Risk Resources"),
+        dcc_inventory_table(
+            "Investigation Paths",
+            "Metric-family and diagnostic paths",
+            "Open the matching technical board. Configure OOTB IDs on 31 after import.",
+            [
+                ("Collectors", "Collector Diagnostics", "JVM, tasks, method mix, collector alerts", "07"),
+                ("Content", "LogicModule and Content", "Inventory and 90-day noise", "08"),
+                ("Adoption", "Adoption and Optimization", "Noise and coverage improvement", "09"),
+                ("Directory", "Technology Dashboard Directory", "Network / Server / Storage / Cloud / Capacity", "31"),
+                ("Ops", "Active Alerts", "Rules, integrations, live triage", "03"),
+                ("Ops", "Resource Health", "Map, NOC, dead/minimal", "02"),
+            ],
+            row=28,
+            sizey=5,
+        ),
+        footer_links(
+            [
+                ("Collector Diagnostics", "07"),
+                ("Technology Directory", "31"),
+                ("Operational Command Center", "20"),
+                ("Executive Command Center", "10"),
+            ],
+            row=33,
+        ),
+    ]
+    return make_dashboard(
+        "30 - Technical Resource Investigation",
+        "Technical investigation hub: checklist, scoped signals, and paths to collectors/modules/OOTB tech boards.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
 def build_07() -> dict:
-    """Single collector dashboard (deduped)."""
     widgets = [
-        global_nav_widget("07", row=1, sizey=3),
+        global_nav_widget("07", row=1, sizey=5),
         guide_widget(
-            "Collector Health — Read First",
-            "Collector Health",
-            "Technical dashboard for collector availability, JVM pressure, and collection/AD task health. Canonical single copy (duplicate removed).",
+            "Collector Diagnostics — Read First",
+            "Collector Diagnostics",
+            "Technical dashboard for collector availability, JVM pressure, and collection/AD task health. Canonical single copy.",
             [
                 "Alive instance method mix?",
                 "JVM / CPU / heap pressure?",
@@ -773,56 +1394,58 @@ def build_07() -> dict:
                 ("Collector alerts", "Exceptions"),
             ],
             [
-                ("Environment Health", "02"),
-                ("Alert Overview", "03"),
+                ("Resource Health", "02"),
+                ("Active Alerts", "03"),
+                ("Technical Investigation", "30"),
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Instance counts by collection method", row=9),
-        place(take("collector", "Selenium Instance Count"), 10, 1, 2, 2),
-        place(take("collector", "Batchscript Instance Count"), 10, 3, 2, 2),
-        place(take("collector", "DNS Instance Count"), 10, 5, 2, 2),
-        place(take("collector", "JMX Instance Count"), 10, 7, 2, 2),
-        place(take("collector", "Ping Instance Count"), 10, 9, 2, 2),
-        place(take("collector", "Script Instance Count"), 10, 11, 2, 2),
-        place(take("collector", "SNMP Instance Count"), 12, 1, 2, 2),
-        place(take("collector", "Webpage Instance Count"), 12, 3, 2, 2),
-        place(take("collector", "WMI Instance Count"), 12, 5, 2, 2),
-        place(take("collector", "Data Collection Instance Counts"), 12, 7, 3, 2),
-        place(take("collector", "Total Data Collecting Instance Count"), 12, 10, 3, 2, name="Total Data Collecting Instances"),
-        section_banner("Real-time collector stats", row=14),
-        place(take("collector", "Collector JVM Performance (Real-time)"), 15, 1, 6, 4, name="Collector JVM Performance"),
-        place(take("collector", "Collector Alert History"), 15, 7, 6, 4, name="Collector Alert History"),
-        place(take("collector", "Top Collectors by Heap Utilization (Trend)"), 19, 1, 6, 4, name="Top Collectors by Heap Utilization"),
-        place(take("collector", "Top Collectors by CPU Utilization (Trend)"), 19, 7, 6, 4, name="Top Collectors by CPU Utilization"),
-        section_banner("Collection and Active Discovery tasks", row=23),
-        place(take("collector", "Top 10 Collection Tasks by Slowest Successful Execution"), 24, 1, 4, 4, name="Slowest Successful Collection Tasks"),
-        place(take("collector", "Active DiscoveryTop 10 Tasks by Failure Rate"), 24, 5, 4, 4, name="Active Discovery Tasks by Failure Rate"),
-        place(take("collector", "Top Collection Tasks (Real-time)"), 24, 9, 4, 4),
-        place(take("collector", "Top Active Discovery Tasks (Real-time)"), 28, 1, 6, 4),
-        place(take("collector", "Collector Data Collecting Tasks-Total"), 28, 7, 6, 4, name="Data Collecting Tasks Total"),
-        place(take("collector", "Collector Data Collecting Tasks-Unavailable Thread Scheduling"), 32, 1, 6, 4),
-        place(take("collector", "Total Instance Counts by Collector"), 32, 7, 6, 4),
-        section_banner("Individual collector methods", row=36),
-        place(take("collector", "Collector Data Collecting Tasks-script"), 37, 1, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-batchscript"), 37, 5, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-WMI"), 37, 9, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-SNMP"), 40, 1, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-Ping"), 40, 5, 4, 3),
-        place(take("collector", "Collector Data Collecting Tasks-JMX"), 40, 9, 4, 3),
+        section_banner("Instance counts by collection method", row=11),
+        place(take("collector", "Selenium Instance Count"), 12, 1, 2, 2),
+        place(take("collector", "Batchscript Instance Count"), 12, 3, 2, 2),
+        place(take("collector", "DNS Instance Count"), 12, 5, 2, 2),
+        place(take("collector", "JMX Instance Count"), 12, 7, 2, 2),
+        place(take("collector", "Ping Instance Count"), 12, 9, 2, 2),
+        place(take("collector", "Script Instance Count"), 12, 11, 2, 2),
+        place(take("collector", "SNMP Instance Count"), 14, 1, 2, 2),
+        place(take("collector", "Webpage Instance Count"), 14, 3, 2, 2),
+        place(take("collector", "WMI Instance Count"), 14, 5, 2, 2),
+        place(take("collector", "Data Collection Instance Counts"), 14, 7, 3, 2),
+        place(take("collector", "Total Data Collecting Instance Count"), 14, 10, 3, 2, name="Total Data Collecting Instances"),
+        section_banner("Real-time collector stats", row=16),
+        place(take("collector", "Collector JVM Performance (Real-time)"), 17, 1, 6, 4, name="Collector JVM Performance"),
+        place(take("collector", "Collector Alert History"), 17, 7, 6, 4, name="Collector Alert History"),
+        place(take("collector", "Top Collectors by Heap Utilization (Trend)"), 21, 1, 6, 4, name="Top Collectors by Heap Utilization"),
+        place(take("collector", "Top Collectors by CPU Utilization (Trend)"), 21, 7, 6, 4, name="Top Collectors by CPU Utilization"),
+        section_banner("Collection and Active Discovery tasks", row=25),
+        place(take("collector", "Top 10 Collection Tasks by Slowest Successful Execution"), 26, 1, 4, 4, name="Slowest Successful Collection Tasks"),
+        place(take("collector", "Active DiscoveryTop 10 Tasks by Failure Rate"), 26, 5, 4, 4, name="Active Discovery Tasks by Failure Rate"),
+        place(take("collector", "Top Collection Tasks (Real-time)"), 26, 9, 4, 4),
+        place(take("collector", "Top Active Discovery Tasks (Real-time)"), 30, 1, 6, 4),
+        place(take("collector", "Collector Data Collecting Tasks-Total"), 30, 7, 6, 4, name="Data Collecting Tasks Total"),
+        place(take("collector", "Collector Data Collecting Tasks-Unavailable Thread Scheduling"), 34, 1, 6, 4),
+        place(take("collector", "Total Instance Counts by Collector"), 34, 7, 6, 4),
+        section_banner("Individual collector methods", row=38),
+        place(take("collector", "Collector Data Collecting Tasks-script"), 39, 1, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-batchscript"), 39, 5, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-WMI"), 39, 9, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-SNMP"), 42, 1, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-Ping"), 42, 5, 4, 3),
+        place(take("collector", "Collector Data Collecting Tasks-JMX"), 42, 9, 4, 3),
         footer_links(
             [
-                ("Environment Health", "02"),
-                ("Alert Overview", "03"),
+                ("Technical Resource Investigation", "30"),
+                ("Resource Health", "02"),
+                ("Active Alerts", "03"),
                 ("Home", "00"),
             ],
-            row=43,
+            row=45,
         ),
     ]
     return make_dashboard(
-        "07 - Collector Health",
-        "Level-3 collector diagnostics (single canonical dashboard; duplicate SmartAdmin Collector Health removed).",
+        "07 - Collector Diagnostics",
+        "Technical collector diagnostics (single canonical dashboard; duplicate removed).",
         COLLECTOR_TOKENS,
         widgets,
     )
@@ -830,11 +1453,11 @@ def build_07() -> dict:
 
 def build_08() -> dict:
     widgets = [
-        global_nav_widget("08", row=1, sizey=3),
+        global_nav_widget("08", row=1, sizey=5),
         guide_widget(
             "LogicModule and Content — Read First",
             "LogicModule and Content",
-            "Content inventory plus noisy modules. Decorative duplicate headers from the source pack were replaced by this guide.",
+            "Content inventory plus noisy modules.",
             [
                 "What LogicModules are installed by type?",
                 "Which modules alert most over 90 days?",
@@ -846,40 +1469,41 @@ def build_08() -> dict:
                 ("Instance count table", "Footprint"),
             ],
             [
-                ("Alert Overview", "03"),
+                ("Active Alerts", "03"),
                 ("Adoption", "09"),
                 ("Coverage", "04"),
+                ("Investigation", "30"),
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("LogicModule inventory", row=9),
-        place(take("modules", "DataSources"), 10, 1, 3, 2),
-        place(take("modules", "EventSources"), 10, 4, 3, 2),
-        place(take("modules", "ConfigSources"), 10, 7, 3, 2),
-        place(take("modules", "PropertySources"), 10, 10, 3, 2),
-        place(take("modules", "LogSources"), 12, 1, 3, 2),
-        place(take("modules", "TopologySources"), 12, 4, 3, 2),
-        place(take("modules", "SNMP SYSOID Maps"), 12, 7, 3, 2),
-        place(take("modules", "AppliesTo Functions"), 12, 10, 3, 2),
-        section_banner("Noisy modules and instance footprint", row=14),
-        place(take("alerts", "Datasource Alerts in last 90 days"), 15, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
-        place(take("alerts", "EventSource Alerts in last 90 days"), 15, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
-        place(take("alerts", "ConfigSource Alerts in last 90 days"), 19, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
-        place(take("alerts", "LogSource Alerts in last 90 days"), 19, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
-        place(take("alerts", "Top Datasources by Instance Count"), 23, 1, 12, 4, name="Top Datasources by Instance Count"),
+        section_banner("LogicModule inventory", row=11),
+        place(take("modules", "DataSources"), 12, 1, 3, 2),
+        place(take("modules", "EventSources"), 12, 4, 3, 2),
+        place(take("modules", "ConfigSources"), 12, 7, 3, 2),
+        place(take("modules", "PropertySources"), 12, 10, 3, 2),
+        place(take("modules", "LogSources"), 14, 1, 3, 2),
+        place(take("modules", "TopologySources"), 14, 4, 3, 2),
+        place(take("modules", "SNMP SYSOID Maps"), 14, 7, 3, 2),
+        place(take("modules", "AppliesTo Functions"), 14, 10, 3, 2),
+        section_banner("Noisy modules and instance footprint", row=16),
+        place(take("alerts", "Datasource Alerts in last 90 days"), 17, 1, 6, 4, name="DataSource Alerts Last 90 Days"),
+        place(take("alerts", "EventSource Alerts in last 90 days"), 17, 7, 6, 4, name="EventSource Alerts Last 90 Days"),
+        place(take("alerts", "ConfigSource Alerts in last 90 days"), 21, 1, 6, 4, name="ConfigSource Alerts Last 90 Days"),
+        place(take("alerts", "LogSource Alerts in last 90 days"), 21, 7, 6, 4, name="LogSource Alerts Last 90 Days"),
+        place(take("alerts", "Top Datasources by Instance Count"), 25, 1, 12, 4, name="Top Datasources by Instance Count"),
         footer_links(
             [
-                ("Alert Overview", "03"),
+                ("Active Alerts", "03"),
                 ("Adoption", "09"),
-                ("Coverage", "04"),
+                ("Technical Investigation", "30"),
             ],
-            row=27,
+            row=29,
         ),
     ]
     return make_dashboard(
         "08 - LogicModule and Content",
-        "Level-3 content inventory and noisy LogicModules (including LogSources as health signals).",
+        "Technical content inventory and noisy LogicModules.",
         MODULE_TOKENS,
         widgets,
     )
@@ -887,11 +1511,11 @@ def build_08() -> dict:
 
 def build_09() -> dict:
     widgets = [
-        global_nav_widget("09", row=1, sizey=3),
+        global_nav_widget("09", row=1, sizey=5),
         guide_widget(
             "Adoption and Optimization — Read First",
             "Adoption and Optimization",
-            "Packages hygiene metrics as continuous improvement and platform value for CS and leadership.",
+            "Continuous improvement and platform value signals for CS and leadership.",
             [
                 "Is alert noise declining?",
                 "Are idle identities cleaned up?",
@@ -906,64 +1530,130 @@ def build_09() -> dict:
             ],
             [
                 ("Platform Value", "01 — close the loop"),
-                ("Alert Overview", "03"),
+                ("Active Alerts", "03"),
                 ("Access", "06"),
                 ("Coverage", "04"),
             ],
-            row=4,
+            row=6,
             sizey=5,
         ),
-        section_banner("Alert noise and improvement signals", row=9),
-        place(take("alerts", "Alert Counts over time"), 10, 1, 6, 4, name="Alert Count Trend"),
-        place(take("alerts", "Top Datasources by Alerts"), 10, 7, 6, 4, name="Top Noisy Datasources"),
-        section_banner("Idle access summary", row=14),
-        place(take("users", "Users not logged in last 90 days"), 15, 1, 3, 2, name="Idle Users (90 Days)"),
-        place(take("users", "API Token not used in last 90 days"), 15, 4, 3, 2, name="Idle API Tokens (90 Days)"),
-        place(take("users", "API Only Users not logged in last 90 days"), 15, 7, 3, 2, name="Idle API-Only Users (90 Days)"),
-        place(take("users", "Empty User Groups"), 15, 10, 3, 2, name="Empty User Groups"),
-        section_banner("Coverage gaps and integration health", row=17),
-        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 18, 1, 6, 4, name="Unmonitored Devices Trend"),
-        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 18, 7, 6, 4, name="Minimal Monitoring Trend"),
-        place(take("alerts", "Number of Integrations with Non 200 Response"), 22, 1, 6, 4, name="Integration Non-200 Trend"),
-        place(take("alerts", "Top Dead Resources Over Time"), 22, 7, 6, 4, name="Dead Resources Trend"),
+        section_banner("Alert noise and improvement signals", row=11),
+        place(take("alerts", "Alert Counts over time"), 12, 1, 6, 4, name="Alert Count Trend"),
+        place(take("alerts", "Top Datasources by Alerts"), 12, 7, 6, 4, name="Top Noisy Datasources"),
+        section_banner("Idle access summary", row=16),
+        place(take("users", "Users not logged in last 90 days"), 17, 1, 3, 2, name="Idle Users (90 Days)"),
+        place(take("users", "API Token not used in last 90 days"), 17, 4, 3, 2, name="Idle API Tokens (90 Days)"),
+        place(take("users", "API Only Users not logged in last 90 days"), 17, 7, 3, 2, name="Idle API-Only Users (90 Days)"),
+        place(take("users", "Empty User Groups"), 17, 10, 3, 2, name="Empty User Groups"),
+        section_banner("Coverage gaps and integration health", row=19),
+        place(take("alerts", "Number of Unmonitored Devices Over 90 days"), 20, 1, 6, 4, name="Unmonitored Devices Trend"),
+        place(take("alerts", "Total Minimal Monitoring Resources over Time"), 20, 7, 6, 4, name="Minimal Monitoring Trend"),
+        place(take("alerts", "Number of Integrations with Non 200 Response"), 24, 1, 6, 4, name="Integration Non-200 Trend"),
+        place(take("alerts", "Top Dead Resources Over Time"), 24, 7, 6, 4, name="Dead Resources Trend"),
         text_widget(
             "LM Logs Adoption Note",
-            """<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:12px;padding:12px;">
-<div style="font-size:13px;font-weight:700;margin-bottom:6px;">LM Logs (optional)</div>
-<div style="font-size:12px;color:#94a3b8;">Raw log streams are intentionally excluded from this overview. LogSources inventory and LogSource alert tables appear on Modules / Alerts as health signals. Add a dedicated Logs strip only after LM Logs licensing and metrics are confirmed in the portal.</div>
+            """<div style="font-family:Arial,Helvetica,sans-serif;line-height:1.45;background:#0f172a;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;padding:18px;">
+<div style="font-size:20px;font-weight:700;color:#f9fafb;">LM Logs (optional)</div>
+<div style="font-size:13px;color:#9ca3af;margin-top:4px;">Raw log streams are intentionally excluded. LogSources inventory and alert tables appear on Modules / Alerts as health signals. Add a dedicated Logs strip only after LM Logs licensing is confirmed.</div>
 </div>""",
-            row=26,
+            row=28,
             sizey=2,
         ),
         footer_links(
             [
                 ("Platform Value Overview", "01"),
-                ("Alert Overview", "03"),
+                ("Active Alerts", "03"),
                 ("Access and Administration", "06"),
                 ("Coverage", "04"),
             ],
-            row=28,
+            row=30,
         ),
     ]
     return make_dashboard(
         "09 - Adoption and Optimization",
-        "Level-3 / value view: noise, idle access, coverage gaps, and integration health as improvement signals.",
+        "Technical / value view: noise, idle access, coverage gaps, and integration health.",
         PORTAL_TOKENS,
         widgets,
     )
 
 
+def build_31() -> dict:
+    """NEW — Technology Dashboard Directory (OOTB hubs, no empty metric boards)."""
+    widgets = [
+        global_nav_widget("31", row=1, sizey=5),
+        guide_widget(
+            "Technology Directory — Read First",
+            "Technology Dashboard Directory",
+            "Single directory for Network, Server, Virtualization, Storage, Cloud, and Capacity OOTB boards. Avoids empty per-domain shells.",
+            [
+                "Which technology family matches the incident?",
+                "Have OOTB packs been imported?",
+                "Are portal dashboard IDs configured?",
+            ],
+            [
+                ("Pick family", "Network / Server / Storage / Cloud / Capacity"),
+                ("Confirm import", "LogicMonitor Dashboards pack"),
+                ("Wire ID", "Replace OOTB_* placeholders"),
+                ("Return", "Investigation hub when done"),
+            ],
+            [
+                ("Technical Investigation", "30"),
+                ("Collector Diagnostics", "07"),
+                ("Capacity Risk Exec", "13"),
+            ],
+            row=6,
+            sizey=5,
+        ),
+        tech_directory_panel(row=11, sizey=6),
+        dcc_nav_guide(
+            "Domain Guidance",
+            "How to choose a technology board",
+            [
+                ("Network", "Path / device symptoms", ["Latency", "Interface errors", "Topology alerts"]),
+                ("Compute", "Server / virtualization", ["CPU / memory", "Guest health", "Hypervisor"]),
+                ("Data", "Storage / capacity", ["Datastore full", "IOPS", "License pressure"]),
+                ("Cloud", "AWS / Azure / GCP", ["Account health", "Service quotas", "Regional impact"]),
+            ],
+            row=17,
+            sizey=4,
+        ),
+        footer_links(
+            [
+                ("Technical Resource Investigation", "30"),
+                ("Collector Diagnostics", "07"),
+                ("Capacity and Risk Overview", "13"),
+                ("Home", "00"),
+            ],
+            row=21,
+        ),
+    ]
+    return make_dashboard(
+        "31 - Technology Dashboard Directory",
+        "Technical directory of OOTB technology dashboards (placeholders). No empty metric shells.",
+        PORTAL_TOKENS,
+        widgets,
+    )
+
+
+# filename, folder, builder, subgroup key
 DASHBOARD_SPECS = [
-    ("00_Home_Introductory_redesign_v2.json", L1, build_00),
-    ("01_Platform_Value_Overview_redesign_v2.json", L1, build_01),
-    ("02_Environment_Health_redesign_v2.json", L2, build_02),
-    ("03_Alert_Overview_redesign_v2.json", L2, build_03),
-    ("04_Coverage_Capacity_Licenses_redesign_v2.json", L2, build_04),
-    ("05_Websites_and_Services_redesign_v2.json", L2, build_05),
-    ("06_Access_and_Administration_redesign_v2.json", L2, build_06),
-    ("07_Collector_Health_redesign_v2.json", L3, build_07),
-    ("08_LogicModule_and_Content_redesign_v2.json", L3, build_08),
-    ("09_Adoption_and_Optimization_redesign_v2.json", L3, build_09),
+    ("00_Home_Introductory_redesign_v2.json", EXEC, build_00, "home"),
+    ("10_Executive_Command_Center_redesign_v2.json", EXEC, build_10, "executive"),
+    ("01_Platform_Value_Overview_redesign_v2.json", EXEC, build_01, "executive"),
+    ("11_Environment_Health_Executive_redesign_v2.json", EXEC, build_11, "executive"),
+    ("12_Availability_and_Service_Health_redesign_v2.json", EXEC, build_12, "executive"),
+    ("13_Capacity_and_Risk_Overview_redesign_v2.json", EXEC, build_13, "executive"),
+    ("20_Operational_Command_Center_redesign_v2.json", OPS, build_20, "operational"),
+    ("03_Active_Alerts_redesign_v2.json", OPS, build_03, "operational"),
+    ("02_Resource_Health_redesign_v2.json", OPS, build_02, "operational"),
+    ("05_Websites_and_Services_redesign_v2.json", OPS, build_05, "operational"),
+    ("04_Coverage_Capacity_Licenses_redesign_v2.json", OPS, build_04, "operational"),
+    ("06_Access_and_Administration_redesign_v2.json", OPS, build_06, "operational"),
+    ("30_Technical_Resource_Investigation_redesign_v2.json", TECH, build_30, "technical"),
+    ("07_Collector_Diagnostics_redesign_v2.json", TECH, build_07, "technical"),
+    ("08_LogicModule_and_Content_redesign_v2.json", TECH, build_08, "technical"),
+    ("09_Adoption_and_Optimization_redesign_v2.json", TECH, build_09, "technical"),
+    ("31_Technology_Dashboard_Directory_redesign_v2.json", TECH, build_31, "technical"),
 ]
 
 
@@ -972,14 +1662,43 @@ def write_json(path: Path, obj: dict) -> None:
     path.write_text(json.dumps(obj, indent=2) + "\n", encoding="utf-8")
 
 
+def make_subgroup(name: str, description: str, dashboards: list) -> dict:
+    return {
+        "santabaRelease": 242,
+        "widgetTokens": [],
+        "name": name,
+        "description": description,
+        "type": "dashboardgroup",
+        "dashboards": dashboards,
+        "subGroups": [],
+        "version": 2,
+    }
+
+
 def main() -> None:
-    dashboards = []
-    for filename, folder, builder in DASHBOARD_SPECS:
+    # Remove legacy level-* folders and stale filenames in group folders
+    for legacy in ("level-1-executive", "level-2-operational", "level-3-technical"):
+        p = OUT_DIR / legacy
+        if p.exists():
+            shutil.rmtree(p)
+
+    keep_names = {filename for filename, _, _, _ in DASHBOARD_SPECS}
+    for folder in (EXEC, OPS, TECH):
+        folder.mkdir(parents=True, exist_ok=True)
+        for f in folder.glob("*_redesign_v2.json"):
+            if f.name not in keep_names:
+                f.unlink()
+                print(f"Removed stale {folder.name}/{f.name}")
+
+    built: dict[str, list] = {"home": [], "executive": [], "operational": [], "technical": []}
+
+    for filename, folder, builder, group_key in DASHBOARD_SPECS:
         dash = builder()
         write_json(folder / filename, dash)
-        dashboards.append(dash)
+        built[group_key].append(dash)
         print(f"Wrote {folder.name}/{filename} ({len(dash['widgets'])} widgets)")
 
+    # Nested group: Home at root + three named subgroups
     group = {
         "santabaRelease": 242,
         "widgetTokens": [
@@ -990,17 +1709,37 @@ def main() -> None:
         ],
         "name": "SmartAdmin Connected Experience",
         "description": (
-            "Connected SmartAdmin redesign v2: Home → Platform Value → operational → technical. "
-            "Import this group, then configure portal URL/dashboard ID placeholders and accountname."
+            "Connected Experience redesign v2 with Executive, Operational, and Technical subgroups. "
+            "Home is the package entry point. Configure portal URL/dashboard ID placeholders and accountname after import. "
+            "Portal assigns subgroup IDs — do not reuse IDs from other portals."
         ),
         "type": "dashboardgroup",
-        "dashboards": dashboards,
-        "subGroups": [],
+        "dashboards": built["home"],
+        "subGroups": [
+            make_subgroup(
+                "Executive",
+                "Leadership visibility: command center, platform value, environment, availability, capacity risk.",
+                built["executive"],
+            ),
+            make_subgroup(
+                "Operational",
+                "Daily monitoring and triage: command center, alerts, resource health, websites, coverage, access.",
+                built["operational"],
+            ),
+            make_subgroup(
+                "Technical",
+                "Investigation: resource hub, collector diagnostics, modules, adoption, OOTB technology directory.",
+                built["technical"],
+            ),
+        ],
         "version": 2,
     }
     group_path = OUT_DIR / "SmartAdmin_Connected_Experience_redesign_v2.json"
     write_json(group_path, group)
-    print(f"Wrote group {group_path} with {len(dashboards)} dashboards")
+    print(
+        f"Wrote group {group_path} with {len(built['home'])} root + "
+        f"{sum(len(built[k]) for k in ('executive', 'operational', 'technical'))} subgroup dashboards"
+    )
 
 
 if __name__ == "__main__":

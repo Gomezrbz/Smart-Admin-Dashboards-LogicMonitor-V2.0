@@ -2,80 +2,49 @@
 
 ## Model
 
-**Combination:** compact global HTML menu on every dashboard + Home navigation cards + contextual “Where next” footers.
+Every dashboard includes **Suite Navigation Menu** — Introductive nav shell (`#0b1220` / `#1f2a44` / radius 16) with four DCC-style columns:
 
-```mermaid
-flowchart LR
-  menu[Global_HTML_Menu]
-  home[00_Home_Cards]
-  footer[Contextual_Footer]
-  menu --> dashboards[Dashboards_00_to_09]
-  home --> dashboards
-  footer --> related[Related_Dashboards]
+1. Home  
+2. Executive  
+3. Operational  
+4. Technical  
+
+Current dashboard is highlighted with a cyan CURRENT badge.
+
+Links use:
+
+```text
+{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_NN}}
 ```
 
-## Why this model
+Unresolved placeholders remain readable.
 
-| Option | Verdict |
-|--------|---------|
-| Horizontal menu only | Good orientation; insufficient for first-time users |
-| Side panel | Consumes scarce dashboard grid width |
-| Home cards only | Strong entry; weak when deep in L3 |
-| Breadcrumbs only | LM text widgets cannot reliably track history |
-| Dynamic JS list | Powerful but portal-API / script dependent — optional |
-| **Global menu + Home cards + footers** | Best balance for static, portable HTML |
+## Contextual navigation
 
-## Visual language
+| Pattern | Where |
+|---------|--------|
+| DCC intro card grid | 10, 20, 30 |
+| DCC nav guide (4 columns) | 00, 10, 20, 31 |
+| DCC inventory table (adapted rows) | 12, 30, 31 |
+| Where Next footer | All dashboards |
+| Technology directory | 00, 04, 05, 13, 31 |
 
-- Background `#0b1220`, border `#1f2937`, text `#e5e7eb`, accent `#38bdf8`
-- Current section: brighter border + `Current` label (CSS only)
-- Theme wrapper: `newSolidDarkBlue`
-- No Harvard crimson; no new JS in core nav
+## Label standards
 
-## Global menu items
+| Use | Label |
+|-----|-------|
+| Home | Home |
+| Exec hub | Exec CC / Executive Command Center |
+| Ops hub | Ops CC / Operational Command Center |
+| Tech hub | Investigation / Technical Resource Investigation |
+| Alerts | Active Alerts |
+| Resources | Resource Health |
+| Collectors | Collector Diagnostics |
 
-| Label | Destination |
-|-------|-------------|
-| Home | 00 - Home / Introductory |
-| Platform Value | 01 - Platform Value Overview |
-| Environment | 02 - Environment Health |
-| Alerts | 03 - Alert Overview |
-| Coverage | 04 - Coverage, Capacity & Licenses |
-| Websites | 05 - Websites and Services |
-| Admin | 06 - Access and Administration |
-| Collectors | 07 - Collector Health |
-| Modules | 08 - LogicModule and Content |
-| Adoption | 09 - Adoption and Optimization |
+## Space budget
 
-Links use placeholders:
+Nav widget uses ~5 grid rows. Guides use Introductive 20px titles (not decorative empty headers). Major 62px section headers only on Home environment summary.
 
-```html
-<a href="{{PORTAL_BASE}}/uiv4/dashboard/{{DASHBOARD_ID_01}}" ...>
-```
+## Unsupported
 
-Until configured, labels remain readable as a map of the suite.
-
-## Home cards (role-based)
-
-| Card | Audience | Starts at |
-|------|----------|-----------|
-| Executive health | Leadership | 01 |
-| Triage alerts | NOC / ops | 03 |
-| Environment risk | Ops | 02 |
-| Coverage & licenses | Admins / FinOps | 04 |
-| Access hygiene | Security | 06 |
-| Collector pipeline | Platform engineers | 07 |
-
-## Unsupported / optional patterns
-
-| Pattern | Source | Status |
-|---------|--------|--------|
-| Dynamic Dashboard List v2.x | `_DynamicDashboardGroups`, `_Example_Exec` | Optional; requires portal API from text widget; **portal validation required** |
-| FilterWidget v7 | `_FilterWidget_v7` | Optional resource regex wizard; **portal validation required** |
-| Better Map Widget CDN JS | `_Example_Exec` | Optional; not in core pack |
-
-## Cloning / import safety
-
-- No hardcoded customer names or credentials
-- Dashboard IDs must be filled per portal
-- Suite remains operational when links are unresolved (metrics still render)
+No JavaScript navigation widgets in the core pack (`_DynamicDashboardGroups`, `_FilterWidget_v7` remain optional/docs-only).

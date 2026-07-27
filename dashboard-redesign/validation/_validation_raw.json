@@ -1,6 +1,6 @@
 [
   {
-    "file": "dashboard-redesign/dashboards/level-1-executive/00_Home_Introductory_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/executive/00_Home_Introductory_redesign_v2.json",
     "name": "00 - Home / Introductory",
     "json_ok": true,
     "widgets": 17,
@@ -33,7 +33,22 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
+      "{{OOTB_ALERTING_ID}}",
+      "{{OOTB_CAPACITY_ID}}",
+      "{{OOTB_CLOUD_ID}}",
+      "{{OOTB_NETWORK_ID}}",
+      "{{OOTB_SERVER_ID}}",
+      "{{OOTB_STORAGE_ID}}",
+      "{{OOTB_VIRT_ID}}",
+      "{{OOTB_WEBSITES_ID}}",
       "{{PORTAL_BASE}}"
     ],
     "proservices": false,
@@ -47,10 +62,11 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Home (package root; file under executive/)"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-1-executive/01_Platform_Value_Overview_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/executive/01_Platform_Value_Overview_redesign_v2.json",
     "name": "01 - Platform Value Overview",
     "json_ok": true,
     "widgets": 22,
@@ -85,6 +101,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -100,11 +123,265 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Executive"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-2-operational/02_Environment_Health_redesign_v2.json",
-    "name": "02 - Environment Health",
+    "file": "dashboard-redesign/dashboards/executive/10_Executive_Command_Center_redesign_v2.json",
+    "name": "10 - Executive Command Center",
+    "json_ok": true,
+    "widgets": 21,
+    "widget_types": {
+      "text": 7,
+      "bigNumber": 8,
+      "gmap": 1,
+      "noc": 1,
+      "alert": 2,
+      "cgraph": 2
+    },
+    "tokens": [
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ],
+      [
+        "defaultResourceGroup",
+        "*"
+      ]
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "placeholders": [
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "proservices": false,
+    "datasources": [
+      "HostStatus",
+      "LogicMonitor_Portal_Alerts",
+      "LogicMonitor_Portal_Collectors",
+      "LogicMonitor_Portal_Resources",
+      "LogicMonitor_Portal_Websites"
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Executive"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/executive/11_Environment_Health_Executive_redesign_v2.json",
+    "name": "11 - Environment Health Executive",
+    "json_ok": true,
+    "widgets": 18,
+    "widget_types": {
+      "text": 6,
+      "bigNumber": 8,
+      "gmap": 1,
+      "noc": 1,
+      "cgraph": 2
+    },
+    "tokens": [
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ],
+      [
+        "defaultResourceGroup",
+        "*"
+      ]
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "placeholders": [
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "proservices": false,
+    "datasources": [
+      "LogicMonitor_Portal_Alerts",
+      "LogicMonitor_Portal_Collectors",
+      "LogicMonitor_Portal_MinimalMonitoring",
+      "LogicMonitor_Portal_Resources",
+      "LogicMonitor_Portal_Websites",
+      "MinimalMonitoring"
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Executive"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/executive/12_Availability_and_Service_Health_redesign_v2.json",
+    "name": "12 - Availability and Service Health",
+    "json_ok": true,
+    "widgets": 15,
+    "widget_types": {
+      "text": 6,
+      "bigNumber": 8,
+      "cgraph": 1
+    },
+    "tokens": [
+      [
+        "defaultResourceGroup",
+        "*"
+      ],
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ],
+      [
+        "defaultWebsiteGroup",
+        "*"
+      ]
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "placeholders": [
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "proservices": false,
+    "datasources": [
+      "LogicMonitor_Portal_Alerts",
+      "LogicMonitor_Portal_Websites",
+      "LogicMonitor_Portal_WebsitesGroups"
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Executive"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/executive/13_Capacity_and_Risk_Overview_redesign_v2.json",
+    "name": "13 - Capacity and Risk Overview",
+    "json_ok": true,
+    "widgets": 17,
+    "widget_types": {
+      "text": 7,
+      "bigNumber": 8,
+      "cgraph": 2
+    },
+    "tokens": [
+      [
+        "accountname",
+        "{{ACCOUNT_NAME}}"
+      ],
+      [
+        "defaultResourceGroup",
+        "*"
+      ],
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ]
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "placeholders": [
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{OOTB_ALERTING_ID}}",
+      "{{OOTB_CAPACITY_ID}}",
+      "{{OOTB_CLOUD_ID}}",
+      "{{OOTB_NETWORK_ID}}",
+      "{{OOTB_SERVER_ID}}",
+      "{{OOTB_STORAGE_ID}}",
+      "{{OOTB_VIRT_ID}}",
+      "{{OOTB_WEBSITES_ID}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "proservices": false,
+    "datasources": [
+      "LogicMonitor_Portal_LicenseCounts",
+      "LogicMonitor_Portal_MinimalMonitoring",
+      "LogicMonitor_Portal_Resources",
+      "LogicMonitor_Portal_UnmonitoredDevice",
+      "MinimalMonitoring",
+      "UnmonitoredDevice"
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Executive"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/operational/02_Resource_Health_redesign_v2.json",
+    "name": "02 - Resource Health",
     "json_ok": true,
     "widgets": 20,
     "widget_types": {
@@ -140,6 +417,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -156,11 +440,12 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Operational"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-2-operational/03_Alert_Overview_redesign_v2.json",
-    "name": "03 - Alert Overview",
+    "file": "dashboard-redesign/dashboards/operational/03_Active_Alerts_redesign_v2.json",
+    "name": "03 - Active Alerts",
     "json_ok": true,
     "widgets": 24,
     "widget_types": {
@@ -194,6 +479,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -210,10 +502,11 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Operational"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-2-operational/04_Coverage_Capacity_Licenses_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/operational/04_Coverage_Capacity_Licenses_redesign_v2.json",
     "name": "04 - Coverage, Capacity & Licenses",
     "json_ok": true,
     "widgets": 32,
@@ -251,7 +544,22 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
+      "{{OOTB_ALERTING_ID}}",
+      "{{OOTB_CAPACITY_ID}}",
+      "{{OOTB_CLOUD_ID}}",
+      "{{OOTB_NETWORK_ID}}",
+      "{{OOTB_SERVER_ID}}",
+      "{{OOTB_STORAGE_ID}}",
+      "{{OOTB_VIRT_ID}}",
+      "{{OOTB_WEBSITES_ID}}",
       "{{PORTAL_BASE}}"
     ],
     "proservices": false,
@@ -267,15 +575,16 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Operational"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-2-operational/05_Websites_and_Services_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/operational/05_Websites_and_Services_redesign_v2.json",
     "name": "05 - Websites and Services",
     "json_ok": true,
-    "widgets": 16,
+    "widgets": 15,
     "widget_types": {
-      "text": 8,
+      "text": 7,
       "bigNumber": 8
     },
     "tokens": [
@@ -306,7 +615,22 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
+      "{{OOTB_ALERTING_ID}}",
+      "{{OOTB_CAPACITY_ID}}",
+      "{{OOTB_CLOUD_ID}}",
+      "{{OOTB_NETWORK_ID}}",
+      "{{OOTB_SERVER_ID}}",
+      "{{OOTB_STORAGE_ID}}",
+      "{{OOTB_VIRT_ID}}",
+      "{{OOTB_WEBSITES_ID}}",
       "{{PORTAL_BASE}}"
     ],
     "proservices": false,
@@ -318,10 +642,11 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Operational"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-2-operational/06_Access_and_Administration_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/operational/06_Access_and_Administration_redesign_v2.json",
     "name": "06 - Access and Administration",
     "json_ok": true,
     "widgets": 18,
@@ -353,6 +678,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -369,11 +701,143 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Operational"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-3-technical/07_Collector_Health_redesign_v2.json",
-    "name": "07 - Collector Health",
+    "file": "dashboard-redesign/dashboards/operational/20_Operational_Command_Center_redesign_v2.json",
+    "name": "20 - Operational Command Center",
+    "json_ok": true,
+    "widgets": 18,
+    "widget_types": {
+      "text": 6,
+      "bigNumber": 8,
+      "alert": 2,
+      "gmap": 1,
+      "noc": 1
+    },
+    "tokens": [
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ],
+      [
+        "defaultResourceGroup",
+        "*"
+      ]
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "placeholders": [
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "proservices": false,
+    "datasources": [
+      "HostStatus",
+      "LogicMonitor_Portal_Alerts",
+      "LogicMonitor_Portal_Collectors",
+      "LogicMonitor_Portal_Resources",
+      "LogicMonitor_Portal_Websites"
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Operational"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/SmartAdmin_Connected_Experience_redesign_v2.json",
+    "name": "SmartAdmin Connected Experience",
+    "json_ok": true,
+    "widgets": 326,
+    "dashboard_count": 17,
+    "subgroups": [
+      "Executive",
+      "Operational",
+      "Technical"
+    ],
+    "tokens": [
+      [
+        "defaultResourceGroup",
+        "*"
+      ],
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ],
+      [
+        "defaultWebsiteGroup",
+        "*"
+      ],
+      [
+        "accountname",
+        "{{ACCOUNT_NAME}}"
+      ]
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Group export: 1 root dashboard(s), subGroups=['Executive', 'Operational', 'Technical'], 16 nested dashboards."
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "proservices": false,
+    "placeholders": [
+      "{{ACCOUNT_NAME}}",
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{OOTB_ALERTING_ID}}",
+      "{{OOTB_CAPACITY_ID}}",
+      "{{OOTB_CLOUD_ID}}",
+      "{{OOTB_NETWORK_ID}}",
+      "{{OOTB_SERVER_ID}}",
+      "{{OOTB_STORAGE_ID}}",
+      "{{OOTB_VIRT_ID}}",
+      "{{OOTB_WEBSITES_ID}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "datasources": [],
+    "widget_types": {},
+    "dashboard_group": "SmartAdmin Connected Experience (parent)"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/technical/07_Collector_Diagnostics_redesign_v2.json",
+    "name": "07 - Collector Diagnostics",
     "json_ok": true,
     "widgets": 35,
     "widget_types": {
@@ -407,6 +871,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -421,10 +892,11 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Technical"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-3-technical/08_LogicModule_and_Content_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/technical/08_LogicModule_and_Content_redesign_v2.json",
     "name": "08 - LogicModule and Content",
     "json_ok": true,
     "widgets": 18,
@@ -457,6 +929,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -468,10 +947,11 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Technical"
   },
   {
-    "file": "dashboard-redesign/dashboards/level-3-technical/09_Adoption_and_Optimization_redesign_v2.json",
+    "file": "dashboard-redesign/dashboards/technical/09_Adoption_and_Optimization_redesign_v2.json",
     "name": "09 - Adoption and Optimization",
     "json_ok": true,
     "widgets": 17,
@@ -504,6 +984,13 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
@@ -526,42 +1013,35 @@
     "status": "pass_with_portal_config",
     "notes": [
       "Contains post-import placeholders (expected)."
-    ]
+    ],
+    "dashboard_group": "Technical"
   },
   {
-    "file": "dashboard-redesign/dashboards/SmartAdmin_Connected_Experience_redesign_v2.json",
-    "name": "SmartAdmin Connected Experience",
+    "file": "dashboard-redesign/dashboards/technical/30_Technical_Resource_Investigation_redesign_v2.json",
+    "name": "30 - Technical Resource Investigation",
     "json_ok": true,
-    "widgets": 219,
-    "dashboard_count": 10,
+    "widgets": 14,
+    "widget_types": {
+      "text": 5,
+      "bigNumber": 4,
+      "alert": 2,
+      "cgraph": 2,
+      "dynamicTable": 1
+    },
     "tokens": [
-      [
-        "defaultResourceGroup",
-        "*"
-      ],
       [
         "defaultResource",
         "*.logicmonitor.com"
       ],
       [
-        "defaultWebsiteGroup",
+        "defaultResourceGroup",
         "*"
-      ],
-      [
-        "accountname",
-        "{{ACCOUNT_NAME}}"
       ]
-    ],
-    "status": "pass_with_portal_config",
-    "notes": [
-      "Group export containing all suite dashboards."
     ],
     "overlaps": [],
     "missing_positions": [],
     "scripts_in_text": [],
-    "proservices": false,
     "placeholders": [
-      "{{ACCOUNT_NAME}}",
       "{{DASHBOARD_ID_00}}",
       "{{DASHBOARD_ID_01}}",
       "{{DASHBOARD_ID_02}}",
@@ -572,10 +1052,85 @@
       "{{DASHBOARD_ID_07}}",
       "{{DASHBOARD_ID_08}}",
       "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
       "{{DASHBOARD_ID_NN}}",
       "{{PORTAL_BASE}}"
     ],
+    "proservices": false,
+    "datasources": [
+      "HostStatus",
+      "LogicMonitor_Portal_Alerts",
+      "LogicMonitor_Portal_Collectors",
+      "LogicMonitor_Portal_Resources"
+    ],
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Technical"
+  },
+  {
+    "file": "dashboard-redesign/dashboards/technical/31_Technology_Dashboard_Directory_redesign_v2.json",
+    "name": "31 - Technology Dashboard Directory",
+    "json_ok": true,
+    "widgets": 5,
+    "widget_types": {
+      "text": 5
+    },
+    "tokens": [
+      [
+        "defaultResource",
+        "*.logicmonitor.com"
+      ],
+      [
+        "defaultResourceGroup",
+        "*"
+      ]
+    ],
+    "overlaps": [],
+    "missing_positions": [],
+    "scripts_in_text": [],
+    "placeholders": [
+      "{{DASHBOARD_ID_00}}",
+      "{{DASHBOARD_ID_01}}",
+      "{{DASHBOARD_ID_02}}",
+      "{{DASHBOARD_ID_03}}",
+      "{{DASHBOARD_ID_04}}",
+      "{{DASHBOARD_ID_05}}",
+      "{{DASHBOARD_ID_06}}",
+      "{{DASHBOARD_ID_07}}",
+      "{{DASHBOARD_ID_08}}",
+      "{{DASHBOARD_ID_09}}",
+      "{{DASHBOARD_ID_10}}",
+      "{{DASHBOARD_ID_11}}",
+      "{{DASHBOARD_ID_12}}",
+      "{{DASHBOARD_ID_13}}",
+      "{{DASHBOARD_ID_20}}",
+      "{{DASHBOARD_ID_30}}",
+      "{{DASHBOARD_ID_31}}",
+      "{{DASHBOARD_ID_NN}}",
+      "{{OOTB_ALERTING_ID}}",
+      "{{OOTB_CAPACITY_ID}}",
+      "{{OOTB_CLOUD_ID}}",
+      "{{OOTB_NETWORK_ID}}",
+      "{{OOTB_SERVER_ID}}",
+      "{{OOTB_STORAGE_ID}}",
+      "{{OOTB_VIRT_ID}}",
+      "{{OOTB_WEBSITES_ID}}",
+      "{{PORTAL_BASE}}"
+    ],
+    "proservices": false,
     "datasources": [],
-    "widget_types": {}
+    "status": "pass_with_portal_config",
+    "notes": [
+      "Contains post-import placeholders (expected)."
+    ],
+    "dashboard_group": "Technical"
   }
 ]
