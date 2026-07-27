@@ -1,0 +1,24 @@
+{
+  "portal": "YOUR_PORTAL_NAME",
+  "access_id": "YOUR_ACCESS_ID",
+  "access_key": "YOUR_ACCESS_KEY",
+  "output_dir": "./outputs/",
+  "page_size": 1000,
+  "endpoints": {
+    "devices": "/device/devices",
+    "device_groups": "/device/groups",
+    "collectors": "/setting/collectors",
+    "collector_groups": "/setting/collectors/groups",
+    "websites": "/website/websites",
+    "website_groups": "/website/groups",
+    "users": "/setting/users",
+    "roles": "/setting/roles",
+    "dashboards": "/dashboard/dashboards",
+    "dashboard_groups": "/dashboard/groups",
+    "reports": "/report/reports",
+    "report_groups": "/report/groups",
+    "datasources": "/setting/datasources",
+    "escalation_chains": "/setting/alert/chains",
+    "alert_rules": "/setting/alert/rules"
+  }
+}

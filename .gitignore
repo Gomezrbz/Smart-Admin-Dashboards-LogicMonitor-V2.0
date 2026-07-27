@@ -1,1 +1,11 @@
 lm_export_config.json
+outputs/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+modules/_export_summary.json
+*.tmp
+*.bak
+*.old
+*.backup

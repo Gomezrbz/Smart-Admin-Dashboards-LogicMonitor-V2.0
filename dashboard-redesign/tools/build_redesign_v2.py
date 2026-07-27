@@ -168,59 +168,38 @@ def link(nid: str, label: str, color: str = "#38bdf8") -> str:
 # ---------------------------------------------------------------------------
 
 
+# Approved navigation HTML (source of truth): navigation/html/*.html
+NAV_HTML_DIR = ROOT / "navigation" / "html"
+NAV_HTML_BY_ID = {
+    "00": "00-home-introductory.html",
+    "10": "10-executive-command-center.html",
+    "11": "11-platform-value-overview.html",
+    "12": "12-environment-health-executive.html",
+    "13": "13-availability-service-health.html",
+    "14": "14-capacity-risk-overview.html",
+    "20": "20-operational-command-center.html",
+    "21": "21-active-alerts.html",
+    "22": "22-resource-health.html",
+    "23": "23-websites-services.html",
+    "24": "24-coverage-capacity-licenses.html",
+    "25": "25-access-administration.html",
+    "30": "30-technical-resource-investigation.html",
+    "31": "31-collector-diagnostics.html",
+    "32": "32-logicmodule-content.html",
+    "33": "33-adoption-optimization.html",
+    "34": "34-technology-dashboard-directory.html",
+}
+
+
 def global_nav_widget(current_id: str, row: int = 1, sizey: int = 4) -> dict:
-    """Introductive nav shell with DCC-style group cards."""
-    groups = [
-        (
-            "Home",
-            "#a7f3d0",
-            [i for i in NAV_ITEMS if i[3] == "home"],
-        ),
-        (
-            "Executive",
-            "#93c5fd",
-            [i for i in NAV_ITEMS if i[3] == "executive"],
-        ),
-        (
-            "Operational",
-            "#fdba74",
-            [i for i in NAV_ITEMS if i[3] == "operational"],
-        ),
-        (
-            "Technical",
-            "#fca5a5",
-            [i for i in NAV_ITEMS if i[3] == "technical"],
-        ),
-    ]
-    cards = []
-    for gname, accent, items in groups:
-        rows = []
-        for nid, label, full, _ in items:
-            cur = nid == current_id
-            style = (
-                "background:rgba(14,165,233,.25);border:1px solid #38bdf8;border-radius:8px;padding:6px 8px;margin:4px 0;"
-                if cur
-                else "padding:4px 0;margin:3px 0;"
-            )
-            badge = '<span style="font-size:9px;font-weight:800;color:#7dd3fc;margin-right:4px;">CURRENT</span>' if cur else ""
-            rows.append(
-                f'<div style="{style}">{badge}{link(nid, label)}'
-                f'<div style="font-size:10px;color:#9ca3af;">{escape(full)}</div></div>'
-            )
-        cards.append(
-            f'<td style="vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(191,219,254,.20);'
-            f'border-radius:12px;padding:13px;width:25%;">'
-            f'<span style="display:inline-block;padding:5px 8px;margin-bottom:8px;border-radius:999px;'
-            f'background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);color:{accent};'
-            f'font-size:11px;font-weight:700;">{escape(gname)}</span>'
-            f'{"".join(rows)}</td>'
-        )
-    content = f"""<div style="font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e5e7eb;border:1px solid #1f2a44;border-radius:16px;padding:18px;width:100%;box-sizing:border-box;">
-<div style="font-size:18px;font-weight:700;color:#ffffff;margin-bottom:6px;">SmartAdmin Connected Experience — Navigation</div>
-<div style="font-size:13px;color:#a5b4fc;margin-bottom:12px;">Home · Executive · Operational · Technical. After import, replace {{{{PORTAL_BASE}}}} and {{{{DASHBOARD_ID_NN}}}}. Metrics work before links are wired.</div>
-<div style="height:1px;background:#1f2a44;margin:12px 0;"></div>
-<table style="width:100%;border-collapse:separate;border-spacing:12px;"><tr>{"".join(cards)}</tr></table>
-</div>"""
+    """Load approved navigation HTML for the current dashboard."""
+    html_name = NAV_HTML_BY_ID.get(current_id)
+    if not html_name:
+        raise KeyError(f"No navigation HTML mapped for dashboard id {current_id}")
+    path = NAV_HTML_DIR / html_name
+    if not path.is_file():
+        raise FileNotFoundError(f"Missing navigation source: {path}")
+    content = path.read_text(encoding="utf-8").strip()
     return text_widget(
         "Suite Navigation Menu",
         content,

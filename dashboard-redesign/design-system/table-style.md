@@ -1,7 +1,6 @@
 # Table and Card Style (DCC Executive Command Center)
 
-**Primary reference:** `Basement/DCC_-_PSC_Network_Health_Executive_Command_Center (1).json`  
-(identical twin: `Basement/Design_Template.json`)
+**Primary reference:** `Basement/Design_Template.json` (DCC card/table chrome patterns)
 
 ## Critical finding
 
