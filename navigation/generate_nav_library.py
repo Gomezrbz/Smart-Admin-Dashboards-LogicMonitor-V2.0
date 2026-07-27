@@ -193,7 +193,10 @@ PILL_BASE = (
     "background:rgba(96,165,250,.18);border:1px solid rgba(191,219,254,.24);"
     "font-size:11px;font-weight:700;"
 )
-LINK_STYLE = "color:#38bdf8;text-decoration:none;font-weight:700;"
+# Link markup follows the working menu in dashboard_feedback.md:
+# target="_blank", rel="noopener noreferrer", #93c5fd color, &nbsp; padding.
+LINK_STYLE = "color:#93c5fd; text-decoration:none; font-weight:700;"
+LINK_ATTRS = 'target="_blank" rel="noopener noreferrer"'
 CURRENT_WRAP = (
     "background:rgba(14,165,233,.25);border:1px solid #38bdf8;"
     "border-radius:8px;padding:6px 8px;margin:4px 0;"
@@ -204,16 +207,21 @@ CURRENT_BADGE = (
 )
 
 
+def make_link(url: str, label: str) -> str:
+    return (
+        f'<a href="{url}" {LINK_ATTRS} style="{LINK_STYLE}">'
+        f"&nbsp;&nbsp;{label}&nbsp;&nbsp;</a>"
+    )
+
+
 def nav_item(dash: dict, current_number: str) -> str:
     is_current = dash["number"] == current_number
     link = (
-        f'<a href="{dash["url"]}" style="{LINK_STYLE}">{dash["short"]}</a>'
-        f'<div style="font-size:10px;color:#9ca3af;">{dash["display_name"]}</div>'
+        make_link(dash["url"], dash["short"])
+        + f'<div style="font-size:10px;color:#9ca3af;">{dash["display_name"]}</div>'
     )
     if is_current:
-        return (
-            f'<div style="{CURRENT_WRAP}">{CURRENT_BADGE}{link}</div>'
-        )
+        return f'<div style="{CURRENT_WRAP}">{CURRENT_BADGE}{link}</div>'
     return f'<div style="{NORMAL_WRAP}">{link}</div>'
 
 
@@ -253,10 +261,8 @@ def validate_table(html: str, current: dict) -> dict:
         issues.append(f"CURRENT count={current_count}, expected 1")
 
     # CURRENT must appear immediately before the current dashboard's short-label link
-    pattern = (
-        r">CURRENT</span>"
-        + re.escape(f'<a href="{current["url"]}" style="{LINK_STYLE}">{current["short"]}</a>')
-    )
+    expected_link = make_link(current["url"], current["short"])
+    pattern = r">CURRENT</span>" + re.escape(expected_link)
     if not re.search(pattern, html):
         issues.append("CURRENT not on intended dashboard")
 
@@ -266,10 +272,18 @@ def validate_table(html: str, current: dict) -> dict:
     if "<script" in html.lower():
         issues.append("script tag found")
 
+    if html.count('target="_blank"') != len(DASHBOARDS):
+        issues.append("missing target=_blank on one or more links")
+    if html.count('rel="noopener noreferrer"') != len(DASHBOARDS):
+        issues.append("missing rel=noopener noreferrer on one or more links")
+
     for dash in DASHBOARDS:
         occurrences = html.count(f'href="{dash["url"]}"')
         if occurrences != 1:
             issues.append(f"URL for {dash['number']} count={occurrences}")
+        padded = f"&nbsp;&nbsp;{dash['short']}&nbsp;&nbsp;"
+        if padded not in html:
+            issues.append(f"nbsp padding missing for {dash['number']}")
 
     if "Coverage, Capacity &amp; Licenses" not in html:
         issues.append("Coverage label missing &amp;")
@@ -320,6 +334,7 @@ def write_library(tables: dict[str, str], validations: dict[str, dict]) -> None:
                 "- Current dashboard highlighted: Yes",
                 "- Complete URLs included: Yes",
                 "- LogicMonitor-compatible HTML: Yes",
+                "- Links use target=_blank and rel=noopener noreferrer: Yes",
                 "- JavaScript included: No",
                 "",
                 "---",
