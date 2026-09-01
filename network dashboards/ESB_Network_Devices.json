@@ -1,0 +1,1356 @@
+{
+  "santabaRelease": 243,
+  "defaultDashboardFilters": {
+    "defaultDashboardFilterDetails": []
+  },
+  "widgetTokens": [
+    {
+      "name": "defaultResourceGroup",
+      "value": "Devices by Application/ESB"
+    },
+    {
+      "name": "defaultResourceName",
+      "value": "*"
+    }
+  ],
+  "name": "ESB Network Devices",
+  "description": "ESB-scoped network operations dashboard; defaults to Devices by Application/ESB. Supports device-level drill-down via defaultResourceName.",
+  "overwriteGroupFields": false,
+  "widgetsConfigVersion": 2,
+  "type": "dashboard",
+  "widgets": [
+    {
+      "position": {
+        "col": 1,
+        "row": 1,
+        "sizex": 5,
+        "sizey": 3
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {
+          "showTypeIcon": true,
+          "displayAs": "table"
+        },
+        "displayWarnAlert": true,
+        "supportCustomProperty": false,
+        "description": "",
+        "type": "noc",
+        "version": 2,
+        "displayErrorAlert": true,
+        "isSupportCustomProperty": false,
+        "displayColumn": 5,
+        "name": "Network Device Alert Summary",
+        "displayCriticalAlert": true,
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "sortBy": "alertSeverity",
+        "timescale": "day",
+        "sdtChecked": true,
+        "items": [
+          {
+            "dataPointName": "*",
+            "instanceName": "*",
+            "name": "##RESOURCENAME##",
+            "dataSourceDisplayName": "*",
+            "groupBy": "device",
+            "type": "device",
+            "deviceGroupFullPath": "##defaultResourceGroup##",
+            "deviceDisplayName": "##defaultResourceName##"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 6,
+        "row": 1,
+        "sizex": 3,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {},
+        "timezone": "America/Los_Angeles",
+        "supportCustomProperty": false,
+        "description": "Percentage of time in the last 30 days monitored resources stayed within Host Status thresholds.",
+        "type": "deviceSLA",
+        "version": 2,
+        "calculationMethod": 1,
+        "daysInWeek": "1,2,3,4,5,6,7",
+        "displayType": 0,
+        "isSupportCustomProperty": false,
+        "topX": 1,
+        "bottomLabel": "Time Available",
+        "name": "Network Device Availability",
+        "displayPercentageBar": false,
+        "periodInOneDay": "*",
+        "theme": "newSolidDarkBlue",
+        "interval": 5,
+        "metrics": [
+          {
+            "groupName": "##defaultResourceGroup##",
+            "instances": "*",
+            "metric": "idleInterval",
+            "dataSourceFullName": "Host Status (HostStatus)",
+            "bottomLabel": "##RESOURCENAME##",
+            "threshold": "< 300",
+            "deviceName": "##defaultResourceName##",
+            "exclusionSDTType": "ResourceSDT"
+          }
+        ],
+        "timescale": "Last 30 days",
+        "unmonitoredTimeType": 0,
+        "colorThresholds": [
+          {
+            "level": 2,
+            "threshold": 98,
+            "relation": "<"
+          },
+          {
+            "level": 3,
+            "threshold": 94,
+            "relation": "<"
+          },
+          {
+            "level": 4,
+            "threshold": 90,
+            "relation": "<"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 9,
+        "row": 1,
+        "sizex": 4,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "node",
+              "columnSize": 367,
+              "columnKey": "node"
+            },
+            {
+              "visible": true,
+              "columnLabel": "availability",
+              "columnSize": 120,
+              "columnKey": "availability"
+            }
+          ]
+        },
+        "timezone": "America/Los_Angeles",
+        "supportCustomProperty": false,
+        "description": "Percentage of time in the last 30 days monitored resources stayed within Host Status thresholds.",
+        "type": "deviceSLA",
+        "version": 2,
+        "calculationMethod": 1,
+        "daysInWeek": "1,2,3,4,5,6,7",
+        "displayType": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "bottomLabel": "Time Available",
+        "name": "Top Network Devices Requiring Attention",
+        "displayPercentageBar": false,
+        "periodInOneDay": "*",
+        "theme": "newBorderBlue",
+        "interval": 5,
+        "metrics": [
+          {
+            "groupName": "##defaultResourceGroup##",
+            "instances": "*",
+            "metric": "idleInterval",
+            "dataSourceFullName": "Host Status (HostStatus)",
+            "bottomLabel": "##RESOURCENAME##",
+            "threshold": "< 300",
+            "deviceName": "*",
+            "exclusionSDTType": "ResourceSDT"
+          }
+        ],
+        "timescale": "Last 30 days",
+        "unmonitoredTimeType": 0,
+        "colorThresholds": [
+          {
+            "level": 4,
+            "threshold": 90,
+            "relation": "<"
+          },
+          {
+            "level": 3,
+            "threshold": 94,
+            "relation": "<"
+          },
+          {
+            "level": 2,
+            "threshold": 98,
+            "relation": "<"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 4,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "CPU Utilization",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": 100,
+          "dataPoints": [
+            {
+              "dataPointName": "CPUBusyPercent",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "CPU Overview (NetSNMPCPUwithCores)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "CPUBusyPercent",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "%",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "7days",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "row": 4,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Memory Utilization",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": 100,
+          "dataPoints": [
+            {
+              "dataPointName": "ActiveMemoryPercent",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Memory Usage (NetSNMP_Memory_Usage)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "ActiveMemoryPercent",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "%",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "7days",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 9,
+        "row": 4,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Network Device Health Trend",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": "NaN",
+          "topX": 10,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "maxrtt",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Ping",
+              "consolidateFunction": "max",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##",
+                "type": "line",
+                "option": "custom"
+              },
+              "name": "maxrtt",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "ms",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "5hour",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 8,
+        "sizex": 12,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Name",
+              "columnSize": 331,
+              "columnKey": "name"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Discards (In)",
+              "columnSize": 112,
+              "columnKey": "Discards (In)"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Errors (In)",
+              "columnSize": 118,
+              "columnKey": "Errors (In)"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Discards (Out)",
+              "columnSize": 94,
+              "columnKey": "Discards (Out)"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Errors (Out)",
+              "columnSize": 111,
+              "columnKey": "Errors (Out)"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "InDiscards",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " pkts/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Discards (In)",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "InErrors",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " pkts/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Errors (In)",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "OutDiscards",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " pkts/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Discards (Out)",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "OutErrors",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " pkts/sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Errors (Out)",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "ARIMA"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##INSTANCE## - ##RESOURCENAME##",
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "Network Interfaces (SNMP_Network_Interfaces)",
+        "sortOrder": "descending",
+        "name": "Interface Errors and Discards",
+        "theme": "newSolidDarkBlue",
+        "interval": 5,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 13,
+        "sizex": 5,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "showFilter": false,
+          "visualizationType": "donut",
+          "overrideFilter": false
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Top Interfaces by Utilization",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "pieChart",
+        "timescale": "day",
+        "pieChartInfo": {
+          "maxSlicesCanBeShown": 10,
+          "virtualDataPoints": [],
+          "showLabelsAndLinesOnPC": true,
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "InMbps",
+              "top10": true,
+              "instanceName": "*",
+              "dataSourceFullName": "Network Interfaces (SNMP_Network_Interfaces)",
+              "name": "InMbps",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##",
+              "aggregate": false
+            },
+            {
+              "dataPointName": "OutMbps",
+              "top10": true,
+              "instanceName": "*",
+              "dataSourceFullName": "Network Interfaces (SNMP_Network_Interfaces)",
+              "name": "OutMbps",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultResourceGroup##",
+              "deviceDisplayName": "##defaultResourceName##",
+              "aggregate": false
+            }
+          ],
+          "hideZeroPercentSlices": true,
+          "groupRemainingAsOthers": true,
+          "pieChartItems": [
+            {
+              "dataPointName": "InMbps",
+              "color": "blue",
+              "legend": "Inbound - ##INSTANCE## - ##RESOURCENAME##"
+            },
+            {
+              "dataPointName": "OutMbps",
+              "color": "orange",
+              "legend": "Outbound - ##INSTANCE## - ##RESOURCENAME##"
+            }
+          ],
+          "title": "Top Interfaces by Utilization"
+        },
+        "version": 2,
+        "widgetFilters": {}
+      }
+    },
+    {
+      "position": {
+        "col": 6,
+        "row": 13,
+        "sizex": 7,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Interface Utilization Trend",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "InMbps",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Network Interfaces (SNMP_Network_Interfaces)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "blue",
+                "legend": "Inbound",
+                "type": "area",
+                "option": "custom"
+              },
+              "name": "InMbps",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            },
+            {
+              "dataPointName": "OutMbps",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Network Interfaces (SNMP_Network_Interfaces)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "orange",
+                "legend": "Outbound",
+                "type": "area",
+                "option": "custom"
+              },
+              "name": "OutMbps",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "##defaultResourceName##"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "##defaultResourceGroup##"
+              }
+            }
+          ],
+          "verticalLabel": "Mbps",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "12hour",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 27,
+        "sizex": 12,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "isShowAll": false,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": false,
+              "columnLabel": "Severity",
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Began",
+              "columnKey": "alert-began"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Resource/Website",
+              "columnKey": "alert-device"
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "columnKey": "alert-datasource"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "columnKey": "alert-datasource-instance"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnKey": "alert-datapoint"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Value",
+              "columnKey": "alert-value"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Static Threshold",
+              "columnKey": "alert-static-threshold"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Dynamic Threshold",
+              "columnKey": "alert-dynamic-threshold"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "columnKey": "alert-group"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Notes",
+              "columnKey": "alert-notes"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged By",
+              "columnKey": "alert-acked-by"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Acknowledged On",
+              "columnKey": "alert-acked-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared On",
+              "columnKey": "alert-cleared-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "In SDT",
+              "columnKey": "alert-in-sdt"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Alert Rule",
+              "columnKey": "alert-rule-name"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Escalation Chain",
+              "columnKey": "alert-escalation-chain"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnKey": "alert-datasource-instance-description"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnKey": "alert-full-path"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Routing State",
+              "columnKey": "alert-routing-state"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependency Role",
+              "columnKey": "alert-dependency-role"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Dependent Alerts",
+              "columnKey": "alert-dependent-alerts"
+            }
+          ],
+          "playSound": {},
+          "fontsize": "normal-font",
+          "sort": "-startEpoch"
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Netflow Alert Detail",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "",
+          "anomaly": "all",
+          "dataPoint": "",
+          "rule": "",
+          "acked": "all",
+          "suppressionType": "",
+          "dependencyRoutingState": "",
+          "isEscalation": "all",
+          "dependencyRole": "",
+          "host": "",
+          "isHistoricalSdt": "all",
+          "keyword": "",
+          "dataSource": "Collector%20Netflow%20Metrics,Netflow%20Device%20Heartbeat",
+          "cleared": "no",
+          "group": "%23%23defaultResourceGroup%23%23*"
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 18,
+        "sizex": 5,
+        "sizey": 4
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {
+          "showTypeIcon": true,
+          "displayAs": "table"
+        },
+        "displayWarnAlert": true,
+        "supportCustomProperty": false,
+        "description": "",
+        "type": "noc",
+        "version": 2,
+        "displayErrorAlert": true,
+        "isSupportCustomProperty": false,
+        "displayColumn": 5,
+        "name": "Netflow Resource Health",
+        "displayCriticalAlert": true,
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "sortBy": "alertSeverity",
+        "timescale": "day",
+        "sdtChecked": true,
+        "items": [
+          {
+            "dataPointName": "*",
+            "instanceName": "*",
+            "name": "##RESOURCENAME##",
+            "dataSourceDisplayName": "Netflow Device Heartbeat",
+            "groupBy": "device",
+            "type": "device",
+            "deviceGroupFullPath": "##defaultResourceGroup##",
+            "deviceDisplayName": "*"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 22,
+        "sizex": 5,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "\n        Name\n        \n    ",
+              "columnSize": 201,
+              "columnKey": "device-name-1452842526600"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Last Received\n            \n        ",
+              "columnSize": 139,
+              "columnKey": "0"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Agent ID\n            \n        ",
+              "columnSize": 99,
+              "columnKey": "1"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            Time Last Received\n            \n        ",
+              "columnSize": 156,
+              "columnKey": "2"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "idleInterval",
+            "displayType": "colorBar",
+            "minValue": 0,
+            "unitLabel": " seconds",
+            "maxValue": 600,
+            "colorThresholds": [
+              {
+                "level": 2,
+                "threshold": 180,
+                "relation": ">"
+              },
+              {
+                "level": 3,
+                "threshold": 300,
+                "relation": ">"
+              },
+              {
+                "level": 4,
+                "threshold": 480,
+                "relation": ">"
+              }
+            ],
+            "columnName": "Last Received",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "netflowAgentId",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Agent ID",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "netflowHeartbeat",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Time Last Received",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##",
+            "deviceDisplayName": "*",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "Netflow Device Heartbeat (Netflow_Device_Heartbeat)",
+        "sortOrder": "descending",
+        "name": "Netflow Resource Health Statistics",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 6,
+        "row": 31,
+        "sizex": 5,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Flow Success vs. Failure (Trend)",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 0,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "FlowPackets_Failed",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Netflow Metrics (LogicMonitor_Collector_NetflowMetrics)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "red",
+                "legend": "Flow Failure",
+                "type": "area",
+                "option": "custom"
+              },
+              "name": "FlowPackets_Failed",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "Devices by Type/Collectors"
+              }
+            },
+            {
+              "dataPointName": "FlowPackets_Successful",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Netflow Metrics (LogicMonitor_Collector_NetflowMetrics)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "olive",
+                "legend": "Flow Success",
+                "type": "stack",
+                "option": "custom"
+              },
+              "name": "FlowPackets_Successful",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "Devices by Type/Collectors"
+              }
+            }
+          ],
+          "verticalLabel": "flows per second",
+          "aggregate": true,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "2days",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 11,
+        "row": 31,
+        "sizex": 2,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {
+          "showFilter": false,
+          "visualizationType": "donut",
+          "overrideFilter": false
+        },
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Netflow Failure vs. Success",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "type": "pieChart",
+        "timescale": "day",
+        "pieChartInfo": {
+          "maxSlicesCanBeShown": 10,
+          "virtualDataPoints": [],
+          "showLabelsAndLinesOnPC": true,
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "FlowPackets_Failed",
+              "top10": false,
+              "instanceName": "*",
+              "dataSourceFullName": "Collector Netflow Metrics (LogicMonitor_Collector_NetflowMetrics)",
+              "name": "FlowPackets_Failed",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "Devices by Type/Collectors",
+              "deviceDisplayName": "*",
+              "aggregate": true
+            },
+            {
+              "dataPointName": "FlowPackets_Successful",
+              "top10": false,
+              "instanceName": "*",
+              "dataSourceFullName": "Collector Netflow Metrics (LogicMonitor_Collector_NetflowMetrics)",
+              "name": "FlowPackets_Successful",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "Devices by Type/Collectors",
+              "deviceDisplayName": "*",
+              "aggregate": true
+            }
+          ],
+          "hideZeroPercentSlices": false,
+          "groupRemainingAsOthers": false,
+          "pieChartItems": [
+            {
+              "dataPointName": "FlowPackets_Successful",
+              "color": "olive",
+              "legend": "Flow Packet Success"
+            },
+            {
+              "dataPointName": "FlowPackets_Failed",
+              "color": "red",
+              "legend": "Flow Packet Failure"
+            }
+          ],
+          "title": "Netflow Failure vs. Success"
+        },
+        "version": 2,
+        "widgetFilters": {}
+      }
+    },
+    {
+      "position": {
+        "col": 6,
+        "row": 18,
+        "sizex": 7,
+        "sizey": 4
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {
+          "showTypeIcon": true,
+          "displayAs": "table"
+        },
+        "displayWarnAlert": true,
+        "supportCustomProperty": false,
+        "description": "",
+        "type": "noc",
+        "version": 2,
+        "displayErrorAlert": true,
+        "isSupportCustomProperty": false,
+        "displayColumn": 5,
+        "name": "Netflow Collector Health",
+        "displayCriticalAlert": true,
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "sortBy": "alertSeverity",
+        "timescale": "day",
+        "sdtChecked": true,
+        "items": [
+          {
+            "dataPointName": "*",
+            "instanceName": "*",
+            "name": "##RESOURCENAME##",
+            "dataSourceDisplayName": "Collector Netflow Metrics",
+            "groupBy": "device",
+            "type": "device",
+            "deviceGroupFullPath": "Devices by Type/Collectors",
+            "deviceDisplayName": "*"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 6,
+        "row": 22,
+        "sizex": 7,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "Name",
+              "columnSize": 353,
+              "columnKey": "name"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Total Flows",
+              "columnSize": 142,
+              "columnKey": "Total Flows"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Flow Success",
+              "columnSize": 120,
+              "columnKey": "Flow Success"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Flow Failure",
+              "columnSize": 120,
+              "columnKey": "Flow Failure"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Processing Time Success",
+              "columnSize": 157,
+              "columnKey": "Processing Time Success"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Processing Time Failure",
+              "columnSize": 312,
+              "columnKey": "Processing Time Failure"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "totalFlow",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " flows/ sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Total Flows",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "FlowPackets_Successful",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " pkts./ sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Flow Success",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "FlowPackets_Failed",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " pkts./ sec.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Flow Failure",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "ProcessingTime_Successful",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " ms./pkt. avg.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Processing Time Success",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          },
+          {
+            "rpn": "",
+            "dataPointName": "ProcessingTime_Failed",
+            "displayType": "raw",
+            "minValue": 0,
+            "unitLabel": " ms./pkt. avg.",
+            "maxValue": 100,
+            "colorThresholds": [],
+            "columnName": "Processing Time Failure",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##",
+            "deviceDisplayName": "*",
+            "groupFullPath": "Devices by Type/Collectors"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": -1,
+        "dataSourceFullName": "Collector Netflow Metrics (LogicMonitor_Collector_NetflowMetrics)",
+        "sortOrder": "descending",
+        "name": "Netflow Collector Statistics",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 31,
+        "sizex": 5,
+        "sizey": 5
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Collectors by Flows per Second",
+        "description": "",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": "NaN",
+          "dataPoints": [
+            {
+              "dataPointName": "totalFlow",
+              "instanceName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "dataSourceFullName": "Collector Netflow Metrics (LogicMonitor_Collector_NetflowMetrics)",
+              "consolidateFunction": "average",
+              "display": {
+                "color": "Auto",
+                "legend": "##RESOURCENAME##",
+                "type": "stack",
+                "option": "custom"
+              },
+              "name": "totalFlow",
+              "aggregateFunction": "SUM",
+              "deviceDisplayName": {
+                "isGlob": true,
+                "value": "*"
+              },
+              "deviceGroupFullPath": {
+                "isGlob": true,
+                "value": "Devices by Type/Collectors"
+              }
+            }
+          ],
+          "verticalLabel": "flows per second",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "VaST"
+        },
+        "type": "cgraph",
+        "timescale": "2days",
+        "version": 2
+      }
+    }
+  ],
+  "version": 2
+}
