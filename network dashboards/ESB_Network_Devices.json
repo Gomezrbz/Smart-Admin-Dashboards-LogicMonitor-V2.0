@@ -56,7 +56,7 @@
             "groupBy": "device",
             "type": "device",
             "deviceGroupFullPath": "##defaultResourceGroup##",
-            "deviceDisplayName": "##defaultResourceName##"
+            "deviceDisplayName": "*"
           }
         ]
       }
@@ -214,20 +214,20 @@
           "maxValue": 100,
           "dataPoints": [
             {
-              "dataPointName": "CPUBusyPercent",
+              "dataPointName": "avgBusy5",
               "instanceName": {
                 "isGlob": true,
                 "value": "*"
               },
-              "dataSourceFullName": "CPU Overview (NetSNMPCPUwithCores)",
+              "dataSourceFullName": "Cisco CPU (Cisco_CPU)",
               "consolidateFunction": "average",
               "display": {
                 "color": "Auto",
-                "legend": "##RESOURCENAME##",
+                "legend": "##INSTANCE## - ##RESOURCENAME##",
                 "type": "line",
                 "option": "custom"
               },
-              "name": "CPUBusyPercent",
+              "name": "avgBusy5",
               "aggregateFunction": "SUM",
               "deviceDisplayName": {
                 "isGlob": true,
@@ -246,7 +246,7 @@
           "globalConsolidateFunction": "VaST"
         },
         "type": "cgraph",
-        "timescale": "7days",
+        "timescale": "2days",
         "version": 2
       }
     },
@@ -272,20 +272,20 @@
           "maxValue": 100,
           "dataPoints": [
             {
-              "dataPointName": "ActiveMemoryPercent",
+              "dataPointName": "PercentUsed",
               "instanceName": {
                 "isGlob": true,
                 "value": "*"
               },
-              "dataSourceFullName": "Memory Usage (NetSNMP_Memory_Usage)",
+              "dataSourceFullName": "Cisco Memory Pool (Cisco_Memory_Pool)",
               "consolidateFunction": "average",
               "display": {
                 "color": "Auto",
-                "legend": "##RESOURCENAME##",
+                "legend": "##INSTANCE## - ##RESOURCENAME##",
                 "type": "line",
                 "option": "custom"
               },
-              "name": "ActiveMemoryPercent",
+              "name": "PercentUsed",
               "aggregateFunction": "SUM",
               "deviceDisplayName": {
                 "isGlob": true,
@@ -304,7 +304,7 @@
           "globalConsolidateFunction": "VaST"
         },
         "type": "cgraph",
-        "timescale": "7days",
+        "timescale": "2days",
         "version": 2
       }
     },
@@ -362,7 +362,7 @@
           "globalConsolidateFunction": "default"
         },
         "type": "cgraph",
-        "timescale": "5hour",
+        "timescale": "2days",
         "version": 2
       }
     },
@@ -472,13 +472,13 @@
           {
             "instanceName": "*",
             "label": "##INSTANCE## - ##RESOURCENAME##",
-            "deviceDisplayName": "##defaultResourceName##",
+            "deviceDisplayName": "*",
             "groupFullPath": "##defaultResourceGroup##"
           }
         ],
         "version": 2,
         "isSupportCustomProperty": false,
-        "topX": -1,
+        "topX": 25,
         "dataSourceFullName": "Network Interfaces (SNMP_Network_Interfaces)",
         "sortOrder": "descending",
         "name": "Interface Errors and Discards",
@@ -522,7 +522,7 @@
               "name": "InMbps",
               "aggregateFunction": "SUM",
               "deviceGroupFullPath": "##defaultResourceGroup##",
-              "deviceDisplayName": "##defaultResourceName##",
+              "deviceDisplayName": "*",
               "aggregate": false
             },
             {
@@ -533,7 +533,7 @@
               "name": "OutMbps",
               "aggregateFunction": "SUM",
               "deviceGroupFullPath": "##defaultResourceGroup##",
-              "deviceDisplayName": "##defaultResourceName##",
+              "deviceDisplayName": "*",
               "aggregate": false
             }
           ],
@@ -575,7 +575,7 @@
         "graphInfo": {
           "virtualDataPoints": [],
           "minValue": 0,
-          "topX": 0,
+          "topX": 10,
           "maxValue": "NaN",
           "dataPoints": [
             {
@@ -588,8 +588,8 @@
               "consolidateFunction": "average",
               "display": {
                 "color": "blue",
-                "legend": "Inbound",
-                "type": "area",
+                "legend": "##INSTANCE## - ##RESOURCENAME##",
+                "type": "line",
                 "option": "custom"
               },
               "name": "InMbps",
@@ -613,8 +613,8 @@
               "consolidateFunction": "average",
               "display": {
                 "color": "orange",
-                "legend": "Outbound",
-                "type": "area",
+                "legend": "##INSTANCE## - ##RESOURCENAME##",
+                "type": "line",
                 "option": "custom"
               },
               "name": "OutMbps",
@@ -630,13 +630,13 @@
             }
           ],
           "verticalLabel": "Mbps",
-          "aggregate": true,
+          "aggregate": false,
           "desc": true,
           "scaleUnit": 1000,
           "globalConsolidateFunction": "VaST"
         },
         "type": "cgraph",
-        "timescale": "12hour",
+        "timescale": "2days",
         "version": 2
       }
     },
@@ -834,7 +834,7 @@
             "dataSourceDisplayName": "Netflow Device Heartbeat",
             "groupBy": "device",
             "type": "device",
-            "deviceGroupFullPath": "##defaultResourceGroup##",
+            "deviceGroupFullPath": "Devices by Type/Network",
             "deviceDisplayName": "*"
           }
         ]
@@ -945,7 +945,7 @@
             "instanceName": "*",
             "label": "##RESOURCENAME##",
             "deviceDisplayName": "*",
-            "groupFullPath": "##defaultResourceGroup##"
+            "groupFullPath": "Devices by Type/Network"
           }
         ],
         "version": 2,
