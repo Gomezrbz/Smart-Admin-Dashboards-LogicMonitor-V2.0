@@ -14,7 +14,7 @@
     }
   ],
   "name": "ESB Network Devices V5",
-  "description": "ESB-scoped network operations dashboard; defaults to Devices by Application/ESB. Supports device-level drill-down via defaultResourceName. Row 4 CPU widgets are vendor-specific (Cisco switches vs F5 BIG-IP). ",
+  "description": "ESB network operations dashboard with guided sections. Defaults to Devices by Application/ESB; supports drill-down via defaultResourceName. Intro and section headers explain scope and troubleshooting path.",
   "overwriteGroupFields": false,
   "widgetsConfigVersion": 2,
   "type": "dashboard",
@@ -22,8 +22,50 @@
     {
       "position": {
         "col": 1,
-        "sizex": 3,
         "row": 1,
+        "sizex": 12,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "ESB Dashboard Guide",
+        "description": "Intro banner: scope, tokens, and investigation path for ESB network devices.",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<div style=\"font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#111827 45%,#1e3a8a 100%);color:#ffffff;border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.32);width:100%;box-sizing:border-box;\"><div style=\"font-size:28px;font-weight:750;color:#ffffff;margin-bottom:6px;\">ESB Network Devices</div><div style=\"font-size:13px;color:#dbeafe;margin-bottom:16px;max-width:960px;\">Operations dashboard for resources in <b>Devices by Application/ESB</b>. Use dashboard tokens to drill from the full ESB group down to a single device or interface. Netflow widgets at the bottom monitor collector platform health (not individual ESB devices).</div><table style=\"width:100%;border-collapse:separate;border-spacing:14px;\"><tr><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;width:25%;\"><div style=\"display:inline-block;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">SCOPE</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Resource group</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">Token <b>defaultResourceGroup</b> = Devices by Application/ESB</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;width:25%;\"><div style=\"display:inline-block;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">DRILL-DOWN</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Single device</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">Set <b>defaultResourceName</b> to one hostname (e.g. len-sc01.qdx.com) to narrow interface widgets.</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;width:25%;\"><div style=\"display:inline-block;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">PATH</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Investigation flow</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">ESB group &rarr; device health &rarr; interfaces &rarr; netflow collectors</div></td><td style=\"vertical-align:top;background:rgba(15,23,42,.76);border:1px solid rgba(148,163,184,.34);border-radius:14px;padding:16px;width:25%;\"><div style=\"display:inline-block;padding:6px 10px;border-radius:11px;background:rgba(59,130,246,.22);border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800;color:#dbeafe;\">MIXED</div><div style=\"font-size:15px;font-weight:700;color:#ffffff;margin:10px 0 6px;\">Vendor split</div><div style=\"font-size:13px;line-height:1.48;color:#cbd5e1;\">Cisco switches (sc/sd/sf) and F5 BIG-IP (l5/l7) share this board; CPU widgets are vendor-specific.</div></td></tr></table></div>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 5,
+        "sizex": 12,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Device Health and Availability",
+        "description": "Section: Device health, alerts, and ping latency for ESB resources",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<p><style type=\"text/css\">\n.html-wpsites { height: 72px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 32px; color: #ffffff; font-weight: bold; text-align: center; }\n</style></p>\n<div class=\"html-wpsites\">Device Health &amp; Availability</div>\n<p>&nbsp;</p>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 3,
+        "row": 6,
         "sizey": 3
       },
       "config": {
@@ -81,7 +123,7 @@
       "position": {
         "col": 4,
         "sizex": 5,
-        "row": 1,
+        "row": 6,
         "sizey": 3
       },
       "config": {
@@ -124,7 +166,7 @@
       "position": {
         "col": 9,
         "sizex": 4,
-        "row": 1,
+        "row": 6,
         "sizey": 3
       },
       "config": {
@@ -197,7 +239,7 @@
       "position": {
         "col": 1,
         "sizex": 12,
-        "row": 4,
+        "row": 9,
         "sizey": 4
       },
       "config": {
@@ -254,8 +296,195 @@
     {
       "position": {
         "col": 1,
+        "row": 14,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "\n        Name\n        \n    ",
+              "columnSize": 415,
+              "columnKey": "device-name-1452842526600"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            CPU Utilization\n            \n        ",
+              "columnSize": 177,
+              "columnKey": "0"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "cpuBusy5min",
+            "displayType": "percent",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [
+              {
+                "level": 2,
+                "threshold": 90,
+                "relation": ">="
+              },
+              {
+                "level": 3,
+                "threshold": 94,
+                "relation": ">="
+              },
+              {
+                "level": 4,
+                "threshold": 98,
+                "relation": ">="
+              }
+            ],
+            "columnName": "CPU Utilization",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "Cisco switches in ESB (sc/sd/sf). Uses Cisco_CPU_SNMP CPU Busy datapoint.",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##INSTANCE## - ##RESOURCENAME##",
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "dataSourceFullName": "Cisco CPU SNMP (Cisco_CPU_SNMP)",
+        "sortOrder": "descending",
+        "name": "Cisco Switch CPU Utilization",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "row": 14,
+        "sizex": 4,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {
+          "columns": [
+            {
+              "visible": true,
+              "columnLabel": "\n        Name\n        \n    ",
+              "columnSize": 415,
+              "columnKey": "device-name-1452842526600"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n            CPU Utilization\n            \n        ",
+              "columnSize": 177,
+              "columnKey": "0"
+            }
+          ],
+          "pageSize": "10"
+        },
+        "columns": [
+          {
+            "rpn": "",
+            "dataPointName": "CPUUtilization",
+            "displayType": "percent",
+            "minValue": 0,
+            "unitLabel": "",
+            "maxValue": 100,
+            "colorThresholds": [
+              {
+                "level": 2,
+                "threshold": 90,
+                "relation": ">="
+              },
+              {
+                "level": 3,
+                "threshold": 94,
+                "relation": ">="
+              },
+              {
+                "level": 4,
+                "threshold": 98,
+                "relation": ">="
+              }
+            ],
+            "columnName": "CPU Utilization",
+            "enableForecast": false,
+            "roundingDecimal": 2
+          }
+        ],
+        "supportCustomProperty": false,
+        "description": "F5 BIG-IP load balancers in ESB (l5/l7). Uses F5_BigIP_System.",
+        "forecast": {
+          "severity": "warn",
+          "confidence": 70,
+          "timeRange": "Last 30 days",
+          "algorithm": "Linear"
+        },
+        "type": "dynamicTable",
+        "rows": [
+          {
+            "instanceName": "*",
+            "label": "##RESOURCENAME##",
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
+          }
+        ],
+        "version": 2,
+        "isSupportCustomProperty": false,
+        "topX": 25,
+        "dataSourceFullName": "Global Statistics (F5_BigIP_System)",
+        "sortOrder": "descending",
+        "name": "F5 BIG-IP CPU Utilization",
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "timescale": "day"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "row": 18,
         "sizex": 12,
-        "row": 8,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Interface Performance",
+        "description": "Section: Interface errors, discards, and utilization within ESB scope",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<p><style type=\"text/css\">\n.html-wpsites { height: 72px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 32px; color: #ffffff; font-weight: bold; text-align: center; }\n</style></p>\n<div class=\"html-wpsites\">Interface Performance</div>\n<p>&nbsp;</p>"
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 12,
+        "row": 19,
         "sizey": 5
       },
       "config": {
@@ -375,8 +604,8 @@
     {
       "position": {
         "col": 1,
-        "sizex": 3,
-        "row": 13,
+        "sizex": 4,
+        "row": 24,
         "sizey": 4
       },
       "config": {
@@ -444,10 +673,31 @@
     },
     {
       "position": {
-        "col": 4,
+        "col": 1,
+        "row": 28,
+        "sizex": 12,
+        "sizey": 2
+      },
+      "config": {
+        "displaySettings": {},
+        "isSupportCustomProperty": false,
+        "supportCustomProperty": false,
+        "name": "Netflow Collector Platform",
+        "description": "Section: Collector-scoped netflow health (Devices by Type/Collectors)",
+        "theme": "newSolidDarkBlue",
+        "interval": 15,
+        "type": "text",
+        "timescale": "day",
+        "version": 2,
+        "content": "<p><style type=\"text/css\">\n.html-wpsites { height: 72px; background-color: rgba(0, 0, 0, 0); font-family: Arial; font-size: 32px; color: #ffffff; font-weight: bold; text-align: center; }\n</style></p>\n<div class=\"html-wpsites\">Netflow Collector Platform</div>\n<p>&nbsp;</p>"
+      }
+    },
+    {
+      "position": {
+        "col": 6,
+        "row": 34,
         "sizex": 4,
-        "row": 13,
-        "sizey": 7
+        "sizey": 5
       },
       "config": {
         "displaySettings": {},
@@ -527,10 +777,10 @@
     },
     {
       "position": {
-        "col": 1,
+        "col": 10,
+        "row": 34,
         "sizex": 3,
-        "row": 21,
-        "sizey": 4
+        "sizey": 5
       },
       "config": {
         "displaySettings": {
@@ -598,8 +848,8 @@
     {
       "position": {
         "col": 1,
-        "sizex": 3,
-        "row": 17,
+        "row": 30,
+        "sizex": 5,
         "sizey": 4
       },
       "config": {
@@ -640,10 +890,10 @@
     },
     {
       "position": {
-        "col": 8,
-        "sizex": 5,
-        "row": 13,
-        "sizey": 7
+        "col": 6,
+        "row": 30,
+        "sizex": 7,
+        "sizey": 4
       },
       "config": {
         "displaySettings": {
@@ -779,9 +1029,9 @@
     },
     {
       "position": {
-        "col": 4,
-        "sizex": 4,
-        "row": 20,
+        "col": 1,
+        "row": 34,
+        "sizex": 5,
         "sizey": 5
       },
       "config": {
