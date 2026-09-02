@@ -23,48 +23,6 @@
       "position": {
         "col": 1,
         "row": 1,
-        "sizex": 5,
-        "sizey": 3
-      },
-      "config": {
-        "ackChecked": true,
-        "displaySettings": {
-          "showTypeIcon": true,
-          "displayAs": "table"
-        },
-        "displayWarnAlert": true,
-        "supportCustomProperty": false,
-        "description": "",
-        "type": "noc",
-        "version": 2,
-        "displayErrorAlert": true,
-        "isSupportCustomProperty": false,
-        "displayColumn": 5,
-        "name": "Network Device Alert Summary",
-        "displayCriticalAlert": true,
-        "theme": "newSolidDarkBlue",
-        "interval": 3,
-        "sortBy": "alertSeverity",
-        "timescale": "day",
-        "sdtChecked": true,
-        "items": [
-          {
-            "dataPointName": "*",
-            "instanceName": "*",
-            "name": "##RESOURCENAME##",
-            "dataSourceDisplayName": "*",
-            "groupBy": "device",
-            "type": "device",
-            "deviceGroupFullPath": "##defaultResourceGroup##",
-            "deviceDisplayName": "*"
-          }
-        ]
-      }
-    },
-    {
-      "position": {
-        "col": 6,
-        "row": 1,
         "sizex": 3,
         "sizey": 3
       },
@@ -115,6 +73,48 @@
             "level": 4,
             "threshold": 90,
             "relation": "<"
+          }
+        ]
+      }
+    },
+    {
+      "position": {
+        "col": 4,
+        "row": 1,
+        "sizex": 5,
+        "sizey": 3
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {
+          "showTypeIcon": true,
+          "displayAs": "table"
+        },
+        "displayWarnAlert": true,
+        "supportCustomProperty": false,
+        "description": "",
+        "type": "noc",
+        "version": 2,
+        "displayErrorAlert": true,
+        "isSupportCustomProperty": false,
+        "displayColumn": 5,
+        "name": "Network Device Alert Summary",
+        "displayCriticalAlert": true,
+        "theme": "newSolidDarkBlue",
+        "interval": 3,
+        "sortBy": "alertSeverity",
+        "timescale": "day",
+        "sdtChecked": true,
+        "items": [
+          {
+            "dataPointName": "*",
+            "instanceName": "*",
+            "name": "##RESOURCENAME##",
+            "dataSourceDisplayName": "*",
+            "groupBy": "device",
+            "type": "device",
+            "deviceGroupFullPath": "##defaultResourceGroup##",
+            "deviceDisplayName": "*"
           }
         ]
       }
@@ -277,7 +277,7 @@
                 "isGlob": true,
                 "value": "*"
               },
-              "dataSourceFullName": "Cisco Memory Pool (Cisco_Memory_Pool)",
+              "dataSourceFullName": "Cisco Memory Pools SNMP (Cisco_MemoryPools_SNMP)",
               "consolidateFunction": "average",
               "display": {
                 "color": "Auto",
@@ -472,7 +472,7 @@
           {
             "instanceName": "*",
             "label": "##INSTANCE## - ##RESOURCENAME##",
-            "deviceDisplayName": "*",
+            "deviceDisplayName": "##defaultResourceName##",
             "groupFullPath": "##defaultResourceGroup##"
           }
         ],
@@ -522,7 +522,7 @@
               "name": "InMbps",
               "aggregateFunction": "SUM",
               "deviceGroupFullPath": "##defaultResourceGroup##",
-              "deviceDisplayName": "*",
+              "deviceDisplayName": "##defaultResourceName##",
               "aggregate": false
             },
             {
@@ -533,7 +533,7 @@
               "name": "OutMbps",
               "aggregateFunction": "SUM",
               "deviceGroupFullPath": "##defaultResourceGroup##",
-              "deviceDisplayName": "*",
+              "deviceDisplayName": "##defaultResourceName##",
               "aggregate": false
             }
           ],
@@ -575,7 +575,7 @@
         "graphInfo": {
           "virtualDataPoints": [],
           "minValue": 0,
-          "topX": 10,
+          "topX": 5,
           "maxValue": "NaN",
           "dataPoints": [
             {
@@ -636,7 +636,7 @@
           "globalConsolidateFunction": "VaST"
         },
         "type": "cgraph",
-        "timescale": "2days",
+        "timescale": "day",
         "version": 2
       }
     },
@@ -834,8 +834,8 @@
             "dataSourceDisplayName": "Netflow Device Heartbeat",
             "groupBy": "device",
             "type": "device",
-            "deviceGroupFullPath": "Devices by Type/Network",
-            "deviceDisplayName": "*"
+            "deviceGroupFullPath": "##defaultResourceGroup##",
+            "deviceDisplayName": "##defaultResourceName##"
           }
         ]
       }
@@ -944,8 +944,8 @@
           {
             "instanceName": "*",
             "label": "##RESOURCENAME##",
-            "deviceDisplayName": "*",
-            "groupFullPath": "Devices by Type/Network"
+            "deviceDisplayName": "##defaultResourceName##",
+            "groupFullPath": "##defaultResourceGroup##"
           }
         ],
         "version": 2,
