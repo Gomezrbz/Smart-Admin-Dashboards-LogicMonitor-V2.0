@@ -157,7 +157,7 @@
         "name": "Top Network Devices Requiring Attention",
         "displayPercentageBar": false,
         "periodInOneDay": "*",
-        "theme": "newBorderBlue",
+        "theme": "newSolidDarkBlue",
         "interval": 5,
         "metrics": [
           {
@@ -214,12 +214,12 @@
           "maxValue": 100,
           "dataPoints": [
             {
-              "dataPointName": "avgBusy5",
+              "dataPointName": "cpuBusy5min",
               "instanceName": {
                 "isGlob": true,
                 "value": "*"
               },
-              "dataSourceFullName": "Cisco CPU (Cisco_CPU)",
+              "dataSourceFullName": "Cisco CPU SNMP (Cisco_CPU_SNMP)",
               "consolidateFunction": "average",
               "display": {
                 "color": "Auto",
@@ -227,7 +227,7 @@
                 "type": "line",
                 "option": "custom"
               },
-              "name": "avgBusy5",
+              "name": "cpuBusy5min",
               "aggregateFunction": "SUM",
               "deviceDisplayName": {
                 "isGlob": true,
@@ -261,7 +261,7 @@
         "displaySettings": {},
         "isSupportCustomProperty": false,
         "supportCustomProperty": false,
-        "name": "Memory Utilization",
+        "name": "Memory Usage",
         "description": "",
         "theme": "newSolidDarkBlue",
         "interval": 3,
@@ -269,15 +269,15 @@
           "virtualDataPoints": [],
           "minValue": 0,
           "topX": 10,
-          "maxValue": 100,
+          "maxValue": "NaN",
           "dataPoints": [
             {
-              "dataPointName": "PercentUsed",
+              "dataPointName": "cpmCPUMemoryUsed",
               "instanceName": {
                 "isGlob": true,
                 "value": "*"
               },
-              "dataSourceFullName": "Cisco Memory Pools SNMP (Cisco_MemoryPools_SNMP)",
+              "dataSourceFullName": "Cisco CPU SNMP (Cisco_CPU_SNMP)",
               "consolidateFunction": "average",
               "display": {
                 "color": "Auto",
@@ -285,7 +285,7 @@
                 "type": "line",
                 "option": "custom"
               },
-              "name": "PercentUsed",
+              "name": "cpmCPUMemoryUsed",
               "aggregateFunction": "SUM",
               "deviceDisplayName": {
                 "isGlob": true,
@@ -297,7 +297,7 @@
               }
             }
           ],
-          "verticalLabel": "%",
+          "verticalLabel": "kB",
           "aggregate": false,
           "desc": true,
           "scaleUnit": 1000,
@@ -835,7 +835,7 @@
             "groupBy": "device",
             "type": "device",
             "deviceGroupFullPath": "##defaultResourceGroup##",
-            "deviceDisplayName": "##defaultResourceName##"
+            "deviceDisplayName": "*"
           }
         ]
       }
@@ -944,7 +944,7 @@
           {
             "instanceName": "*",
             "label": "##RESOURCENAME##",
-            "deviceDisplayName": "##defaultResourceName##",
+            "deviceDisplayName": "*",
             "groupFullPath": "##defaultResourceGroup##"
           }
         ],
