@@ -9,3 +9,4 @@ modules/_export_summary.json
 *.bak
 *.old
 *.backup
+/config

@@ -1,0 +1,59 @@
+{
+  "group": "Devices by Application/ESB",
+  "source": "Portal screenshots and device graph evidence (API inventory script returned 401; re-run esb_datasource_inventory.py when credentials are valid).",
+  "devices": [
+    { "name": "len-l5-bcs1.qdx.com", "role": "F5 BIG-IP", "cpu_widget": "F5 BIG-IP CPU Utilization" },
+    { "name": "len-l5-bcs2.qdx.com", "role": "F5 BIG-IP", "cpu_widget": "F5 BIG-IP CPU Utilization" },
+    { "name": "len-l7-bcs2.qdx.com", "role": "F5 BIG-IP", "cpu_widget": "F5 BIG-IP CPU Utilization" },
+    { "name": "len-sc01.qdx.com", "role": "Cisco switch", "cpu_widget": "Cisco Switch CPU Utilization" },
+    { "name": "len-sc02.qdx.com", "role": "Cisco switch", "cpu_widget": "Cisco Switch CPU Utilization" },
+    { "name": "len-sd01.qdx.com", "role": "Cisco switch", "cpu_widget": "Cisco Switch CPU Utilization" },
+    { "name": "len-sd02.qdx.com", "role": "Cisco switch", "cpu_widget": "Cisco Switch CPU Utilization" },
+    { "name": "len-sf01.qdx.com", "role": "Cisco switch", "cpu_widget": "Cisco Switch CPU Utilization" },
+    { "name": "len-sf02.qdx.com", "role": "Cisco switch", "cpu_widget": "Cisco Switch CPU Utilization" }
+  ],
+  "dashboard_widgets": {
+    "universal": [
+      "Network Device Availability (HostStatus)",
+      "Network Device Alert Summary",
+      "Top Network Devices Requiring Attention (HostStatus)",
+      "Network Device Health Trend (Ping)",
+      "Interface Errors and Discards (SNMP_Network_Interfaces)",
+      "Top Interfaces by Utilization (SNMP_Network_Interfaces)"
+    ],
+    "vendor_specific": [
+      "Cisco Switch CPU Utilization (Cisco_CPU_SNMP / cpuBusy5min)",
+      "F5 BIG-IP CPU Utilization (F5_BigIP_System / CPUUtilization)"
+    ],
+    "collector_platform": [
+      "Netflow Collector Health",
+      "Netflow Collector Statistics",
+      "Collectors by Flows per Second",
+      "Flow Success vs. Failure (Trend)",
+      "Netflow Failure vs. Success"
+    ],
+    "removed_not_on_devices": [
+      "Netflow Resource Health (Netflow_Device_Heartbeat)",
+      "Netflow Resource Health Statistics",
+      "Netflow Alert Detail",
+      "Memory Utilization (Cisco memory graph empty on devices)"
+    ]
+  },
+  "datasources_by_device_type": {
+    "Cisco_switch": [
+      "HostStatus",
+      "Ping",
+      "SNMP_Network_Interfaces",
+      "Cisco_CPU_SNMP",
+      "Cisco_NTP",
+      "DNS",
+      "Uptime"
+    ],
+    "F5_BIG-IP": [
+      "HostStatus",
+      "Ping",
+      "SNMP_Network_Interfaces",
+      "F5_BigIP_System"
+    ]
+  }
+}
